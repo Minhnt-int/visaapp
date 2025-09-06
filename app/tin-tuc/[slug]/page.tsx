@@ -1,6 +1,6 @@
 import { blogPosts } from '@/lib/data';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import FooterSimple from '@/components/FooterSimple';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -89,7 +89,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <Footer />
+      <FooterSimple />
     </>
   );
 }

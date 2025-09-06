@@ -2,7 +2,7 @@
 
 import { useFormState, useFormStatus } from 'react-dom';
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import FooterSimple from "@/components/FooterSimple";
 import { contactInfo } from "@/lib/data";
 import { handleContactForm, FormState } from '@/app/actions';
 import { Building, Phone, Mail } from 'lucide-react';
@@ -153,7 +153,7 @@ export default function ContactPage() {
             </div>
         </div>
       </main>
-      <Footer />
+      <FooterSimple />
     </>
   );
 }
