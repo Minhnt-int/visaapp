@@ -1,10 +1,10 @@
 import { blogPosts } from '@/lib/data';
 import Header from '@/components/Header';
-import FooterSimple from '@/components/FooterSimple';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarDays, User } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 // Generate static paths for each blog post
 export async function generateStaticParams() {
@@ -89,7 +89,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <FooterSimple />
+      <Footer />
     </>
   );
 }

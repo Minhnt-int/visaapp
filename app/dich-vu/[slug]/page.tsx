@@ -1,10 +1,10 @@
 import { services } from '@/lib/data';
 import Header from '@/components/Header';
-import FooterSimple from '@/components/FooterSimple';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { icons, LucideProps, CheckCircle, ShieldCheck, Users, Rocket, ClipboardList, Send, MessageCircle } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 // Define the props type for the page component
 type ServiceDetailPageProps = {
@@ -192,7 +192,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
           </div>
         </div>
       </main>
-      <FooterSimple />
+      <Footer />
     </>
   );
 }

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, DollarSign, CheckCircle, ArrowRight, Filter, Search } from 'lucide-react';
 import Header from '@/components/Header';
-import FooterSimple from '@/components/FooterSimple';
+import Footer from '@/components/Footer';
 
 export default function DichVuPage() {
   return (
@@ -152,7 +152,7 @@ export default function DichVuPage() {
         </div>
       </section>
 
-      <FooterSimple />
+      <Footer/>
     </main>
   );
 }

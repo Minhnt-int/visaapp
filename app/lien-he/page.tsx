@@ -2,11 +2,11 @@
 
 import { useFormState, useFormStatus } from 'react-dom';
 import Header from "@/components/Header";
-import FooterSimple from "@/components/FooterSimple";
 import { contactInfo } from "@/lib/data";
 import { handleContactForm, FormState } from '@/app/actions';
 import { Building, Phone, Mail } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import Footer from '@/components/Footer';
 
 const initialState: FormState = {
   message: '',
@@ -153,7 +153,7 @@ export default function ContactPage() {
             </div>
         </div>
       </main>
-      <FooterSimple />
+      <Footer/>
     </>
   );
 }

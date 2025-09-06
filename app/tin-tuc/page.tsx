@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, Clock, ArrowRight, Tag, Search, TrendingUp } from 'lucide-react';
 import Header from '@/components/Header';
-import FooterSimple from '@/components/FooterSimple';
+import Footer from '@/components/Footer';
 
 export default function TinTucPage() {
   const featuredPost = blogPosts[0];
@@ -301,7 +301,7 @@ export default function TinTucPage() {
         </div>
       </div>
       
-      <FooterSimple />
+      <Footer />
     </main>
   );
 }
