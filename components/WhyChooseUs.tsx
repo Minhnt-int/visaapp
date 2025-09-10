@@ -1,7 +1,7 @@
 "use client";
 
 import { whyChooseUs, stats, processSteps, customerReviews } from '@/lib/data';
-import { Clock, Award, Users, DollarSign, Star, Quote, ArrowRight } from 'lucide-react';
+import { Clock, Award, Users, DollarSign, Star, Quote, ArrowRight, CheckCircle, Target, Shield, Heart } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
 
@@ -9,7 +9,11 @@ const iconMap = {
   Clock,
   Award, 
   Users,
-  DollarSign
+  DollarSign,
+  CheckCircle,
+  Target,
+  Shield,
+  Heart
 };
 
 export default function WhyChooseUs() {
@@ -24,19 +28,66 @@ export default function WhyChooseUs() {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-16 bg-gray-50">
+      {/* Process Steps - Visana Style */}
+      <div className="container mx-auto px-4 mb-20">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-blue-100">
+            <Target size={16} />
+            Quy Trình Làm Visa
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Quy trình <span className="text-blue-600">minh bạch</span>
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Hồ sơ được xử lý một cách chuyên nghiệp và nhanh chóng
+          </p>
+        </div>
+
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
+              <div key={index} className="relative">
+                {/* Connection Line */}
+                {index < processSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-blue-200 to-transparent z-10"></div>
+                )}
+                
+                <div className="relative bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+                  {/* Step Number */}
+                  <div className="absolute -top-3 -left-3 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg">
+                    {index + 1}
+                  </div>
+
+                  {/* Icon */}
+                  <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors">
+                    <div className="text-blue-600">
+                      {step.icon}
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Why Choose Us */}
       <div className="container mx-auto px-4 mb-20">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-orange-100">
             <Award size={16} />
-            Tại Sao Nên Chọn Visa5s
+            Tại Sao Nên Chọn VISA5S
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            <span className="text-blue-600">Uy Tín</span> - <span className="text-orange-500">Nhanh Chóng</span> - <span className="text-green-500">Hiệu Quả</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Chúng tôi cam kết mang đến <br />
+            <span className="text-blue-600">trải nghiệm tốt nhất</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Visa5s trực thuộc Công ty Tư vấn Đầu tư Asia Blue Sky là công ty chuyên cung cấp các dịch vụ về visa nhập cảnh đi nước ngoài
+            Với hơn 15 năm kinh nghiệm, chúng tôi tự hào là đối tác tin cậy cho hành trình du lịch của bạn
           </p>
         </div>
 
@@ -46,18 +97,17 @@ export default function WhyChooseUs() {
             return (
               <div 
                 key={index}
-                className="text-center group"
+                className="text-center group hover:transform hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="relative mb-6">
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl mx-auto flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                    <IconComponent className="text-white" size={32} />
+                  <div className="w-16 h-16 bg-white rounded-2xl mx-auto flex items-center justify-center shadow-sm border border-gray-100 group-hover:shadow-md transition-all duration-300">
+                    <IconComponent className="text-blue-600 group-hover:text-orange-500 transition-colors" size={24} />
                   </div>
-                  <div className="absolute -inset-2 bg-blue-100 rounded-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -66,14 +116,14 @@ export default function WhyChooseUs() {
         </div>
 
         {/* Stats */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-8 text-white">
+        <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2 text-orange-300">
+                <div className="text-3xl lg:text-4xl font-bold mb-2 text-blue-600">
                   {stat.number}
                 </div>
-                <div className="text-blue-200 font-medium">
+                <div className="text-gray-600 text-sm font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -132,70 +182,72 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      {/* Customer Reviews */}
-      <div className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              <Star size={16} />
-              Khách Hàng Nói Gì Về Chúng Tôi
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Đánh Giá Từ <span className="text-green-500">Khách Hàng</span>
-            </h2>
+      {/* Customer Reviews - Visana Style */}
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-green-50 text-green-600 px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-green-100">
+            <Star size={16} />
+            Khách Hàng Tin Tưởng
           </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Câu chuyện thành công từ <br />
+            <span className="text-green-600">khách hàng</span>
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Hàng nghìn khách hàng đã tin tưởng và đồng hành cùng VISA5S
+          </p>
+        </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 relative">
-              <Quote className="absolute top-6 left-6 text-blue-200" size={48} />
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 lg:p-12 relative">
+            <Quote className="absolute top-6 left-6 text-green-100" size={32} />
+            
+            <div className="text-center">
+              <div className="mb-8">
+                <Image
+                  src={customerReviews[currentReview].avatar}
+                  alt={customerReviews[currentReview].name}
+                  width={64}
+                  height={64}
+                  className="rounded-full mx-auto mb-4 border-4 border-green-100"
+                />
+                <div className="flex justify-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="text-yellow-400 fill-current w-4 h-4" />
+                  ))}
+                </div>
+              </div>
               
-              <div className="text-center">
-                <div className="mb-8">
-                  <Image
-                    src={customerReviews[currentReview].avatar}
-                    alt={customerReviews[currentReview].name}
-                    width={80}
-                    height={80}
-                    className="rounded-full mx-auto mb-4"
-                  />
-                  <div className="flex justify-center mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="text-yellow-400 fill-current" size={20} />
-                    ))}
-                  </div>
+              <blockquote className="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto">
+                "{customerReviews[currentReview].comment}"
+              </blockquote>
+              
+              <div className="border-t border-gray-100 pt-6">
+                <div className="font-semibold text-gray-900 text-lg">
+                  {customerReviews[currentReview].name}
                 </div>
-                
-                <blockquote className="text-lg md:text-xl text-gray-700 mb-8 italic leading-relaxed">
-                  &ldquo;{customerReviews[currentReview].comment}&rdquo;
-                </blockquote>
-                
-                <div className="border-t pt-6">
-                  <div className="font-bold text-gray-900 text-lg">
-                    {customerReviews[currentReview].name}
-                  </div>
-                  <div className="text-blue-600 font-medium">
-                    {customerReviews[currentReview].service}
-                  </div>
-                  <div className="text-gray-500 text-sm">
-                    {customerReviews[currentReview].date}
-                  </div>
+                <div className="text-blue-600 font-medium text-sm">
+                  {customerReviews[currentReview].service}
+                </div>
+                <div className="text-gray-500 text-sm mt-1">
+                  {customerReviews[currentReview].date}
                 </div>
               </div>
+            </div>
 
-              {/* Navigation */}
-              <div className="flex justify-center mt-8 gap-2">
-                {customerReviews.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentReview(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentReview 
-                        ? 'bg-blue-500 w-8' 
-                        : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-8 gap-2">
+              {customerReviews.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentReview(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentReview 
+                      ? 'bg-green-500 w-6' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>

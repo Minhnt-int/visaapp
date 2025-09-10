@@ -3,6 +3,9 @@ import Script from "next/script";
 import { Manrope, Poppins } from "next/font/google";
 import { siteConfig } from "@/lib/data";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { VisaDataProvider } from "@/contexts/VisaDataContext";
 
 // Font configuration
 const manrope = Manrope({
@@ -76,8 +79,14 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`font-sans bg-white text-gray-900 antialiased`}>
-        {children}
-        
+        <VisaDataProvider>
+          <Header />
+
+          {children}
+          
+          <Footer />
+        </VisaDataProvider>
+
         {/* Google Analytics - Replace with your tracking ID */}
         <Script
           src="https://www.google-analytics.com/analytics.js"

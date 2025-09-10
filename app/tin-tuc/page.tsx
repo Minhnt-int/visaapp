@@ -2,9 +2,6 @@ import { blogPosts } from '@/lib/data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, Clock, ArrowRight, Tag, Search, TrendingUp } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-
 export default function TinTucPage() {
   const featuredPost = blogPosts[0];
   const recentPosts = blogPosts.slice(1, 4);
@@ -22,7 +19,6 @@ export default function TinTucPage() {
 
   return (
     <main>
-      <Header />
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 py-20 text-white">
@@ -301,7 +297,6 @@ export default function TinTucPage() {
         </div>
       </div>
       
-      <Footer />
     </main>
   );
 }

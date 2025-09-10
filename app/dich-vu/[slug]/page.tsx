@@ -1,10 +1,8 @@
 import { services } from '@/lib/data';
-import Header from '@/components/Header';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { icons, LucideProps, CheckCircle, ShieldCheck, Users, Rocket, ClipboardList, Send, MessageCircle } from 'lucide-react';
-import Footer from '@/components/Footer';
 
 // Define the props type for the page component
 type ServiceDetailPageProps = {
@@ -30,7 +28,7 @@ export async function generateStaticParams() {
 const processSteps = [
     {
       name: 'Bước 1: Tư Vấn & Đánh Giá',
-      description: 'Chuyên viên của VisaHub sẽ liên hệ, tư vấn miễn phí và đánh giá chi tiết hồ sơ của bạn để đưa ra giải pháp tối ưu nhất.',
+      description: 'Chuyên viên của Visa5s sẽ liên hệ, tư vấn miễn phí và đánh giá chi tiết hồ sơ của bạn để đưa ra giải pháp tối ưu nhất.',
       icon: ClipboardList,
     },
     {
@@ -39,8 +37,8 @@ const processSteps = [
       icon: Send,
     },
     {
-      name: 'Bước 3: Nộp Hồ Sơ & Luyện Phỏng Vấn',
-      description: 'Thay mặt bạn nộp hồ sơ tại đại sứ quán và cung cấp buổi luyện phỏng vấn 1-1 để bạn tự tin đối mặt với mọi câu hỏi.',
+      name: 'Bước 3: Nộp Hồ Sơ & Theo Dõi',
+      description: 'Thay mặt bạn nộp hồ sơ tại đại sứ quán và liên tục theo dõi, cập nhật tình trạng xử lý hồ sơ.',
       icon: MessageCircle,
     },
     {
@@ -79,7 +77,6 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
 
   return (
     <>
-      <Header />
       <main>
         {/* Hero Banner */}
         <div className="bg-primary">
@@ -106,7 +103,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
                     <div className="lg:pr-4">
                         <div className="lg:max-w-lg">
                             <h2 className="text-base font-semibold leading-7 text-secondary">Đối Tác Tin Cậy</h2>
-                            <p className="mt-2 text-3xl font-display font-bold tracking-tight text-primary sm:text-4xl">Tại Sao Nên Chọn VisaHub?</p>
+                            <p className="mt-2 text-3xl font-display font-bold tracking-tight text-primary sm:text-4xl">Tại Sao Nên Chọn Visa5s?</p>
                             <p className="mt-6 text-lg leading-8 text-base-content">
                                 Với nhiều năm kinh nghiệm, chúng tôi hiểu rõ các yêu cầu phức tạp và luôn cập nhật những thay đổi mới nhất từ các đại sứ quán.
                             </p>
@@ -127,7 +124,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
                     <div className="sm:order-first lg:order-last">
                        <Image
                           src="/images/why-choose-us.jpg"
-                          alt="Đội ngũ chuyên viên VisaHub"
+                          alt="Đội ngũ chuyên viên Visa5s"
                           className="w-full max-w-none rounded-2xl shadow-2xl ring-1 ring-gray-400/10"
                           width={600}
                           height={800}
@@ -175,7 +172,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
                 Sẵn Sàng Chinh Phục Giấc Mơ Của Bạn?
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-blue-100">
-                Đừng để thủ tục visa phức tạp cản bước bạn. Hãy để đội ngũ chuyên gia của VisaHub đồng hành và biến ước mơ của bạn thành hiện thực.
+                Đừng để thủ tục visa phức tạp cản bước bạn. Hãy để đội ngũ chuyên gia của Visa5s đồng hành và biến ước mơ của bạn thành hiện thực.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link
@@ -192,7 +189,6 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

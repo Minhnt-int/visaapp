@@ -38,7 +38,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Header />
       <main>
         {/* Hero Section */}
         <div className="bg-primary">
