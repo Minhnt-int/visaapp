@@ -1,7 +1,6 @@
 'use client'
 
 import { useFormState, useFormStatus } from 'react-dom';
-import Header from "@/components/Header";
 import { contactInfo } from "@/lib/data";
 import { handleContactForm, FormState } from '@/app/actions';
 import { Building, Phone, Mail } from 'lucide-react';
@@ -19,7 +18,7 @@ function SubmitButton() {
     <button
       type="submit"
       aria-disabled={pending}
-      className="w-full rounded-md bg-secondary px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-secondary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary disabled:opacity-50"
+      className="w-full rounded-md bg-gradient-to-r bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-secondary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary disabled:opacity-50"
     >
       {pending ? 'Đang gửi...' : 'Gửi Yêu Cầu'}
     </button>
@@ -40,7 +39,7 @@ export default function ContactPage() {
     <>
       <main>
         {/* Hero Section */}
-        <div className="bg-primary">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600">
           <div className="container mx-auto px-4 py-24 sm:py-32 text-center">
             <h1 className="text-4xl font-display font-bold tracking-tight text-white sm:text-6xl">Liên Hệ Với Chúng Tôi</h1>
             <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
@@ -55,7 +54,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16">
                     {/* Contact Info */}
                     <div className="lg:max-w-lg">
-                        <h2 className="text-3xl font-bold font-display tracking-tight text-primary">Thông Tin Liên Hệ</h2>
+                        <h2 className="text-3xl font-bold font-display tracking-tight text-stone-600">Thông Tin Liên Hệ</h2>
                         <p className="mt-4 text-lg leading-8 text-base-content">
                             Bạn có thể liên hệ trực tiếp với chúng tôi qua các thông tin dưới đây hoặc sử dụng biểu mẫu bên cạnh.
                         </p>
@@ -87,7 +86,7 @@ export default function ContactPage() {
                     {/* Contact Form */}
                     <form ref={formRef} action={formAction} className="space-y-6">
                         <div>
-                            <label htmlFor="name" className="block text-sm font-semibold leading-6 text-primary">
+                            <label htmlFor="name" className="block text-sm font-semibold leading-6 text-stone-600">
                                 Họ và tên
                             </label>
                             <div className="mt-2.5">
@@ -102,7 +101,7 @@ export default function ContactPage() {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-primary">
+                            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-stone-600">
                                 Email
                             </label>
                             <div className="mt-2.5">
@@ -117,7 +116,7 @@ export default function ContactPage() {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="phone" className="block text-sm font-semibold leading-6 text-primary">
+                            <label htmlFor="phone" className="block text-sm font-semibold leading-6 text-stone-600">
                                 Số điện thoại (Không bắt buộc)
                             </label>
                             <div className="mt-2.5">
@@ -131,7 +130,7 @@ export default function ContactPage() {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-primary">
+                            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-stone-600">
                                 Nội dung yêu cầu
                             </label>
                             <div className="mt-2.5">

@@ -211,52 +211,47 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                 </div>
               </section>
 
-              {/* Services Included */}
+              {/* Services Included - Now Dynamic */}
               <section className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Dịch Vụ Bao Gồm</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Included Services */}
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
                       <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
                       Bao Gồm
                     </h3>
                     <ul className="space-y-3">
-                      {[
-                        "Vé máy bay khứ hồi",
-                        "Khách sạn 4 sao (2 khách/phòng)",
-                        "Bữa ăn theo chương trình",
-                        "Xe du lịch đời mới có máy lạnh",
-                        "Hướng dẫn viên nhiệt tình",
-                        "Vé tham quan theo chương trình",
-                        "Bảo hiểm du lịch",
-                        "Nước uống trên xe"
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-start">
+                      {tourDetails.services.included.map((service) => (
+                        <li key={service.id} className="flex items-start">
                           <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{item}</span>
+                          <div>
+                            <span className="text-gray-900 font-medium">{service.name}</span>
+                            {service.description && (
+                              <p className="text-gray-600 text-sm mt-1">{service.description}</p>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>
                   </div>
                   
+                  {/* Excluded Services */}
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
                       <XCircle className="w-5 h-5 text-red-600 mr-2" />
                       Không Bao Gồm
                     </h3>
                     <ul className="space-y-3">
-                      {[
-                        "Visa (hỗ trợ làm visa)",
-                        "Chi phí cá nhân",
-                        "Tiền bo HDV và tài xế",
-                        "Phụ thu phòng đơn",
-                        "Đồ uống có cồn",
-                        "Bữa ăn ngoài chương trình",
-                        "Chi phí phát sinh khác"
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-start">
+                      {tourDetails.services.excluded.map((service) => (
+                        <li key={service.id} className="flex items-start">
                           <XCircle className="w-4 h-4 text-red-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{item}</span>
+                          <div>
+                            <span className="text-gray-900 font-medium">{service.name}</span>
+                            {service.description && (
+                              <p className="text-gray-600 text-sm mt-1">{service.description}</p>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>
@@ -264,7 +259,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                 </div>
               </section>
 
-              {/* Terms & Conditions */}
+              {/* Terms & Conditions - Now Dynamic */}
               <section className="mb-12">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Điều Kiện & Lưu Ý</h2>
                 <div className="bg-gray-50 rounded-lg p-6">
@@ -272,19 +267,17 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-3">Điều Kiện Đăng Ký</h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>• Passport còn hạn tối thiểu 6 tháng</li>
-                        <li>• Hồ sơ xin visa hoàn chỉnh</li>
-                        <li>• Đóng tiền cọc 50% khi đăng ký</li>
-                        <li>• Thanh toán đầy đủ trước 7 ngày khởi hành</li>
+                        {tourDetails.terms.registration.map((term, index) => (
+                          <li key={index}>• {term}</li>
+                        ))}
                       </ul>
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-3">Chính Sách Hủy Tour</h4>
                       <ul className="space-y-2 text-sm text-gray-600">
-                        <li>• Trước 30 ngày: hoàn 90% tiền tour</li>
-                        <li>• Trước 15 ngày: hoàn 70% tiền tour</li>
-                        <li>• Trước 7 ngày: hoàn 50% tiền tour</li>
-                        <li>• Sau 7 ngày: không hoàn tiền</li>
+                        {tourDetails.terms.cancellation.map((term, index) => (
+                          <li key={index}>• {term}</li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -346,31 +339,32 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                 </div>
               </div>
 
-              {/* Why Choose Us */}
+              {/* Why Choose Us - Now Dynamic */}
               <div className="bg-blue-50 rounded-2xl p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Tại Sao Chọn Chúng Tôi?</h3>
                 <div className="space-y-4">
-                  <div className="flex items-start">
-                    <Shield className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <div className="font-medium text-gray-900">Uy Tín 10+ Năm</div>
-                      <div className="text-sm text-gray-600">Hơn 15,000+ khách hàng tin tựng</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Star className="w-5 h-5 text-yellow-500 mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <div className="font-medium text-gray-900">Dịch Vụ 5 Sao</div>
-                      <div className="text-sm text-gray-600">Hỗ trợ 24/7, tận tâm chu đáo</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <div className="font-medium text-gray-900">Cam Kết Chất Lượng</div>
-                      <div className="text-sm text-gray-600">Hoàn tiền 100% nếu không hài lòng</div>
-                    </div>
-                  </div>
+                  {tourDetails.whyChooseUs.map((reason) => {
+                    // Icon mapping
+                    const iconMap = {
+                      shield: Shield,
+                      star: Star,
+                      check: CheckCircle,
+                    };
+                    const IconComponent = iconMap[reason.icon as keyof typeof iconMap] || Shield;
+                    
+                    return (
+                      <div key={reason.id} className="flex items-start">
+                        <IconComponent className={`w-5 h-5 mr-3 mt-0.5 flex-shrink-0 ${
+                          reason.icon === 'shield' ? 'text-blue-600' :
+                          reason.icon === 'star' ? 'text-yellow-500' : 'text-green-600'
+                        }`} />
+                        <div>
+                          <div className="font-medium text-gray-900">{reason.title}</div>
+                          <div className="text-sm text-gray-600">{reason.description}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

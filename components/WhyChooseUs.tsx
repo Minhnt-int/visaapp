@@ -172,7 +172,7 @@ export default function WhyChooseUs() {
                 
                 {/* Arrow for desktop */}
                 {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                  <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
                     <ArrowRight className="text-orange-300" size={24} />
                   </div>
                 )}
