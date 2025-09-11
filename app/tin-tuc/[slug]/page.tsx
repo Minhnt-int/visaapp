@@ -39,7 +39,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <div className="max-w-4xl mx-auto">
             {/* Post Header */}
             <div className="text-center mb-12">
-              <h1 className="mt-2 text-4xl font-display font-bold tracking-tight text-primary sm:text-6xl">{post.title}</h1>
+              <h1 className="mt-2 text-4xl font-display font-bold tracking-tight text-neutral-600 sm:text-6xl">{post.title}</h1>
               <div className="mt-6 flex items-center justify-center gap-x-6 text-base-content/80">
                   <div className="flex items-center gap-x-2">
                     <User size={16} />
@@ -65,7 +65,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Related Posts */}
             <div className="mt-24 pt-16 border-t border-base-300">
-              <h2 className="text-3xl font-display font-bold tracking-tight text-primary sm:text-4xl text-center">Bài Viết Liên Quan</h2>
+              <h2 className="text-3xl font-display font-bold tracking-tight text-neutral-600 sm:text-4xl text-center">Bài Viết Liên Quan</h2>
               <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {relatedPosts.map(p => (
                   <div key={p.id} className="bg-base-100 rounded-lg shadow-xl hover:shadow-2xl flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-2">
@@ -73,9 +73,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       <Image src={p.imageUrl} alt={p.title} width={400} height={225} className="w-full h-full object-cover" />
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-display font-bold text-primary mb-2 flex-grow">{p.title}</h3>
+                      <h3 className="text-xl font-display font-bold text-neutral-600 mb-2 flex-grow">{p.title}</h3>
                       <p className="text-base-content/80 line-clamp-3 mb-4">{p.excerpt}</p>
-                      <Link href={`/tin-tuc/${p.slug}`} className="mt-auto font-semibold text-secondary hover:text-secondary/80 transition-colors self-start">
+                      <Link href={`/tin-tuc/${p.slug}`} className="mt-auto font-semibold text-neutral-600 hover:text-secondary/80 transition-colors self-start">
                           Đọc tiếp →
                       </Link>
                     </div>
