@@ -219,7 +219,7 @@ export default function WhyChooseUs() {
               </div>
               
               <blockquote className="text-lg lg:text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto">
-                "{customerReviews[currentReview].comment}"
+                &quot;{customerReviews[currentReview].comment}&quot;
               </blockquote>
               
               <div className="border-t border-gray-100 pt-6">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Phone, MessageCircle, CheckCircle, Shield, Award, Users, Clock, Search } from "lucide-react";
 
 // Hero Section theo phong cách Visana.vn - Banner với search bar đè lên
@@ -174,9 +175,11 @@ export default function Hero() {
               
               <div className="relative">
                 <div className="relative bg-gray-50 rounded-lg p-6">
-                  <img 
+                  <Image 
                     src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=600" 
                     alt="Đội ngũ VISA5S"
+                    width={600}
+                    height={400}
                     className="w-full h-64 object-cover rounded-lg"
                   />
                   <div className="absolute -bottom-3 -right-3 bg-white border border-gray-200 rounded-lg p-3">

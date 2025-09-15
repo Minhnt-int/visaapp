@@ -304,7 +304,7 @@ function TestimonialsSection({ testimonials }: { testimonials: any[] }) {
                 </div>
               </div>
             </div>
-            <p className="text-gray-600 text-sm leading-relaxed">"{testimonial.comment}"</p>
+            <p className="text-gray-600 text-sm leading-relaxed">&quot;{testimonial.comment}&quot;</p>
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { X, Phone, Mail, User, MapPin, Calendar, MessageSquare, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { ContactFormData, submitContactForm, validateContactForm } from '@/lib/contact-api';
 
@@ -30,6 +30,18 @@ export default function ContactModal({ isOpen, onClose, countryName, visaTypes, 
   const [responseMessage, setResponseMessage] = useState('');
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
+  const handleClose = useCallback(() => {
+    if (!isSubmitting) {
+      onClose();
+      // Reset form state after modal closes
+      setTimeout(() => {
+        setSubmitStatus('idle');
+        setValidationErrors([]);
+        setResponseMessage('');
+      }, 300);
+    }
+  }, [isSubmitting, onClose]);
+
   // Handle escape key and click outside
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -55,7 +67,7 @@ export default function ContactModal({ isOpen, onClose, countryName, visaTypes, 
       document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen, isSubmitting]);
+  }, [isOpen, isSubmitting, handleClose]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -123,18 +135,6 @@ export default function ContactModal({ isOpen, onClose, countryName, visaTypes, 
       setResponseMessage('Có lỗi xảy ra. Vui lòng thử lại sau.');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleClose = () => {
-    if (!isSubmitting) {
-      onClose();
-      // Reset form state after modal closes
-      setTimeout(() => {
-        setSubmitStatus('idle');
-        setValidationErrors([]);
-        setResponseMessage('');
-      }, 300);
     }
   };
 
