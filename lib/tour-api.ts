@@ -76,263 +76,125 @@ export interface TourDetailData {
   updatedAt: string;
 }
 
-// ==================== MOCK DATA ====================
-const mockTourHighlights: TourHighlight[] = [
-  {
-    id: 'h1',
-    title: 'Khám phá cung điện hoàng gia',
-    description: 'Tham quan cung điện cổ kính với kiến trúc độc đáo và lịch sử hàng trăm năm'
-  },
-  {
-    id: 'h2', 
-    title: 'Trải nghiệm văn hóa bản địa',
-    description: 'Thưởng thức ẩm thực truyền thống và tham gia các hoạt động văn hóa đặc sắc'
-  },
-  {
-    id: 'h3',
-    title: 'Cảnh quan thiên nhiên tuyệt đẹp',
-    description: 'Ngắm nhìn những phong cảnh thiên nhiên hùng vĩ và chụp ảnh tại các điểm check-in nổi tiếng'
-  },
-  {
-    id: 'h4',
-    title: 'Shopping tại khu thương mại hiện đại',
-    description: 'Mua sắm các sản phẩm thời trang, mỹ phẩm và đặc sản địa phương'
-  },
-  {
-    id: 'h5',
-    title: 'Hướng dẫn viên chuyên nghiệp',
-    description: 'HDV địa phương kinh nghiệm, thành thạo tiếng Việt và hiểu biết sâu về văn hóa'
-  },
-  {
-    id: 'h6',
-    title: 'Khách sạn tiêu chuẩn 4-5 sao',
-    description: 'Nghỉ ngơi tại các khách sạn cao cấp với đầy đủ tiện nghi hiện đại'
-  }
-];
+// ==================== MOCK DATA HELPERS ====================
 
-const mockItinerary: ItineraryDay[] = [
-  {
-    day: 1,
-    title: 'Khởi Hành - Đến Nơi',
-    description: 'Khởi hành từ sân bay Tân Sơn Nhất, bay thẳng đến điểm đến. Nhận phòng khách sạn, tự do khám phá thành phố.',
-    activities: [
-      { time: '06:00', activity: 'Tập trung tại sân bay Tân Sơn Nhất', description: 'Làm thủ tục check-in' },
-      { time: '08:30', activity: 'Bay thẳng đến điểm đến', description: 'Chuyến bay khoảng 2-3 tiếng' },
-      { time: '12:00', activity: 'Đến nơi, nhận phòng khách sạn' },
-      { time: '14:00', activity: 'Ăn trưa tại nhà hàng địa phương' },
-      { time: '16:00', activity: 'Tự do khám phá khu phố cổ' },
-      { time: '19:00', activity: 'Ăn tối và nghỉ ngơi' }
-    ],
-    accommodation: 'Khách sạn 4 sao trung tâm thành phố',
-    meals: ['Trưa', 'Tối'],
-    transportation: 'Máy bay + xe du lịch'
-  },
-  {
-    day: 2,
-    title: 'Tham Quan Thành Phố',
-    description: 'Tham quan các điểm du lịch nổi tiếng, trải nghiệm văn hóa bản địa và thưởng thức ẩm thực đặc sắc.',
-    activities: [
-      { time: '07:00', activity: 'Ăn sáng tại khách sạn' },
-      { time: '08:30', activity: 'Tham quan cung điện hoàng gia', description: 'Khám phá kiến trúc cổ kính' },
-      { time: '10:30', activity: 'Thăm bảo tàng lịch sử', description: 'Tìm hiểu văn hóa truyền thống' },
-      { time: '12:00', activity: 'Ăn trưa món ăn đặc sản' },
-      { time: '14:00', activity: 'Mua sắm tại khu phố cổ' },
-      { time: '16:00', activity: 'Thưởng thức trà chiều truyền thống' },
-      { time: '18:00', activity: 'Ăn tối buffet quốc tế' }
-    ],
-    accommodation: 'Khách sạn 4 sao',
-    meals: ['Sáng', 'Trưa', 'Tối'],
-    transportation: 'Xe du lịch đời mới'
-  },
-  {
-    day: 3,
-    title: 'Khám Phá Thiên Nhiên',
-    description: 'Khám phá cảnh quan thiên nhiên tuyệt đẹp, chụp ảnh tại các điểm check-in nổi tiếng.',
-    activities: [
-      { time: '06:30', activity: 'Ăn sáng và chuẩn bị khởi hành' },
-      { time: '08:00', activity: 'Tham quan vườn quốc gia', description: 'Ngắm cảnh thiên nhiên hùng vĩ' },
-      { time: '10:00', activity: 'Leo lên điểm cao nhất', description: 'Chụp ảnh panorama toàn cảnh' },
-      { time: '12:00', activity: 'Ăn trưa tại resort trong rừng' },
-      { time: '14:00', activity: 'Nghỉ ngơi và tắm suối' },
-      { time: '16:30', activity: 'Về lại thành phố' },
-      { time: '19:00', activity: 'Ăn tối BBQ ngoài trời' }
-    ],
-    accommodation: 'Khách sạn 4 sao',
-    meals: ['Sáng', 'Trưa', 'Tối'],
-    transportation: 'Xe du lịch + walking'
-  },
-  {
-    day: 4,
-    title: 'Tự Do & Về Nước',
-    description: 'Tự do mua sắm, chuẩn bị hành lý và khởi hành về Việt Nam.',
-    activities: [
-      { time: '08:00', activity: 'Ăn sáng và trả phòng khách sạn' },
-      { time: '09:30', activity: 'Tự do mua sắm quà lưu niệm', description: 'Shopping tại trung tâm thương mại' },
-      { time: '11:30', activity: 'Ăn trưa món ăn yêu thích' },
-      { time: '13:00', activity: 'Chuẩn bị hành lý, ra sân bay' },
-      { time: '15:00', activity: 'Làm thủ tục check-in bay về VN' },
-      { time: '17:30', activity: 'Bay về Việt Nam' },
-      { time: '21:00', activity: 'Đến Tân Sơn Nhất, kết thúc chuyến đi' }
-    ],
-    meals: ['Sáng', 'Trưa'],
-    transportation: 'Xe du lịch + máy bay'
-  }
-];
+const dynamicHighlights = {
+  "tokyo-fuji-kyoto-6n5d": [
+    { id: "h1", title: "Chiêm ngưỡng Núi Phú Sĩ", description: "Biểu tượng hùng vĩ của Nhật Bản, ngắm nhìn vẻ đẹp tuyệt mỹ từ trạm 5." },
+    { id: "h2", title: "Khám phá Tokyo hiện đại", description: "Ghé thăm các địa danh nổi tiếng như Tháp Tokyo, Shibuya Crossing và đền Asakusa Kannon." },
+    { id: "h3", title: "Trải nghiệm Tàu Shinkansen", description: "Di chuyển với tốc độ cao trên tàu cao tốc hình viên đạn, một trải nghiệm không thể bỏ lỡ." },
+    { id: "h4", title: "Lạc bước ở Kyoto cổ kính", description: "Thăm Chùa Vàng Kinkaku-ji, Rừng tre Arashiyama và phố Geisha Gion." },
+    { id: "h5", title: "Thưởng thức ẩm thực Nhật Bản", description: "Ăn sushi, sashimi tươi ngon, mì ramen nóng hổi và các món ăn địa phương đặc sắc." },
+    { id: "h6", title: "Mua sắm thỏa thích", description: "Tự do mua sắm tại các khu phố sầm uất như Shinjuku (Tokyo) và Shijo (Kyoto)." }
+  ]
+};
 
-const mockServices: ServiceItem[] = [
-  // Included services
-  { id: 's1', name: 'Vé máy bay khứ hồi', description: 'Hạng phổ thông, hãng hàng không uy tín' },
-  { id: 's2', name: 'Khách sạn 4 sao (2 khách/phòng)', description: 'Phòng tiêu chuẩn, đầy đủ tiện nghi' },
-  { id: 's3', name: 'Bữa ăn theo chương trình', description: 'Buffet sáng + set menu trưa, tối' },
-  { id: 's4', name: 'Xe du lịch đời mới có máy lạnh', description: 'Xe từ 16-45 chỗ tùy số khách' },
-  { id: 's5', name: 'Hướng dẫn viên nhiệt tình', description: 'HDV địa phương, thành thạo tiếng Việt' },
-  { id: 's6', name: 'Vé tham quan theo chương trình', description: 'Tất cả điểm tham quan trong lịch trình' },
-  { id: 's7', name: 'Bảo hiểm du lịch', description: 'Bảo hiểm tai nạn 24/24h' },
-  { id: 's8', name: 'Nước uống trên xe', description: '2 chai nước/ngày/khách' },
-  
-  // Excluded services  
-  { id: 's9', name: 'Visa (hỗ trợ làm visa)', description: 'Chi phí làm visa khoảng 1.5-2 triệu' },
-  { id: 's10', name: 'Chi phí cá nhân', description: 'Mua sắm, điện thoại, giặt ủi' },
-  { id: 's11', name: 'Tiền bo HDV và tài xế', description: 'Khoảng 3-5 USD/ngày/khách' },
-  { id: 's12', name: 'Phụ thu phòng đơn', description: 'Thêm 50% giá tour nếu ở phòng đơn' },
-  { id: 's13', name: 'Đồ uống có cồn', description: 'Bia, rượu tại nhà hàng' },
-  { id: 's14', name: 'Bữa ăn ngoài chương trình', description: 'Ăn vặt, ăn thêm theo sở thích' },
-  { id: 's15', name: 'Chi phí phát sinh khác', description: 'Chưa được nêu trong chương trình' }
-];
-
-// ==================== API FUNCTIONS ====================
-
-/**
- * Mock function để lấy thông tin chi tiết tour
- */
-export async function getTourDetails(category: string, slug: string): Promise<TourDetailData | null> {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
-
-  // Find tour in mock data
-  const tourData = mockTourDetails[slug];
-
-  if (tourData) {
-    return tourData;
-  }
-
-  return null;
-}
-
-/**
- * Lấy danh sách tour highlights
- */
-export async function getTourHighlights(tourId: string): Promise<TourHighlight[]> {
-  await new Promise(resolve => setTimeout(resolve, 300));
-  return mockTourHighlights.slice(0, 4 + Math.floor(Math.random() * 3));
-}
-
-/**
- * Lấy lịch trình tour
- */
-export async function getTourItinerary(tourId: string): Promise<ItineraryDay[]> {
-  await new Promise(resolve => setTimeout(resolve, 400));
-  return mockItinerary;
-}
-
-/**
- * Lấy danh sách dịch vụ
- */
-export async function getTourServices(tourId: string): Promise<ServiceItem[]> {
-  await new Promise(resolve => setTimeout(resolve, 200));
-  return mockServices;
-}
-
-// ==================== HELPER FUNCTIONS ====================
-
-function generateTourName(category: string, slug: string): string {
-  const names: Record<string, Record<string, string>> = {
-    'chau-a': {
-      'han-quoc-seoul': 'Du lịch Hàn Quốc - Seoul Romantic',
-      'nhat-ban-tokyo': 'Du lịch Nhật Bản - Tokyo Hiện Đại',
-      'thai-lan-bangkok': 'Du lịch Thái Lan - Bangkok Sôi Động',
-      'singapore': 'Du lịch Singapore - Lion City'
+const dynamicItineraries = {
+  "tokyo-fuji-kyoto-6n5d": [
+    {
+      day: 1, title: "TP.HCM/Hà Nội – Tokyo: Chào mừng đến Nhật Bản",
+      description: "Quý khách tập trung tại sân bay, làm thủ tục đáp chuyến bay đến Sân bay Narita (NRT), Tokyo. Xe và HDV đón đoàn về khách sạn nhận phòng và nghỉ ngơi.",
+      activities: [
+        { activity: "Tập trung tại sân bay quốc tế." },
+        { activity: "Đáp chuyến bay đêm đến Tokyo." },
+        { activity: "Nghỉ đêm trên máy bay." }
+      ],
+      meals: ["Trên máy bay"]
     },
-    'chau-au': {
-      'phap-paris': 'Du lịch Pháp - Paris Lãng Mạn',
-      'duc-berlin': 'Du lịch Đức - Berlin Lịch Sử',
-      'y-rome': 'Du lịch Ý - Rome Cổ Kính'
+    {
+      day: 2, title: "Khám phá Thủ đô Tokyo",
+      description: "Bắt đầu hành trình khám phá thủ đô sôi động của Nhật Bản với các địa danh lịch sử và hiện đại xen kẽ.",
+      activities: [
+        { activity: "Tham quan Đền Asakusa Kannon (Senso-ji), ngôi đền cổ nhất Tokyo." },
+        { activity: "Chụp hình với Tháp truyền hình Tokyo Skytree (không lên tháp)." },
+        { activity: "Tham quan và mua sắm tại khu phố điện tử Akihabara." },
+        { activity: "Ăn tối và nhận phòng khách sạn tại Tokyo." }
+      ],
+      meals: ["Sáng", "Trưa", "Tối"]
+    },
+    {
+      day: 3, title: "Núi Phú Sĩ – Hakone",
+      description: "Hành trình đến với biểu tượng của đất nước mặt trời mọc - Núi Phú Sĩ. Trải nghiệm khung cảnh thiên nhiên hùng vĩ và không khí trong lành.",
+      activities: [
+        { activity: "Di chuyển đến khu vực Hakone." },
+        { activity: "Tham quan Núi Phú Sĩ (lên đến trạm 5 nếu thời tiết cho phép)." },
+        { activity: "Du thuyền trên Hồ Ashi thơ mộng." },
+        { activity: "Thưởng thức trứng đen luộc tại thung lũng Owakudani (tùy tình hình)." },
+        { activity: "Trải nghiệm tắm Onsen truyền thống tại khách sạn." }
+      ],
+      meals: ["Sáng", "Trưa", "Tối"]
+    },
+    {
+      day: 4, title: "Di chuyển đến Kyoto – Cố đô ngàn năm",
+      description: "Trải nghiệm tàu cao tốc Shinkansen và bắt đầu khám phá cố đô Kyoto với những di sản văn hóa thế giới.",
+      activities: [
+        { activity: "Trải nghiệm Tàu cao tốc Shinkansen từ Odawara đến Kyoto." },
+        { activity: "Tham quan Chùa Vàng Kinkaku-ji lộng lẫy." },
+        { activity: "Ghé thăm 'Rừng Kimono' tại ga Arashiyama." },
+        { activity: "Ăn tối và nhận phòng khách sạn tại Kyoto." }
+      ],
+      meals: ["Sáng", "Trưa", "Tối"]
+    },
+    {
+      day: 5, title: "Khám phá Kyoto – Osaka",
+      description: "Tiếp tục khám phá Kyoto và di chuyển đến thành phố Osaka năng động, trung tâm ẩm thực của Nhật Bản.",
+      activities: [
+        { activity: "Tham quan Chùa Thanh Thủy (Kiyomizu-dera) với kiến trúc gỗ độc đáo." },
+        { activity: "Dạo bước trên phố cổ Sannenzaka và Ninenzaka." },
+        { activity: "Di chuyển đến Osaka, tham quan Lâu đài Osaka (chụp hình bên ngoài)." },
+        { activity: "Tự do mua sắm và ăn tối tại khu phố Dotonbori sầm uất." }
+      ],
+      meals: ["Sáng", "Trưa", "Tối"]
+    },
+    {
+      day: 6, title: "Osaka – Tạm biệt Nhật Bản",
+      description: "Quý khách tự do mua sắm đến giờ ra sân bay, làm thủ tục đáp chuyến bay về lại Việt Nam. Kết thúc tốt đẹp chuyến đi.",
+      activities: [
+        { activity: "Ăn sáng tại khách sạn, làm thủ tục trả phòng." },
+        { activity: "Tự do mua sắm tại trung tâm thương mại (nếu thời gian cho phép)." },
+        { activity: "Di chuyển ra Sân bay Kansai (KIX)." },
+        { activity: "Đáp chuyến bay về lại Việt Nam." }
+      ],
+      meals: ["Sáng"]
     }
-  };
-  
-  return names[category]?.[slug] || `Du lịch ${category} - ${slug} tuyệt vời`;
-}
-
-function generateCountryName(category: string): string {
-  const countries = {
-    'chau-a': ['Hàn Quốc', 'Nhật Bản', 'Thái Lan', 'Singapore', 'Malaysia'],
-    'chau-au': ['Pháp', 'Đức', 'Ý', 'Tây Ban Nha', 'Anh'],
-    'chau-my': ['Mỹ', 'Canada', 'Mexico', 'Brazil'],
-    'chau-uc': ['Úc', 'New Zealand']
-  };
-  
-  const categoryCountries = countries[category as keyof typeof countries] || ['Quốc gia'];
-  return categoryCountries[Math.floor(Math.random() * categoryCountries.length)];
-}
-
-function generateDuration(): string {
-  const durations = ['4 ngày 3 đêm', '5 ngày 4 đêm', '6 ngày 5 đêm', '7 ngày 6 đêm'];
-  return durations[Math.floor(Math.random() * durations.length)];
-}
-
-function generatePrice(): string {
-  const prices = ['15990000', '18990000', '22990000', '25990000', '29990000'];
-  return prices[Math.floor(Math.random() * prices.length)];
-}
-
-function generateOriginalPrice(): string {
-  const prices = ['19990000', '24990000', '28990000', '32990000', '35990000'];
-  return prices[Math.floor(Math.random() * prices.length)];
-}
-
-function generateGallery(category: string, slug: string): string[] {
-  return Array.from({ length: 6 }, (_, i) => 
-    `/images/tours/${category}/${slug}/gallery-${i + 1}.jpg`
-  );
-}
-
-function generateHighlights(category: string): TourHighlight[] {
-  // Randomly select 4-6 highlights
-  const shuffled = [...mockTourHighlights].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, 4 + Math.floor(Math.random() * 3));
-}
-
-function generateItinerary(category: string): ItineraryDay[] {
-  // Return mock itinerary with possible variations
-  return mockItinerary.map(day => ({
-    ...day,
-    activities: day.activities.map(activity => ({
-      ...activity,
-      description: activity.description || `Hoạt động thú vị tại ${category}`
-    }))
-  }));
-}
+  ]
+};
 
 function generateServices(): TourServices {
   return {
-    included: mockServices.slice(0, 8),
-    excluded: mockServices.slice(8)
+    included: [
+        { id: "s1", name: "Vé máy bay khứ hồi", description: "Hạng phổ thông, bao gồm 20kg hành lý ký gửi." },
+        { id: "s2", name: "Khách sạn 3-4 sao", description: "Tiêu chuẩn 2 người/phòng. Phụ thu phòng đơn nếu có yêu cầu." },
+        { id: "s3", name: "Các bữa ăn theo chương trình", description: "Bao gồm các bữa ăn đặc sắc của ẩm thực Nhật Bản." },
+        { id: "s4", name: "Xe du lịch đời mới", description: "Di chuyển theo suốt tuyến hành trình tại Nhật Bản." },
+        { id: "s5", name: "Vé tàu Shinkansen", description: "1 chặng như trong lịch trình." },
+        { id: "s6", name: "Hướng dẫn viên tiếng Việt", description: "Nhiệt tình, kinh nghiệm theo suốt tuyến." },
+        { id: "s7", name: "Vé tham quan một lần", description: "Tại tất cả các điểm trong chương trình." },
+        { id: "s8", name: "Bảo hiểm du lịch quốc tế", description: "Mức bồi thường tối đa 1.000.000.000 VNĐ/vụ." }
+    ],
+    excluded: [
+        { id: "s9", name: "Phí làm hộ chiếu.", description: "Hộ chiếu phải còn hạn trên 6 tháng." },
+        { id: "s10", name: "Phí visa Nhật Bản", description: "Chi phí dịch thuật, công chứng và phí visa (nếu có)." },
+        { id: "s11", name: "Tiền bồi dưỡng (tip)", description: "Cho hướng dẫn viên và tài xế địa phương (thông lệ ~7 USD/khách/ngày)." },
+        { id: "s12", name: "Chi phí cá nhân", description: "Giặt ủi, điện thoại, ăn uống ngoài chương trình." },
+        { id: "s13", name: "Phụ thu phòng đơn", description: "Nếu quý khách có nhu cầu ngủ riêng một phòng." }
+    ]
   };
 }
 
 function generateTerms() {
   return {
     registration: [
-      'Passport còn hạn tối thiểu 6 tháng',
-      'Hồ sơ xin visa hoàn chỉnh (nếu cần)',
-      'Đóng tiền cọc 50% khi đăng ký',
-      'Thanh toán đầy đủ trước 7 ngày khởi hành'
+      "Đặt cọc 50% giá trị tour ngay khi đăng ký.",
+      "Thanh toán toàn bộ số tiền còn lại trước ngày khởi hành 15 ngày.",
+      "Nộp đầy đủ hồ sơ xin visa (nếu cần) theo yêu cầu của đại sứ quán.",
+      "Visa5s không chịu trách nhiệm nếu quý khách bị từ chối cấp visa."
     ],
     cancellation: [
-      'Trước 30 ngày: hoàn 90% tiền tour',
-      'Trước 15 ngày: hoàn 70% tiền tour', 
-      'Trước 7 ngày: hoàn 50% tiền tour',
-      'Sau 7 ngày: không hoàn tiền'
+      "Hủy sau khi đăng ký: mất 50% tiền cọc.",
+      "Hủy trước ngày khởi hành 20-30 ngày: 50% giá trị tour.", 
+      "Hủy trước ngày khởi hành 10-19 ngày: 75% giá trị tour.",
+      "Hủy trong vòng 10 ngày trước khởi hành: 100% giá trị tour."
     ]
   };
 }
@@ -341,77 +203,56 @@ function generateWhyChooseUs() {
   return [
     {
       id: 'experience',
-      title: 'Uy Tín 15+ Năm',
-      description: 'Hơn 25,000+ khách hàng tin tường',
+      title: 'Uy Tín & Kinh Nghiệm',
+      description: 'Chuyên gia tour Nhật với hơn 10 năm kinh nghiệm tổ chức.',
       icon: 'shield'
     },
     {
       id: 'service', 
-      title: 'Dịch Vụ 5 Sao',
-      description: 'Hỗ trợ 24/7, tận tâm chu đáo',
+      title: 'Dịch Vụ Chất Lượng Cao',
+      description: 'Lịch trình tối ưu, khách sạn và nhà hàng chọn lọc kỹ lưỡng.',
       icon: 'star'
     },
     {
       id: 'quality',
-      title: 'Cam Kết Chất Lượng', 
-      description: 'Hoàn tiền 100% nếu không hài lòng',
+      title: 'Cam Kết Tỷ Lệ Visa', 
+      description: 'Hỗ trợ tư vấn hồ sơ chuyên nghiệp, tăng tỷ lệ đậu visa.',
       icon: 'check'
     }
   ];
 }
 
-function generatePriceIncludes(): string[] {
-  return [
-    'Vé máy bay khứ hồi hạng phổ thông',
-    'Khách sạn 4 sao tiêu chuẩn (2 khách/phòng)',
-    'Bữa ăn theo chương trình tour',
-    'Xe du lịch đời mới có máy lạnh',
-    'Hướng dẫn viên nhiệt tình, kinh nghiệm',
-    'Vé tham quan các điểm theo chương trình',
-    'Bảo hiểm du lịch 24/24h',
-    'Nước uống miễn phí trên xe'
-  ];
-}
-
-function generatePriceExcludes(): string[] {
-  return [
-    'Chi phí làm visa (nếu cần)',
-    'Chi phí cá nhân: mua sắm, điện thoại',
-    'Tiền bo cho HDV và tài xế',
-    'Phụ thu phòng đơn (50% giá tour)',
-    'Đồ uống có cồn tại nhà hàng',
-    'Bữa ăn ngoài chương trình',
-    'Chi phí phát sinh ngoài chương trình'
-  ];
-}
-
 // ==================== TOUR DETAIL MOCK DATA ====================
 const mockTourDetails: Record<string, TourDetailData> = {
-  "nhat-ban-tokyo": {
-    id: "tour-nhat-ban-tokyo",
-    name: "Du lịch Nhật Bản - Tokyo Hiện Đại",
-    slug: "nhat-ban-tokyo",
+  "tokyo-fuji-kyoto-6n5d": {
+    id: "tour-jp-tfk-6n5d",
+    name: "Hành Trình Vàng: Tokyo - Fuji - Kyoto",
+    slug: "tokyo-fuji-kyoto-6n5d",
     category: "chau-a",
     country: "Nhật Bản",
-    duration: "5 ngày 4 đêm",
-    price: "18990000",
-    originalPrice: "24990000",
-    departure: ["Hồ Chí Minh", "Hà Nội"],
-    image: "/images/tours/chau-a/nhat-ban-tokyo/main.jpg",
-    gallery: generateGallery("chau-a", "nhat-ban-tokyo"),
-    rating: 4.5,
-    reviewCount: 120,
-    groupSize: {
-      min: 10,
-      max: 15
-    },
-    highlights: generateHighlights("chau-a"),
-    itinerary: generateItinerary("chau-a"),
+    duration: "6 ngày 5 đêm",
+    price: "29990000",
+    originalPrice: "32000000",
+    departure: ["Hà Nội", "Đà Nẵng"],
+    image: "/images/tours/nhat-ban-1.jpg",
+    gallery: [
+      "/images/tours/nhat-ban-gallery-1.jpg",
+      "/images/tours/nhat-ban-gallery-2.jpg",
+      "/images/tours/nhat-ban-gallery-3.jpg",
+      "/images/tours/nhat-ban-gallery-4.jpg",
+      "/images/tours/nhat-ban-gallery-5.jpg",
+      "/images/tours/nhat-ban-gallery-6.jpg"
+    ],
+    rating: 4.8,
+    reviewCount: 215,
+    groupSize: { min: 15, max: 25 },
+    highlights: dynamicHighlights["tokyo-fuji-kyoto-6n5d"],
+    itinerary: dynamicItineraries["tokyo-fuji-kyoto-6n5d"],
     services: generateServices(),
     terms: generateTerms(),
     whyChooseUs: generateWhyChooseUs(),
-    priceIncludes: generatePriceIncludes(),
-    priceExcludes: generatePriceExcludes(),
+    priceIncludes: [], // Sẽ được điền bởi services.included
+    priceExcludes: [], // Sẽ được điền bởi services.excluded
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
@@ -427,20 +268,17 @@ const mockTourDetails: Record<string, TourDetailData> = {
     originalPrice: "28990000",
     departure: ["Hồ Chí Minh", "Hà Nội"],
     image: "/images/tours/chau-a/han-quoc-seoul/main.jpg",
-    gallery: generateGallery("chau-a", "han-quoc-seoul"),
+    gallery: [],
     rating: 4.7,
     reviewCount: 95,
-    groupSize: {
-      min: 10,
-      max: 15
-    },
-    highlights: generateHighlights("chau-a"),
-    itinerary: generateItinerary("chau-a"),
+    groupSize: { min: 10, max: 15 },
+    highlights: [],
+    itinerary: [],
     services: generateServices(),
     terms: generateTerms(),
     whyChooseUs: generateWhyChooseUs(),
-    priceIncludes: generatePriceIncludes(),
-    priceExcludes: generatePriceExcludes(),
+    priceIncludes: [],
+    priceExcludes: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
@@ -458,19 +296,61 @@ const mockTourDetails: Record<string, TourDetailData> = {
     rating: 4.7,
     reviewCount: 89,
     departure: ["TP.HCM", "Hà Nội"],
-    gallery: generateGallery("chau-my", "my-new-york"),
-    groupSize: {
-      min: 8,
-      max: 12,
-    },
-    highlights: generateHighlights("chau-my"),
-    itinerary: generateItinerary("chau-my"),
+    gallery: [],
+    groupSize: { min: 8, max: 12 },
+    highlights: [],
+    itinerary: [],
     services: generateServices(),
     terms: generateTerms(),
     whyChooseUs: generateWhyChooseUs(),
-    priceIncludes: generatePriceIncludes(),
-    priceExcludes: generatePriceExcludes(),
+    priceIncludes: [],
+    priceExcludes: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   },
 };
+
+// ==================== API FUNCTIONS ====================
+
+/**
+ * Mock function để lấy thông tin chi tiết tour
+ */
+export async function getTourDetails(category: string, slug: string): Promise<TourDetailData | null> {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  // Find tour in mock data
+  const tourData = mockTourDetails[slug];
+
+  if (tourData) {
+    return tourData;
+  }
+
+  return null;
+}
+
+// Các hàm khác không thay đổi...
+
+/**
+ * Lấy danh sách tour highlights
+ */
+export async function getTourHighlights(tourId: string): Promise<TourHighlight[]> {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return [];
+}
+
+/**
+ * Lấy lịch trình tour
+ */
+export async function getTourItinerary(tourId: string): Promise<ItineraryDay[]> {
+  await new Promise(resolve => setTimeout(resolve, 400));
+  return [];
+}
+
+/**
+ * Lấy danh sách dịch vụ
+ */
+export async function getTourServices(tourId: string): Promise<ServiceItem[]> {
+  await new Promise(resolve => setTimeout(resolve, 200));
+  return [];
+}

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { featuredTours } from '@/lib/data';
 import { Calendar, MapPin, Star, Plane, DollarSign } from 'lucide-react';
+import {TourCard} from '@/components/TourCard';
 
 /**
  * Component hiển thị section tour du lịch nổi bật trên trang chủ
@@ -52,118 +53,5 @@ export default function TourSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-/**
- * Component hiển thị thẻ tour với thông tin cơ bản
- */
-function TourCard({ tour }: { tour: any }) {
-  const formatPrice = (price: string) => {
-    return parseInt(price).toLocaleString('vi-VN');
-  };
-
-  const discountPercent = tour.originalPrice 
-    ? Math.round((1 - parseInt(tour.price) / parseInt(tour.originalPrice)) * 100)
-    : 0;
-
-  return (
-    <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2">
-      {/* Hot Badge */}
-      <div className="absolute top-4 left-4 z-20 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center">
-        🔥 HOT
-      </div>
-      
-      {/* Discount Badge */}
-      {discountPercent > 0 && (
-        <div className="absolute top-4 right-4 z-20 bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-xs font-bold">
-          -{discountPercent}%
-        </div>
-      )}
-      
-      {/* Tour Image */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={tour.image}
-          alt={tour.name}
-          width={400}
-          height={300}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        
-        {/* Rating Badge - Fixed z-index and positioning */}
-        <div className="absolute bottom-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg">
-          <div className="flex items-center text-sm">
-            <Star className="w-3 h-3 text-yellow-500 fill-current mr-1" />
-            <span className="font-semibold">{tour.rating}</span>
-            <span className="text-gray-600 ml-1">({tour.reviewCount})</span>
-          </div>
-        </div>
-      </div>
-      
-      {/* Tour Info - Fixed layout */}
-      <div className="p-6 flex flex-col">
-        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors">
-          {tour.name}
-        </h3>
-        
-        {/* Tour Details */}
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Calendar className="w-4 h-4 mr-2 text-blue-500 flex-shrink-0" />
-            <span>{tour.duration}</span>
-          </div>
-          <div className="flex items-center text-sm text-gray-600">
-            <MapPin className="w-4 h-4 mr-2 text-blue-500 flex-shrink-0" />
-            <span className="truncate">Từ {tour.departure[0]}</span>
-          </div>
-        </div>
-        
-        {/* Highlights */}
-        <div className="mb-4 flex-grow">
-          <div className="flex flex-wrap gap-1">
-            {tour.highlights.slice(0, 2).map((highlight: string, index: number) => (
-              <span key={index} className="inline-block bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs">
-                {highlight}
-              </span>
-            ))}
-            {tour.highlights.length > 2 && (
-              <span className="inline-block bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                +{tour.highlights.length - 2}
-              </span>
-            )}
-          </div>
-        </div>
-        
-        {/* Price & CTA - Fixed layout */}
-        <div className="mt-auto pt-4 border-t border-gray-200">
-          <div className="flex items-end justify-between mb-4">
-            <div>
-              {tour.originalPrice && (
-                <span className="text-sm text-gray-500 line-through block">
-                  {formatPrice(tour.originalPrice)} VNĐ
-                </span>
-              )}
-              <div className="text-xl font-bold text-red-600">
-                {formatPrice(tour.price)} VNĐ
-              </div>
-              <span className="text-xs text-gray-600">/khách</span>
-            </div>
-          </div>
-          
-          {/* Fixed button - removed w-full conflict */}
-          <Link
-            href={`/tour-du-lich/${tour.category}/${tour.slug}`}
-            className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg text-sm font-semibold text-center hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
-          >
-            <div className="flex items-center justify-center">
-              <DollarSign className="w-4 h-4 mr-2" />
-              Xem Chi Tiết
-            </div>
-          </Link>
-        </div>
-      </div>
-    </div>
   );
 }

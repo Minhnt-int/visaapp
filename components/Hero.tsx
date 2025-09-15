@@ -7,7 +7,7 @@ import { ArrowRight, Phone, MessageCircle, CheckCircle, Shield, Award, Users, Cl
 // Hero Section theo phong cách Visana.vn - Banner với search bar đè lên
 export default function Hero() {
   return (
-    <div className="relative">
+    <div className="relative bg-gray-50">
       {/* Main Hero Banner với Background Image */}
       <section className="relative min-h-[33vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
@@ -96,7 +96,7 @@ export default function Hero() {
       </div>
 
       {/* Company Introduction Card */}
-      <section className="py-16 bg-gray-50 relative">
+      <section className="py-16 relative">
         <div className="container mx-auto px-4">
 
           {/* Stats Grid */}
@@ -174,7 +174,7 @@ export default function Hero() {
               </div>
               
               <div className="relative">
-                <div className="relative bg-gray-50 rounded-lg p-6">
+                <div className="relative rounded-lg p-6">
                   <Image 
                     src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=600" 
                     alt="Đội ngũ VISA5S"
