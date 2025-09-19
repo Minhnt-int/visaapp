@@ -1,11 +1,11 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { VisaCountryItem, getAllVisaCountries, groupCountriesByCategory } from '@/lib/api';
+import { getVisaCategories } from '@/lib/api'; // Use the new API call
+import { VisaCategory } from '@/types'; // Use the updated VisaCategory type
 
 interface VisaDataContextType {
-  countries: VisaCountryItem[];
-  groupedCountries: Record<string, VisaCountryItem[]>;
+  visaCategories: VisaCategory[];
   loading: boolean;
   error: string | null;
   refreshData: () => Promise<void>;
@@ -14,8 +14,7 @@ interface VisaDataContextType {
 const VisaDataContext = createContext<VisaDataContextType | null>(null);
 
 export function VisaDataProvider({ children }: { children: React.ReactNode }) {
-  const [countries, setCountries] = useState<VisaCountryItem[]>([]);
-  const [groupedCountries, setGroupedCountries] = useState<Record<string, VisaCountryItem[]>>({});
+  const [visaCategories, setVisaCategories] = useState<VisaCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,20 +23,12 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
       
-      console.log('🔄 Loading visa countries data...');
-      const data = await getAllVisaCountries();
-      
-      setCountries(data);
-      setGroupedCountries(groupCountriesByCategory(data));
-      
-      console.log('✅ Visa countries data loaded:', {
-        totalCountries: data.length,
-        categories: Object.keys(groupCountriesByCategory(data))
-      });
+      const data = await getVisaCategories();
+      setVisaCategories(data);
       
     } catch (err) {
-      console.error('❌ Error loading visa data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load visa data');
+      console.error('❌ Error loading visa categories:', err); 
+      setError(err instanceof Error ? err.message : 'Failed to load visa categories');
     } finally {
       setLoading(false);
     }
@@ -52,8 +43,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value: VisaDataContextType = {
-    countries,
-    groupedCountries,
+    visaCategories,
     loading,
     error,
     refreshData
@@ -74,26 +64,18 @@ export function useVisaData() {
   return context;
 }
 
-// Helper hooks for specific use cases
-export function useVisaCountriesByCategory(categorySlug: string) {
-  const { groupedCountries, loading, error } = useVisaData();
-  
-  return {
-    countries: groupedCountries[categorySlug] || [],
-    loading,
-    error
-  };
-}
+// No longer directly grouping countries by category here
+// The data now comes pre-grouped by category from the API (mock data)
 
-export function useVisaCountryBySlug(categorySlug: string, countrySlug: string) {
-  const { countries, loading, error } = useVisaData();
+export function useVisaCategoryBySlug(categorySlug: string) {
+  const { visaCategories, loading, error } = useVisaData();
   
-  const country = countries.find(
-    c => c.categorySlug === categorySlug && c.slug === countrySlug
+  const category = visaCategories.find(
+    cat => cat.slug === categorySlug
   );
   
   return {
-    country: country || null,
+    category: category || null,
     loading,
     error
   };

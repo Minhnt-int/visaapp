@@ -1,126 +1,69 @@
+import { Tour } from "@/types";
+import Link from "next/link";
+import Image from "next/image";
+import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { Calendar, MapPin, Star } from 'lucide-react';
+// Helper to format currency
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+};
 
-export function TourCard({ tour }: { tour: any }) {
-  const formatPrice = (price: string) => {
-    if (isNaN(parseInt(price))) {
-      return price;
-    }
-    return parseInt(price).toLocaleString('vi-VN');
-  };
+export default function TourCard({ tour }: { tour: Tour }) {
+  // CORRECTED: Create a summary from highlights as a description substitute.
+  const descriptionSummary = tour.highlights?.map(h => h.title).join(' • ') || 'Khám phá những điểm đến hấp dẫn nhất.';
 
-  const discountPercent = tour.originalPrice 
-    ? Math.round((1 - parseInt(tour.price) / parseInt(tour.originalPrice)) * 100)
-    : 0;
-  
-  const tourName = tour.name || tour.title || "Tên tour không xác định";
-  const tourDescription = tour.description || "Chưa có mô tả cho tour này.";
-  const tourHighlights = tour.highlights || [];
-  const tourDeparture = tour.departure || [];
-  
   return (
-    <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group h-full flex flex-col">
-      <div className='flex flex-col h-full'>
-        {/* Badges */}
-        <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-            {tour.isHot && (
-            <div className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                🔥 HOT
-            </div>
-            )}
-            {discountPercent > 0 && (
-            <div className="bg-yellow-500 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold">
-                -{discountPercent}%
-            </div>
-            )}
-        </div>
-        
-        {/* Tour Image */}
-        <div className="aspect-[16/10] overflow-hidden">
+    <article className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group overflow-hidden h-full flex flex-col">
+      <Link href={`/tour-du-lich/tour/${tour.slug}`} className="block h-full flex flex-col">
+        <div className="relative h-56 overflow-hidden">
           <Image
             src={tour.image}
-            alt={tourName}
-            width={400}
-            height={250}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            alt={tour.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-        </div>
-        
-        {/* Tour Info */}
-        <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold text-gray-900 line-clamp-2 mb-3">
-            {tourName}
-          </h3>
-          
-          <p className="text-sm text-gray-600 line-clamp-3 mb-4">
-            {tourDescription}
-          </p>
-          
-          {/* Tour Details */}
-          <div className="space-y-2 mb-4">
-            {tour.duration && (
-                <div className="flex items-center text-sm text-gray-600">
-                    <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
-                    {tour.duration}
-                </div>
-            )}
-            {tourDeparture.length > 0 && (
-                <div className="flex items-center text-sm text-gray-600">
-                    <MapPin className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
-                    Khởi hành: {tourDeparture.join(', ')}
-                </div>
-            )}
-            {tour.rating && (
-                <div className="flex items-center text-sm text-gray-600">
-                    <Star className="w-4 h-4 mr-2 text-yellow-500 fill-current flex-shrink-0" />
-                    {tour.rating} ({tour.reviewCount || tour.reviews || 0} đánh giá)
-                </div>
-            )}
-          </div>
-          
-          {/* Highlights */}
-          {tourHighlights.length > 0 && (
-            <div className="mb-4">
-                <div className="flex flex-wrap gap-1">
-                {tourHighlights.slice(0, 3).map((highlight: string, index: number) => (
-                    <span key={index} className="inline-block bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs">
-                    {highlight}
-                    </span>
-                ))}
-                {tourHighlights.length > 3 && (
-                    <span className="inline-block bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">
-                    +{tourHighlights.length - 3} khác
-                    </span>
-                )}
-                </div>
+          {tour.originalPrice && (
+             <div className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+              Giảm giá
             </div>
           )}
-          
-          {/* Price & CTA - push to bottom */}
-          <div className="mt-auto flex items-end justify-between">
-            <div>
-              {tour.originalPrice && (
-                <span className="text-sm text-gray-500 line-through">
-                  {formatPrice(tour.originalPrice)} VNĐ
-                </span>
-              )}
-              <div className="text-lg font-bold text-red-600">
-                {formatPrice(tour.price)} VNĐ
-              </div>
-              <span className="text-xs text-gray-600">/khách</span>
-            </div>
-            
-            <Link
-              href={`/tour-du-lich/${tour.category}/${tour.slug}`}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
-            >
-              Xem Chi Tiết
-            </Link>
+          <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/60 to-transparent">
+             <h3 className="text-white text-xl font-bold leading-tight line-clamp-2">{tour.name}</h3>
           </div>
         </div>
-      </div>
-    </div>
+        
+        <div className="p-5 flex flex-col flex-grow">
+          <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-1">
+                  <MapPin size={14} />
+                  {/* CORRECTED: Replaced non-existent `location` with `country` */}
+                  <span>{tour.country}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                  <Clock size={14} />
+                  <span>{tour.duration}</span>
+              </div>
+          </div>
+
+          <div className="mt-4 mb-4 flex-grow">
+             {/* CORRECTED: Used the generated summary instead of non-existent `description` */}
+             <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-3">{descriptionSummary}</p>
+          </div>
+
+          <div className="mt-auto flex justify-between items-end">
+            <div>
+                {tour.originalPrice && (
+                    <p className="text-sm text-gray-400 line-through">{formatPrice(tour.originalPrice)}</p>
+                )}
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{formatPrice(tour.price)}</p>
+            </div>
+            <div className="flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400">
+                Chi tiết
+                <ArrowRight className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+          </div>
+        </div>
+      </Link>
+    </article>
   );
 }

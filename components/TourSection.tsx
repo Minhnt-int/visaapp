@@ -1,8 +1,8 @@
+
 import Link from 'next/link';
-import Image from 'next/image';
-import { featuredTours } from '@/lib/data';
-import { Calendar, MapPin, Star, Plane, DollarSign } from 'lucide-react';
-import {TourCard} from '@/components/TourCard';
+import { Plane } from 'lucide-react';
+import TourCard from '@/components/TourCard'; // Corrected import
+import { getAllTours } from '@/lib/data'; 
 
 /**
  * Component hiển thị section tour du lịch nổi bật trên trang chủ
@@ -10,8 +10,9 @@ import {TourCard} from '@/components/TourCard';
  * 
  * @returns JSX Component
  */
-export default function TourSection() {
-  const hotTours = featuredTours.filter(tour => tour.isHot).slice(0, 4);
+export default async function TourSection() {
+  const allTours = await getAllTours();
+  const hotTours = allTours.filter(tour => tour.isHot).slice(0, 4);
 
   return (
     <section className="py-24 sm:py-32 bg-gradient-to-b from-gray-50 to-white">

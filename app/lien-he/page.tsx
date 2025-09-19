@@ -1,49 +1,27 @@
-'use client'
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { contactInfo } from "@/lib/data";
-import { handleContactForm, FormState } from '@/app/actions';
+import { getContactInfo } from "@/lib/data";
 import { Building, Phone, Mail } from 'lucide-react';
-import { useEffect, useRef } from 'react';
-import Footer from '@/components/Footer';
+import ContactForm from "@/components/ContactForm"; // CORRECT: Import the new client component
+import { Metadata } from 'next';
 
-const initialState: FormState = {
-  message: '',
+export const metadata: Metadata = {
+    title: 'Liên Hệ',
+    description: 'Liên hệ với VISA5S để được tư vấn và hỗ trợ các dịch vụ làm visa, tour du lịch chuyên nghiệp và nhanh chóng.',
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+// CORRECT: Converted to an async Server Component
+export default async function ContactPage() {
+  // CORRECT: Fetch data on the server
+  const contactInfo = await getContactInfo();
 
   return (
-    <button
-      type="submit"
-      aria-disabled={pending}
-      className="w-full rounded-md bg-gradient-to-r bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-secondary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary disabled:opacity-50"
-    >
-      {pending ? 'Đang gửi...' : 'Gửi Yêu Cầu'}
-    </button>
-  );
-}
-
-export default function ContactPage() {
-  const [state, formAction] = useFormState(handleContactForm, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.message.includes('thành công')) {
-      formRef.current?.reset();
-    }
-  }, [state]);
-
-  return (
-    <>
-      <main>
+    <main>
         {/* Hero Section */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600">
           <div className="container mx-auto px-4 py-24 sm:py-32 text-center">
             <h1 className="text-4xl font-display font-bold tracking-tight text-white sm:text-6xl">Liên Hệ Với Chúng Tôi</h1>
             <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
-              Có câu hỏi hoặc cần tư vấn? Đừng ngần ngại liên hệ. Đội ngũ VisaHub luôn sẵn sàng hỗ trợ bạn.
+              Có câu hỏi hoặc cần tư vấn? Đừng ngần ngại liên hệ. Đội ngũ VISA5S luôn sẵn sàng hỗ trợ bạn.
             </p>
           </div>
         </div>
@@ -64,7 +42,7 @@ export default function ContactPage() {
                                     <span className="sr-only">Address</span>
                                     <Building className="h-7 w-6 text-gray-400" aria-hidden="true" />
                                 </dt>
-                                <dd>123 Đường ABC, Phường 1, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</dd>
+                                <dd>{contactInfo.address}</dd>
                             </div>
                             <div className="flex gap-x-4">
                                 <dt className="flex-none">
@@ -83,75 +61,11 @@ export default function ContactPage() {
                         </dl>
                     </div>
 
-                    {/* Contact Form */}
-                    <form ref={formRef} action={formAction} className="space-y-6">
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-semibold leading-6 text-stone-600">
-                                Họ và tên
-                            </label>
-                            <div className="mt-2.5">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    autoComplete="name"
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                />
-                                {state.errors?.name && <p className="text-sm text-red-600 mt-1">{state.errors.name.join(', ')}</p>}
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-stone-600">
-                                Email
-                            </label>
-                            <div className="mt-2.5">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    autoComplete="email"
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                />
-                                {state.errors?.email && <p className="text-sm text-red-600 mt-1">{state.errors.email.join(', ')}</p>}
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="phone" className="block text-sm font-semibold leading-6 text-stone-600">
-                                Số điện thoại (Không bắt buộc)
-                            </label>
-                            <div className="mt-2.5">
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    id="phone"
-                                    autoComplete="tel"
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-stone-600">
-                                Nội dung yêu cầu
-                            </label>
-                            <div className="mt-2.5">
-                                <textarea
-                                    name="message"
-                                    id="message"
-                                    rows={4}
-                                    className="block w-full rounded-md border-0 px-3.5 py-2 text-base-content shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                    defaultValue={''}
-                                />
-                                {state.errors?.message && <p className="text-sm text-red-600 mt-1">{state.errors.message.join(', ')}</p>}
-                            </div>
-                        </div>
-                        <SubmitButton />
-                        {state.message && <p className={`text-sm mt-2 ${state.errors ? 'text-red-600' : 'text-green-600'}`}>{state.message}</p>}
-                    </form>
+                    {/* Contact Form - Now a Client Component */}
+                    <ContactForm />
                 </div>
             </div>
         </div>
       </main>
-      <Footer/>
-    </>
   );
 }

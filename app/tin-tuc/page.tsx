@@ -1,12 +1,18 @@
-import { blogPosts } from '@/lib/data';
+import { getAllNews } from '@/lib/data';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, User, Clock, ArrowRight, Tag, Search, TrendingUp } from 'lucide-react';
-export default function TinTucPage() {
-  const featuredPost = blogPosts[0];
-  const recentPosts = blogPosts.slice(1, 4);
-  const allPosts = blogPosts.slice(4);
+import { Calendar, User, ArrowRight, Tag, Search, TrendingUp } from 'lucide-react';
 
+export default async function TinTucPage() {
+  // CORRECTED: Import path and function name
+  const news = await getAllNews();
+
+  // Handle case where news might be empty
+  const featuredPost = news.length > 0 ? news[0] : null;
+  const recentPosts = news.length > 1 ? news.slice(1, 4) : [];
+  const allPosts = news.length > 4 ? news.slice(4) : [];
+
+  // NOTE: Categories and Tags are hardcoded for now as they are not in the data model.
   const categories = [
     { name: 'Hướng dẫn Visa', count: 15 },
     { name: 'Tin tức', count: 23 },
@@ -19,8 +25,6 @@ export default function TinTucPage() {
 
   return (
     <main>
-      
-      {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 py-20 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -29,8 +33,6 @@ export default function TinTucPage() {
               Cập nhật những thông tin mới nhất và hướng dẫn chi tiết về visa
             </p>
           </div>
-          
-          {/* Search Bar */}
           <div className="max-w-lg mx-auto">
             <div className="relative">
               <input
@@ -48,181 +50,153 @@ export default function TinTucPage() {
 
       <div className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Featured Article */}
-            <div className="mb-16">
-              <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <TrendingUp size={16} />
-                Bài viết nổi bật
-              </div>
-              
-              <article className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
-                <div className="aspect-video overflow-hidden">
-                  <Image 
-                    src={featuredPost.imageUrl} 
-                    alt={featuredPost.title}
-                    width={800}
-                    height={450}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
+            {featuredPost && (
+              <div className="mb-16">
+                <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                  <TrendingUp size={16} />
+                  Bài viết nổi bật
                 </div>
-                <div className="p-8">
-                  <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      {featuredPost.date}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <User size={16} />
-                      {featuredPost.author}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} />
-                      {featuredPost.readTime} phút đọc
-                    </div>
+                <article className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+                  <div className="aspect-video overflow-hidden">
+                    {/* CORRECTED: Use avatarUrl */}
+                    <Image 
+                      src={featuredPost.avatarUrl} 
+                      alt={featuredPost.title}
+                      width={800}
+                      height={450}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-blue-600 transition-colors">
-                    <Link href={`/tin-tuc/${featuredPost.slug}`}>
-                      {featuredPost.title}
-                    </Link>
-                  </h2>
-                  
-                  <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                    {featuredPost.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-2">
-                      {featuredPost.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <Link 
-                      href={`/tin-tuc/${featuredPost.slug}`}
-                      className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors font-semibold"
-                    >
-                      Đọc tiếp
-                      <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            </div>
-
-            {/* Recent Posts Grid */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Bài viết gần đây</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {recentPosts.map((post) => (
-                  <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div className="aspect-video overflow-hidden">
-                      <Image 
-                        src={post.imageUrl} 
-                        alt={post.title}
-                        width={400}
-                        height={225}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
-                        <span>{post.date}</span>
-                        <span>•</span>
-                        <span>{post.readTime} phút đọc</span>
+                  <div className="p-8">
+                    <div className="flex items-center gap-6 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={16} />
+                        {featuredPost.date}
                       </div>
-                      
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
-                        <Link href={`/tin-tuc/${post.slug}`}>
-                          {post.title}
-                        </Link>
-                      </h4>
-                      
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                      
+                      <div className="flex items-center gap-2">
+                        <User size={16} />
+                        {featuredPost.author}
+                      </div>
+                    </div>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-blue-600 transition-colors">
+                      <Link href={`/tin-tuc/${featuredPost.slug}`}>
+                        {featuredPost.title}
+                      </Link>
+                    </h2>
+                    <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                      {featuredPost.excerpt}
+                    </p>
+                    <div className="flex items-center justify-end">
+                      {/* REMOVED: featuredPost.category does not exist */}
                       <Link 
-                        href={`/tin-tuc/${post.slug}`}
-                        className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                        href={`/tin-tuc/${featuredPost.slug}`}
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors font-semibold"
                       >
-                        Xem chi tiết
-                        <ArrowRight size={14} />
+                        Đọc tiếp
+                        <ArrowRight size={16} />
                       </Link>
                     </div>
-                  </article>
-                ))}
+                  </div>
+                </article>
               </div>
-            </div>
+            )}
 
-            {/* All Posts */}
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Tất cả bài viết</h3>
-              <div className="space-y-6">
-                {allPosts.map((post) => (
-                  <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div className="md:flex">
-                      <div className="md:w-1/3">
-                        <div className="aspect-video md:aspect-square overflow-hidden">
-                          <Image 
-                            src={post.imageUrl} 
-                            alt={post.title}
-                            width={300}
-                            height={200}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
+            {recentPosts.length > 0 && (
+              <div className="mb-16">
+                <h3 className="text-2xl font-bold text-gray-900 mb-8">Bài viết gần đây</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {recentPosts.map((post) => (
+                    <article key={post.slug} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div className="aspect-video overflow-hidden">
+                        {/* CORRECTED: Use avatarUrl */}
+                        <Image 
+                          src={post.avatarUrl} 
+                          alt={post.title}
+                          width={400}
+                          height={225}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
                       </div>
-                      <div className="md:w-2/3 p-6">
+                      <div className="p-6">
                         <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
                           <span>{post.date}</span>
-                          <span>•</span>
-                          <span>Bởi {post.author}</span>
-                          <span>•</span>
-                          <span>{post.readTime} phút đọc</span>
                         </div>
-                        
-                        <h4 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
+                        <h4 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
                           <Link href={`/tin-tuc/${post.slug}`}>
                             {post.title}
                           </Link>
                         </h4>
-                        
-                        <p className="text-gray-600 mb-4 line-clamp-2">
+                        <p className="text-gray-600 mb-4 line-clamp-3">
                           {post.excerpt}
                         </p>
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-wrap gap-2">
-                            {post.tags.slice(0, 2).map((tag, index) => (
-                              <span key={index} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">
-                                {tag}
-                              </span>
-                            ))}
+                        <Link 
+                          href={`/tin-tuc/${post.slug}`}
+                          className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                        >
+                          Xem chi tiết
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {allPosts.length > 0 && (
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-8">Tất cả bài viết</h3>
+                <div className="space-y-6">
+                  {allPosts.map((post) => (
+                    <article key={post.slug} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                      <div className="md:flex">
+                        <div className="md:w-1/3">
+                          <div className="aspect-video md:aspect-square overflow-hidden">
+                            {/* CORRECTED: Use avatarUrl */}
+                            <Image 
+                              src={post.avatarUrl} 
+                              alt={post.title}
+                              width={300}
+                              height={200}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                            />
                           </div>
-                          
-                          <Link 
-                            href={`/tin-tuc/${post.slug}`}
-                            className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-                          >
-                            Đọc tiếp →
-                          </Link>
+                        </div>
+                        <div className="md:w-2/3 p-6">
+                          <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
+                            <span>{post.date}</span>
+                            <span>•</span>
+                            <span>Bởi {post.author}</span>
+                          </div>
+                          <h4 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
+                            <Link href={`/tin-tuc/${post.slug}`}>
+                              {post.title}
+                            </Link>
+                          </h4>
+                          <p className="text-gray-600 mb-4 line-clamp-2">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center justify-end">
+                            {/* REMOVED: post.category does not exist */}
+                            <Link 
+                              href={`/tin-tuc/${post.slug}`}
+                              className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                            >
+                              Đọc tiếp →
+                            </Link>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-8">
-            {/* Categories */}
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h4 className="text-xl font-bold text-gray-900 mb-6">Danh mục</h4>
               <div className="space-y-3">
@@ -243,7 +217,6 @@ export default function TinTucPage() {
               </div>
             </div>
 
-            {/* Popular Tags */}
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h4 className="text-xl font-bold text-gray-900 mb-6">Tags phổ biến</h4>
               <div className="flex flex-wrap gap-2">
@@ -260,43 +233,44 @@ export default function TinTucPage() {
               </div>
             </div>
 
-            {/* Latest Posts */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h4 className="text-xl font-bold text-gray-900 mb-6">Bài viết mới nhất</h4>
-              <div className="space-y-4">
-                {blogPosts.slice(0, 4).map((post) => (
-                  <Link 
-                    key={post.id}
-                    href={`/tin-tuc/${post.slug}`}
-                    className="block group"
-                  >
-                    <div className="flex gap-3">
-                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                        <Image 
-                          src={post.imageUrl} 
-                          alt={post.title}
-                          width={64}
-                          height={64}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
+            {news.length > 0 && (
+              <div className="bg-white rounded-xl shadow-lg p-6">
+                <h4 className="text-xl font-bold text-gray-900 mb-6">Bài viết mới nhất</h4>
+                <div className="space-y-4">
+                  {news.slice(0, 4).map((post) => (
+                    <Link 
+                      key={post.slug}
+                      href={`/tin-tuc/${post.slug}`}
+                      className="block group"
+                    >
+                      <div className="flex gap-3">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                          {/* CORRECTED: Use avatarUrl */}
+                          <Image 
+                            src={post.avatarUrl} 
+                            alt={post.title}
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors mb-1">
+                            {post.title}
+                          </h5>
+                          <p className="text-xs text-gray-500">
+                            {post.date}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h5 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors mb-1">
-                          {post.title}
-                        </h5>
-                        <p className="text-xs text-gray-500">
-                          {post.date}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
-      
     </main>
   );
 }

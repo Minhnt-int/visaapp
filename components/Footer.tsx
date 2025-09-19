@@ -1,4 +1,5 @@
-import { footerInfo, contactInfo, visaCategories } from "@/lib/data";
+
+import { getContactInfo, getVisaCategories, getTourCategories } from "@/lib/data"; // CORRECT: Import async functions
 import Link from "next/link";
 import { 
   Facebook, 
@@ -16,12 +17,33 @@ import {
 
 const socialIcons = {
   Facebook: Facebook,
-  MessageCircle: MessageSquare,
-  Mail: Mail,
+  Instagram: MessageSquare, // Placeholder
+  Twitter: Mail, // Placeholder
   Youtube: Youtube
 };
 
-export default function Footer() {
+export default async function Footer() {
+  // CORRECT: Fetch all necessary data asynchronously
+  const contactInfo = await getContactInfo();
+  const visaCategories = await getVisaCategories();
+  const tourCategories = await getTourCategories();
+
+  const footerInfo = {
+      companyName: "Visa5s",
+      description: "Chuyên cung cấp dịch vụ visa và tour du lịch trọn gói uy tín hàng đầu. Đồng hành cùng bạn trên mọi hành trình.",
+      socials: [
+          { label: "Facebook", href: contactInfo.facebook, icon: "Facebook" },
+          { label: "Zalo", href: contactInfo.zalo, icon: "Instagram" }, // Using Instagram icon for Zalo
+          { label: "Email", href: `mailto:${contactInfo.email}`, icon: "Twitter" }, // Using Twitter icon for Mail
+      ],
+      quickLinks: [
+        { label: "Về chúng tôi", href: "/ve-chung-toi" },
+        { label: "Câu hỏi thường gặp", href: "/faq" },
+        { label: "Chính sách bảo mật", href: "/chinh-sach-bao-mat" },
+        { label: "Điều khoản sử dụng", href: "/dieu-khoan-su-dung" },
+      ]
+  }
+
   return (
     <footer className="bg-gray-900 text-white">
       {/* Newsletter Section */}
@@ -66,10 +88,8 @@ export default function Footer() {
                 <div className="text-xs text-gray-400">Uy tín - Nhanh chóng - Hiệu quả</div>
               </div>
             </div>
-            <h4 className="font-semibold text-white mb-3 text-sm">{footerInfo.fullCompanyName}</h4>
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">{footerInfo.description}</p>
             
-            {/* Trust Badges */}
             <div className="flex items-center gap-2 mb-6">
               <div className="flex items-center gap-2 bg-green-600/10 text-green-400 px-3 py-1 rounded-lg text-xs border border-green-600/20">
                 <Shield size={14} />
@@ -81,21 +101,18 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="flex gap-3">
               {footerInfo.socials.map((social) => {
                 const Icon = socialIcons[social.icon as keyof typeof socialIcons];
-                if (!Icon) {
-                  return null;
-                }
+                if (!Icon) return null;
                 return (
                   <a 
-                    key={social.name} 
+                    key={social.label} 
                     href={social.href} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="w-9 h-9 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 border border-gray-700"
-                    title={social.name}
+                    title={social.label}
                   >
                     <Icon size={16} />
                   </a>
@@ -108,10 +125,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Dịch Vụ Visa</h3>
             <ul className="space-y-2">
-              {Object.entries(visaCategories).slice(0, 6).map(([key, category]) => (
-                <li key={key}>
+              {visaCategories.slice(0, 4).map((category) => (
+                <li key={category.slug}>
                   <Link 
-                    href={`/dich-vu/${key}`}
+                    href={`/dich-vu/${category.slug}`}
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 text-sm"
                   >
                     <ArrowRight size={12} className="text-blue-400" />
@@ -122,18 +139,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Tour Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Thông Tin Hữu Ích</h3>
-            <ul className="space-y-2">
-              {footerInfo.quickLinks.slice(0, 6).map((link) => (
-                <li key={link.name}>
+            <h3 className="text-lg font-semibold mb-4 text-white">Tour Du Lịch</h3>
+             <ul className="space-y-2">
+              {tourCategories.slice(0, 4).map((category) => (
+                <li key={category.slug}>
                   <Link 
-                    href={link.href}
+                    href={`/tour-du-lich/${category.slug}`}
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 text-sm"
                   >
                     <ArrowRight size={12} className="text-orange-400" />
-                    {link.name}
+                    {category.name}
                   </Link>
                 </li>
               ))}
@@ -147,7 +164,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-blue-400 mt-1" />
                 <div className="text-sm">
-                  <p className="text-gray-300">{contactInfo.addresses.hcm}</p>
+                  <p className="text-gray-300">{contactInfo.address}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">

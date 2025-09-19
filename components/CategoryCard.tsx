@@ -1,18 +1,21 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { TourCategory } from '@/types'; // CORRECTED: Import type
 
 /**
  * Component hiển thị danh mục tour theo châu lục
  */
-export function CategoryCard({ categorySlug, category }: { categorySlug: string; category: any }) {
+// CORRECTED: Update props to use TourCategory type
+export function CategoryCard({ category }: { category: TourCategory }) {
   return (
     <Link 
-      href={`/tour-du-lich/${categorySlug}`}
+      href={`/tour-du-lich/${category.slug}`}
       className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
     >
       <div className="aspect-[16/10] overflow-hidden">
         <Image
+          // Use the image of the first tour in the category as the background
           src={category.tours[0]?.image || '/images/placeholder-tour.jpg'}
           alt={category.name}
           width={600}

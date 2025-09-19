@@ -2,36 +2,31 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-
-interface Service {
-  id: number;
-  slug: string;
-  imageUrl: string;
-  title: string;
-  description: string;
-}
+import { Service } from '@/types';
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
     <article 
-      className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 group overflow-hidden h-full flex flex-col"
+      className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group overflow-hidden h-full flex flex-col"
     >
-      <Link href={`/dich-vu/${service.slug}`} className="block h-full flex flex-col">
-        {/* Image Container */}
+      {/* CORRECTED: The link now uses categorySlug and slug for the correct routing. */}
+      <Link href={`/dich-vu/${service.categorySlug}/${service.slug}`} className="block h-full flex flex-col">
         <div className="relative h-48 overflow-hidden rounded-t-2xl">
           <Image
-            src={service.imageUrl}
+            src={service.image}
             alt={service.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
+           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+           <div className="absolute bottom-4 left-4">
+              <h3 className="text-white text-xl font-bold">
+                {service.title}
+              </h3>
+            </div>
         </div>
         
-        {/* Content Container */}
         <div className="p-5 flex flex-col flex-grow">
-          <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors duration-300">
-            {service.title}
-          </h3>
           <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
             {service.description}
           </p>

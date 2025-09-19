@@ -1,34 +1,23 @@
-"use client";
+'use client';
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, MessageCircle, CheckCircle, Shield, Award, Users, Clock, Search } from "lucide-react";
+import { ArrowRight, CheckCircle, Shield, Award, Users, Clock } from "lucide-react";
+import { SearchContainer } from '@/components/search/SearchContainer'; // Quay lại SearchContainer
 
-// Hero Section theo phong cách Visana.vn - Banner với search bar đè lên
 export default function Hero() {
   return (
     <div className="relative bg-gray-50">
-      {/* Main Hero Banner với Background Image */}
+      {/* Main Hero Banner */}
       <section className="relative min-h-[33vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1920')`
           }}
         />
-        
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
-        
-        {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 text-center text-white py-4">
-          {/* Badge */}
-          {/* <div className="inline-flex items-center gap-2 bg-orange-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium mb-2">
-            🌟 Đối tác tin cậy cho hành trình của bạn
-          </div> */}
-
-          {/* Main Slogan - Compact 3 lines */}
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">
             <span className="inline">Dịch vụ </span>
             <span className="inline text-gray-200">Visa & Tour </span>
@@ -36,39 +25,23 @@ export default function Hero() {
               Uy tín - Nhanh chóng - Hiệu quả
             </span>
           </h1>
-
           <p className="text-sm md:text-base mb-4 opacity-90 max-w-xl mx-auto leading-relaxed">
             15+ năm kinh nghiệm, tỷ lệ đậu visa 99%
           </p>
         </div>
       </section>
 
-      {/* Search Bar đè lên - Floating */}
-      <div className="relative z-30 -mt-12">
+      {/* Floating Search Box */}
+      <div className="relative z-10 -mt-12">
         <div className="container mx-auto px-4">
           <div className="bg-white border border-gray-200 rounded-lg p-6 max-w-4xl mx-auto">
-            {/* Search Header */}
             <div className="text-center mb-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">Tìm kiếm dịch vụ</h3>
-              <p className="text-gray-600 text-sm">Chọn dịch vụ phù hợp với nhu cầu của bạn</p>
+              <p className="text-gray-600 text-sm">Tìm visa, tour du lịch, hoặc thông tin bạn cần...</p>
             </div>
             
-            {/* Search Form */}
-            <div className="flex flex-col lg:flex-row gap-4 mb-6">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Tìm kiếm visa, tour du lịch..."
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-base"
-                  />
-                </div>
-              </div>
-              <button className="bg-gray-700 hover:bg-gray-800 text-white font-medium px-6 py-3 rounded-md transition-colors duration-200 flex items-center justify-center gap-2">
-                <Search size={18} />
-                Tìm kiếm
-              </button>
+            <div className="max-w-xl mx-auto mb-6">
+              <SearchContainer placeholder="Nhập tên quốc gia, loại visa..."/>
             </div>
 
             {/* CTA Buttons */}
@@ -81,7 +54,6 @@ export default function Hero() {
                 Dịch Vụ Visa
                 <ArrowRight size={16} />
               </Link>
-              
               <Link 
                 href="/tour-du-lich"
                 className="inline-flex items-center justify-center gap-2 border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-800 font-medium px-5 py-2.5 rounded-md transition-colors duration-200"
@@ -95,8 +67,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Company Introduction Card */}
-      <section className="py-16 relative">
+      {/* Company Introduction Section */}
+       <section className="py-16 relative">
         <div className="container mx-auto px-4">
 
           {/* Stats Grid */}
