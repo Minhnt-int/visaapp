@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllVisaCountries } from '@/lib/api';
+import { getVisaCategories } from '@/lib/api';
 
 /**
  * Dynamic sitemap generation cho Next.js App Router
@@ -74,13 +74,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Dynamic visa pages từ API
     let visaPages: MetadataRoute.Sitemap = [];
     try {
-      const visaCountries = await getAllVisaCountries();
-      visaPages = visaCountries.map((country) => ({
-        url: `${baseUrl}/dich-vu/${country.categorySlug}/${country.slug}`,
-        lastModified: new Date(country.updatedAt),
-        changeFrequency: 'weekly' as const,
-        priority: 0.9, // High priority for service pages
-      }));
+      const visaCategories = await getVisaCategories();
+      visaPages = visaCategories.flatMap((category) =>
+        category.countries.map((country) => ({
+          url: `${baseUrl}/dich-vu/${category.slug}/${country.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.9,
+        }))
+      );
       
       console.log(`✅ Generated ${visaPages.length} visa pages for sitemap`);
     } catch (error) {
