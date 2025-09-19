@@ -23,8 +23,26 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
       
-      const data = await getVisaCategories();
-      setVisaCategories(data);
+      // Fetch both static categories and dynamic country data
+      const [categories, countriesRes] = await Promise.all([
+        getVisaCategories(),
+        fetch('/api/visa').then(res => res.json())
+      ]);
+      
+      // If we have country data, attach it to the matching category
+      if (countriesRes.success && countriesRes.data) {
+        const countriesByContinent = countriesRes.data;
+        
+        // Combine static categories with dynamic country lists
+        const enrichedCategories = categories.map(category => ({
+          ...category,
+          countries: countriesByContinent[category.slug] || []
+        }));
+        
+        setVisaCategories(enrichedCategories);
+      } else {
+        setVisaCategories(categories);
+      }
       
     } catch (err) {
       console.error('❌ Error loading visa categories:', err); 

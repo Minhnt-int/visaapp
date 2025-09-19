@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
-import { VisaImageType } from "@/types";
+import { VisaImage } from "@/types";
 
 interface VisaImagesGalleryProps {
-  visaImages: VisaImageType[];
+  visaImages: VisaImage[];
   countryName: string;
 }
 

@@ -123,12 +123,6 @@ export interface ProcessStep {
   icon: LucideIconType;
 }
 
-export interface VisaImageType {
-  type: string;
-  url: string;
-  description: string;
-}
-
 export interface VisaRequirementDocType {
   type: string; 
   docs: string[];
@@ -182,20 +176,28 @@ export interface RelatedArticle {
   image: string; 
 }
 
+export interface VisaImage {
+  type: string;
+  url: string;
+  description: string;
+}
+
 // This is the primary data structure for a single visa detail page.
 export interface VisaDetail {
   title: string;
   heroImage: string;
   successRate: string;
   processingTime: string;
+  visaImages?: VisaImage[];
   description: string;
   services: string[];
   visaTypes: VisaPageVisaType[];
   pricing: PricingTypeItem[];
   testimonials: Testimonial[];
   relatedArticles: RelatedArticle[];
-  visaImages?: VisaImageType[];
   icon?: string; 
   benefits?: Benefit[];
   process?: ProcessStep[];
+  continentSlug: string;
+  popularPlaces?: string[];
 }

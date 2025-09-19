@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { visaCategories } from '@/lib/visa-mock-data';
+import { mockVisaCategories } from '@/lib/mock-data';
 
 export async function GET() {
-  return NextResponse.json(visaCategories);
+  return NextResponse.json(mockVisaCategories);
 }
