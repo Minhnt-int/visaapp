@@ -64,34 +64,6 @@ export const navigationLinks: NavItem[] = [
 // MOCK DATA
 // =========================================================================
 
-// Correctly typed mockServices array
-export const mockServices: Service[] = [
-    {
-        id: "visa-my",
-        slug: "visa-my",
-        title: "Visa Mỹ (Du lịch, Công tác, Thăm thân)",
-        country: "Mỹ",
-        category: "Visa Châu Mỹ",
-        categorySlug: "visa-chau-my",
-        image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2070&auto=format&fit=crop",
-        description: "Dịch vụ tư vấn và hoàn thiện hồ sơ xin visa Mỹ trọn gói, giúp bạn tăng tỷ lệ đậu và tiết kiệm thời gian.",
-        price: "Liên hệ",
-        successRate: "98%",
-    },
-    {
-        id: "visa-nhat-ban",
-        slug: "visa-nhat-ban",
-        title: "Visa Nhật Bản (Du lịch, Công tác)",
-        country: "Nhật Bản",
-        category: "Visa Châu Á",
-        categorySlug: "visa-chau-a",
-        image: "/images/services/visa-japan.jpg",
-        description: "Xin visa Nhật Bản nhanh chóng và dễ dàng với dịch vụ của chúng tôi.",
-        price: "1.500.000 VNĐ",
-        successRate: "99%",
-    }
-];
-
 export const mockHomepageServices: HomepageService[] = [
   { slug: "visa-doanh-nghiep", title: "Visa Doanh Nghiệp", description: "Giải pháp visa cho công ty, đoàn thể đi công tác, hội thảo.", image: "/images/services/service-1.jpg" },
   { slug: "visa-ca-nhan", title: "Visa Cá Nhân", description: "Dịch vụ visa du lịch, thăm thân cho các cá nhân và gia đình.", image: "/images/services/service-2.jpg" },

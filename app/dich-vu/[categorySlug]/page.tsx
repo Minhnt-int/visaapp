@@ -7,7 +7,8 @@ import {
   MessageSquare, FileText, CalendarCheck, CheckCircle,
   LucideIcon
 } from "lucide-react";
-import { getVisaCategoryBySlug, getAllServices } from "@/lib/data"; // CORRECTED: Import modern data fetching functions
+import { getVisaCategoryBySlug } from "@/lib/data"; // CORRECTED: Import modern data fetching functions
+import { getServicesByCategorySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { ServiceCard } from "@/components/ServiceCard";
 import { Service } from "@/types";
 
@@ -73,8 +74,7 @@ export default async function VisaCategoryPage({ params }: PageProps) {
   }
 
   // CORRECTED: Fetch all services and filter by the current category slug.
-  const allServices = await getAllServices();
-  const categoryServices = allServices.filter(s => s.categorySlug === params.categorySlug);
+  const categoryServices = await getServicesByCategorySlug(params.categorySlug);
 
   return (
     <main>

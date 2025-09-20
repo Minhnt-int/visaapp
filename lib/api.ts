@@ -66,6 +66,13 @@ export async function getVisaDetail(id: string): Promise<VisaDetail | null> {
     return fetcher<VisaDetail>(`/visa-details/${id}`, [`visa-detail-${id}`]);
 }
 
+// Fake API call mới để lấy dịch vụ theo category slug
+export async function getServicesByCategorySlug(categorySlug: string): Promise<Service[]> {
+  // Lọc mockServices theo categorySlug
+  let services = await getServices()
+  return services.filter(service => service.categorySlug === categorySlug);
+}
+
 // =========================================================================
 // DERIVED/HELPER FUNCTIONS (Client-side processing)
 // =========================================================================

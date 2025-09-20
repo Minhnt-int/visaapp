@@ -25,12 +25,9 @@ export interface Service {
   slug: string;        // e.g., 'my'
   title: string;       // e.g., 'Visa Mỹ (Du lịch, Công tác, Thăm thân)'
   country: string;     // e.g., 'Mỹ'
-  category: string;    // e.g., 'Visa Châu Mỹ'
   categorySlug: string;// e.g., 'visa-chau-my'
   image: string;       // URL to hero image
   description: string;
-  price?: string;      // A representative price string, e.g., "1.500.000 VNĐ" or "Liên hệ"
-  successRate?: string;// e.g., '99%'
 }
 
 

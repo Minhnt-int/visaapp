@@ -1,12 +1,12 @@
-import { getVisaCategories, getAllServices } from '@/lib/data'; 
+import { visaCategories } from '@/lib/visa-mock-data'; 
+import { getServices } from '@/lib/api'; 
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Globe } from 'lucide-react';
 
 export default async function DichVuPage() {
-  const visaCategories = await getVisaCategories();
-  const allServices = await getAllServices(); // CORRECTED: Fetch all services with the correct function
-
+  const allServices = await getServices(); // CORRECTED: Fetch all services with the correct function
+  console.log(allServices)
   return (
     <>
       <main>
@@ -67,7 +67,7 @@ export default async function DichVuPage() {
           {visaCategories.map((category) => {
             // CORRECTED: Filtering by `service.category` instead of the old `service.continent`.
             const servicesForCategory = allServices.filter(
-              (service) => service.category === category.name
+              (service) => service.categorySlug === category.slug
             );
 
             return (

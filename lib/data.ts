@@ -1,7 +1,6 @@
 
 import { Service, VisaDetail, Tour, News, VisaCategory, TourCategory, NavItem } from '@/types';
 import { 
-    mockServices, 
     mockVisaPageData, 
     mockTours, 
     mockNews, 
@@ -36,14 +35,31 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
 
 export async function getAllServices(): Promise<Service[]> {
   await delay(100);
-  return mockServices;
+  const transformedData = Object.keys(mockVisaPageData).map(countryKey => {
+    const countryData = mockVisaPageData[countryKey];
+    
+    // Lấy tên quốc gia từ key và viết hoa chữ cái đầu
+    const countryName = countryKey.charAt(0).toUpperCase() + countryKey.slice(1);
+    
+    return {
+        id: `visa-${countryKey}`,
+        slug: `visa-${countryKey}`,
+        title: countryData.title,
+        country: countryName,
+        categorySlug: countryData.continentSlug,
+        image: countryData.heroImage,
+        description: countryData.description,
+    };
+});
+  return transformedData;
 }
 
 // CORRECT: Add the missing function
 export async function getHomepageServices(): Promise<Service[]> {
     await delay(100);
+    let services = await getAllServices();
     // Return only the first 3 services for the homepage
-    return mockServices.slice(0, 3);
+    return services.slice(0, 3);
 }
 
 export async function getVisaDetailById(id: string): Promise<VisaDetail | undefined> {
