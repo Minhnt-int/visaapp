@@ -28,6 +28,8 @@ export interface Service {
   categorySlug: string;// e.g., 'visa-chau-my'
   image: string;       // URL to hero image
   description: string;
+  successRate?: string;
+  services?: string[];
 }
 
 

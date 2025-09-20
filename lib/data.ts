@@ -49,6 +49,8 @@ export async function getAllServices(): Promise<Service[]> {
         categorySlug: countryData.continentSlug,
         image: countryData.heroImage,
         description: countryData.description,
+        successRate: countryData.successRate,
+        services: countryData.services,
     };
 });
   return transformedData;

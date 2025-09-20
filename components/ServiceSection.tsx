@@ -1,27 +1,46 @@
 import React from 'react';
 import { ServiceCard } from './ServiceCard';
-import { getAllServices } from '@/lib/data'; 
+import { Service } from '@/types';
+import { visaCategories } from '@/lib/visa-mock-data';
 
-// This is a Server Component, it fetches its own data.
-export default async function ServiceSection() { 
-  const services = await getAllServices();
+interface ServiceSectionProps {
+  services: Service[];
+}
 
+export default function ServiceSection({ services }: ServiceSectionProps) {
   return (
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Dịch vụ nổi bật</h2>
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-              Chúng tôi cung cấp các giải pháp visa toàn diện, nhanh chóng và chuyên nghiệp cho các điểm đến hàng đầu thế giới.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Safely slice the array after ensuring it exists */}
-            {services && services.slice(0, 3).map((service) => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+    <section id="dich-vu-noi-bat" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        {visaCategories.map((category) => {
+          const servicesForCategory = services.filter(
+            (service) => service.categorySlug === category.slug
+          );
+
+          if (servicesForCategory.length === 0) {
+            return null; // Don't render the category if there are no services
+          }
+
+          return (
+            <div key={category.slug} className="mb-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  {category.name}
+                </h2>
+                <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                  {category.description}
+                </p>
+                <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full mt-4"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {servicesForCategory.map((service) => (
+                  <ServiceCard key={service.id} service={service} />
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}

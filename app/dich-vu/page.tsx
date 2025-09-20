@@ -3,10 +3,11 @@ import { getServices } from '@/lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Globe } from 'lucide-react';
+import ServiceSection from '@/components/ServiceSection';
 
 export default async function DichVuPage() {
-  const allServices = await getServices(); // CORRECTED: Fetch all services with the correct function
-  console.log(allServices)
+  const allServices = await getServices();
+  
   return (
     <>
       <main>
@@ -62,68 +63,7 @@ export default async function DichVuPage() {
           </div>
         </div>
 
-      <section id="dich-vu-noi-bat" className="py-20">
-        <div className="container mx-auto px-4">
-          {visaCategories.map((category) => {
-            // CORRECTED: Filtering by `service.category` instead of the old `service.continent`.
-            const servicesForCategory = allServices.filter(
-              (service) => service.categorySlug === category.slug
-            );
-
-            return (
-              <div key={category.slug} className="mb-16">
-                <div className="text-center mb-12">
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {category.name}
-                  </h2>
-                  <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto rounded-full"></div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {servicesForCategory.length > 0 ? (
-                    servicesForCategory.map((service) => (
-                      <div key={service.id} className="group">
-                        <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                          <div className="relative h-48 overflow-hidden">
-                            <Image
-                              src={service.image}
-                              alt={`Visa ${service.country}`}
-                              fill
-                              className="object-cover transition-transform duration-300 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                            <div className="absolute bottom-4 left-4">
-                              <h3 className="text-white text-xl font-bold">
-                                Visa {service.country}
-                              </h3>
-                            </div>
-                          </div>
-
-                          <div className="p-6">
-                            <p className="text-gray-600 text-sm mb-4 min-h-[40px]">{service.title}</p>
-
-                            <Link 
-                              href={`/dich-vu/${category.slug}/${service.id}`}
-                              className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 group"
-                            >
-                              <span>Xem Chi Tiết</span>
-                              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="col-span-full text-center py-8 text-gray-500">
-                      Chưa có dịch vụ nào trong danh mục này.
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+        <ServiceSection services={allServices} />
       </main>
     </>
   );
