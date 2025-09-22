@@ -9,7 +9,7 @@ interface HomepageServiceCardProps {
 const HomepageServiceCard: React.FC<HomepageServiceCardProps> = ({ service }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden group">
-      <Link href={`/${service.slug}`} className="block h-full flex flex-col">
+      <Link href={`/dich-vu/${service.categorySlug}/${service.slug}`} className="block h-full flex flex-col">
         <div className="relative h-48 overflow-hidden">
           <Image
             src={service.image}

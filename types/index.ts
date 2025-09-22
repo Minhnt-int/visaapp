@@ -17,6 +17,7 @@ export interface HomepageService {
   title: string;
   description: string;
   image: string;
+  categorySlug: string; // Added to resolve the error
 }
 
 // CORRECTED: Redefined the Service interface to match the new, dynamic data structure.

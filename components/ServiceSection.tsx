@@ -12,11 +12,11 @@ export default function ServiceSection({ services }: ServiceSectionProps) {
     <section id="dich-vu-noi-bat" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         {visaCategories.map((category) => {
-          const servicesForCategory = services.filter(
+          const servicesForCategory = services?.filter(
             (service) => service.categorySlug === category.slug
           );
 
-          if (servicesForCategory.length === 0) {
+          if (servicesForCategory?.length === 0) {
             return null; // Don't render the category if there are no services
           }
 
@@ -26,14 +26,14 @@ export default function ServiceSection({ services }: ServiceSectionProps) {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   {category.name}
                 </h2>
-                <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                {/* <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
                   {category.description}
-                </p>
+                </p> */}
                 <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full mt-4"></div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {servicesForCategory.map((service) => (
+                {servicesForCategory?.map((service) => (
                   <ServiceCard key={service.id} service={service} />
                 ))}
               </div>

@@ -60,17 +60,6 @@ export const navigationLinks: NavItem[] = [
     { label: "Liên Hệ", href: "/lien-he" },
 ];
 
-// =========================================================================
-// MOCK DATA
-// =========================================================================
-
-export const mockHomepageServices: HomepageService[] = [
-  { slug: "visa-doanh-nghiep", title: "Visa Doanh Nghiệp", description: "Giải pháp visa cho công ty, đoàn thể đi công tác, hội thảo.", image: "/images/services/service-1.jpg" },
-  { slug: "visa-ca-nhan", title: "Visa Cá Nhân", description: "Dịch vụ visa du lịch, thăm thân cho các cá nhân và gia đình.", image: "/images/services/service-2.jpg" },
-  { slug: "visa-tron-goi", title: "Visa Trọn Gói", description: "Lo từ A-Z, cam kết tỷ lệ đậu cao, tiết kiệm thời gian.", image: "/images/services/service-3.jpg" },
-  { slug: "tu-van-mien-phi", title: "Tư Vấn Miễn Phí", description: "Đánh giá hồ sơ và tư vấn giải pháp tối ưu nhất cho bạn.", image: "/images/services/service-4.jpg" }
-];
-
 export const mockTours: Tour[] = [
   {
     id: "da-nang-hoi-an-hue-4n3d",

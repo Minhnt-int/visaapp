@@ -42,8 +42,8 @@ export async function getAllServices(): Promise<Service[]> {
     const countryName = countryKey.charAt(0).toUpperCase() + countryKey.slice(1);
     
     return {
-        id: `visa-${countryKey}`,
-        slug: `visa-${countryKey}`,
+        id: `${countryKey}`,
+        slug: `${countryKey}`,
         title: countryData.title,
         country: countryName,
         categorySlug: countryData.continentSlug,
