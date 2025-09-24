@@ -1,11 +1,15 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getVisaCategories } from '@/lib/api'; // Use the new API call
-import { VisaCategory } from '@/types'; // Use the updated VisaCategory type
+import { getTourCategories, getVisaCategories, getNewsPreview } from '@/lib/api'; // Use the new API call
+import { ContactInfo, newsPreview, TourCategory, VisaCategory } from '@/types'; // Use the updated VisaCategory type
+import { getContactInfo } from '@/lib/data';
 
 interface VisaDataContextType {
   visaCategories: VisaCategory[];
+  tourCategories: TourCategory[];
+  newsPreview: newsPreview[];
+  contactInfo: ContactInfo;
   loading: boolean;
   error: string | null;
   refreshData: () => Promise<void>;
@@ -15,6 +19,16 @@ const VisaDataContext = createContext<VisaDataContextType | null>(null);
 
 export function VisaDataProvider({ children }: { children: React.ReactNode }) {
   const [visaCategories, setVisaCategories] = useState<VisaCategory[]>([]);
+  const [tourCategories, setTourCategories] = useState<TourCategory[]>([]);
+  const [newsPreview, setNewsPreview] = useState<newsPreview[]>([]);
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({
+    address: '',
+    phone: '',
+    email: '',
+    website: '',
+    facebook: '',
+    zalo: '',
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,17 +38,23 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       setError(null);
       
       // Fetch both static categories and dynamic country data
-      const [categories, countriesRes] = await Promise.all([
+      const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData] = await Promise.all([
         getVisaCategories(),
-        fetch('/api/visa').then(res => res.json())
+        fetch('/api/visa').then(res => res.json()),
+        getTourCategories(),
+        getNewsPreview(),
+        getContactInfo()
       ]);
+
+      const categories = visaCatsRes; // Extract data from visaCatsRes
+      const tourCats = tourCatsRes; // Extract data from tourCatsRes
       
       // If we have country data, attach it to the matching category
       if (countriesRes.success && countriesRes.data) {
         const countriesByContinent = countriesRes.data;
         
         // Combine static categories with dynamic country lists
-        const enrichedCategories = categories.map(category => ({
+        const enrichedCategories = categories.map((category: VisaCategory) => ({
           ...category,
           countries: countriesByContinent[category.slug] || []
         }));
@@ -43,7 +63,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       } else {
         setVisaCategories(categories);
       }
-      
+      setTourCategories(tourCats);
+      setNewsPreview(newsPreviewData);
+      setContactInfo(contactInfoData);
     } catch (err) {
       console.error('❌ Error loading visa categories:', err); 
       setError(err instanceof Error ? err.message : 'Failed to load visa categories');
@@ -62,6 +84,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
 
   const value: VisaDataContextType = {
     visaCategories,
+    tourCategories ,
+    newsPreview,
+    contactInfo,
     loading,
     error,
     refreshData

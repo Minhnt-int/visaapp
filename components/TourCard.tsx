@@ -17,7 +17,7 @@ export default function TourCard({ tour }: { tour: Tour }) {
       <Link href={`/tour-du-lich/tour/${tour.slug}`} className="block h-full flex flex-col">
         <div className="relative h-56 overflow-hidden">
           <Image
-            src={tour.image}
+            src={tour.image || '/placeholder.jpg'}
             alt={tour.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"

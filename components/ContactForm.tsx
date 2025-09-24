@@ -2,12 +2,14 @@
 
 import { useFormState, useFormStatus } from 'react-dom';
 import { handleContactForm, FormState } from '@/app/actions';
-import { useEffect, useRef } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import { postFormContact } from '@/lib/api';
+import { formContact } from '@/types';
+import { z } from 'zod';
+// Define initial state for the form
 const initialState: FormState = {
   message: '',
 };
-
 function SubmitButton() {
   const { pending } = useFormStatus();
 
@@ -24,16 +26,27 @@ function SubmitButton() {
 
 export default function ContactForm() {
   const [state, formAction] = useFormState(handleContactForm, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
-
+  const { pending } = useFormStatus();
   useEffect(() => {
-    if (state.message.includes('thành công')) {
-      formRef.current?.reset();
+    // Kiểm tra nếu state.message báo hiệu thành công và không có lỗi
+    if (state.message && !state.errors && state.message.includes('thành công')) { // Cần điều chỉnh điều kiện kiểm tra thành công
+      // Tìm form element và reset nó
+      const formElement = document.getElementById('contact-form') as HTMLFormElement; // Gán ID cho form
+      if (formElement) {
+        formElement.reset();
+      }
+      // Có thể thêm logic hiển thị modal thành công hoặc redirect
     }
-  }, [state]);
+  }, [state]); // Effect chạy khi state thay đổi
 
+  const [formData, setFormData] = useState<formContact>({ // Sử dụng type formContact
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
   return (
-    <form ref={formRef} action={formAction} className="space-y-6">
+    <form action={formAction} className="space-y-6">
         <div>
             <label htmlFor="name" className="block text-sm font-semibold leading-6 text-stone-600">
                 Họ và tên

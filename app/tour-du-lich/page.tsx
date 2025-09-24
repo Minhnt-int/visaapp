@@ -46,7 +46,7 @@ export default async function TourDuLichPage() {
             {categories.map(category => (
                 <Link key={category.slug} href={`/tour-du-lich/${category.slug}`} className="block group relative rounded-xl overflow-hidden aspect-w-1 aspect-h-1 md:aspect-w-3 md:aspect-h-4">
                     <Image 
-                        src={category.imageUrl}
+                        src={category.imageUrl || "/placeholder.jpg"}
                         alt={category.name}
                         fill
                         style={{ objectFit: "cover" }}

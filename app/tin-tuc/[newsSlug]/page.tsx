@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarDays, User } from 'lucide-react';
 import { Metadata } from 'next';
+import { mockNews } from '@/lib/mock-data'; // Import mockNews để lấy dữ liệu
+    // ... các imports khác
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -12,36 +14,52 @@ interface BlogPostPageProps {
   params: { newsSlug: string };
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = await getNewsBySlug(params.newsSlug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const slug = params.slug;
 
+  // Tìm bài viết tương ứng trong mockNews
+  // Trong thực tế, bạn sẽ gọi API để lấy dữ liệu bài viết dựa trên slug
+  const post = mockNews.find((item) => item.slug === slug);
+
+  // Nếu không tìm thấy bài viết, trả về metadata cho trang 404 hoặc redirect
   if (!post) {
-    return {};
+    return {
+      title: 'Không tìm thấy bài viết',
+      description: 'Bài viết bạn đang tìm kiếm không tồn tại.',
+    };
   }
 
-  const imageUrl = post.avatarUrl.startsWith('http') ? post.avatarUrl : `${SITE_URL}${post.avatarUrl}`;
-
-  return {
-    title: post.metaTitle || post.title,
-    description: post.metaDescription || post.excerpt,
-    keywords: post.metaKeywords ? post.metaKeywords.split(',').map(keyword => keyword.trim()) : [],
+  // Tạo metadata động từ dữ liệu bài viết
+  const metadata: Metadata = {
+    title: post.metaTitle, // Sử dụng tiêu đề bài viết
+    description: post.metaDescription, // Sử dụng mô tả ngắn của bài viết
+    // Nếu bạn có trường keywords trong dữ liệu bài viết, có thể thêm vào đây:
+    // keywords: post.keywords.join(', '),
     openGraph: {
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.excerpt,
-      images: [imageUrl],
-      url: `${SITE_URL}/tin-tuc/${post.slug}`,
-      type: 'article',
-      publishedTime: post.publishedAt,
-      authors: [post.author],
+      title: post.metaTitle,
+      description: post.metaDescription,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/tin-tuc/${post.slug}`,
+      // Thêm hình ảnh nếu có trường image trong dữ liệu bài viết
+      images: post.avatarUrl ? [post.avatarUrl] : [],
+      type: 'article', // Chỉ định loại nội dung là bài viết
+      publishedTime: post.date, // Nếu có trường ngày xuất bản
+      // authors: post.author ? [post.author] : [], // Nếu có trường tác giả
     },
     twitter: {
-      card: 'summary_large_image',
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.excerpt,
-      images: [imageUrl],
+      card: post.avatarUrl ? 'summary_large_image' : 'summary', // Sử dụng large image nếu có ảnh
+      title: post.metaTitle,
+      description: post.metaDescription,
+      images: post.avatarUrl ? [post.avatarUrl] : [],
+    },
+    // Thêm canonical URL
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/tin-tuc/${post.slug}`,
     },
   };
+
+  return metadata;
 }
+
 
 export async function generateStaticParams() {
   const news = await getAllNews();

@@ -9,7 +9,7 @@ export interface NavItem {
 export interface SocialLink {
   label: string;
   href: string;
-  icon: string; 
+  icon: string;
 }
 
 export interface HomepageService {
@@ -74,9 +74,11 @@ export interface News {
   title: string;
   content: string;
   slug: string;
+  keyword?: string[];
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string;
+  description: string;
   author: string;
   publishedAt: string;
   viewCount: number;
@@ -85,14 +87,14 @@ export interface News {
   status: string;
   createdAt: string;
   updatedAt: string;
-  excerpt: string; 
-  date: string; 
+  excerpt: string;
+  date: string;
 }
 
 export interface VisaCategory {
   name: string;
   slug: string;
-  description?: string; 
+  description?: string;
   countries: {
     slug: string;
     name: string;
@@ -105,6 +107,13 @@ export interface TourCategory {
   description: string;
   imageUrl: string;
   tours: Tour[];
+}
+
+export interface BlogCategory {
+  id: number;
+  name: string;
+  slug: string;
+  count: number;
 }
 
 // --- NEW INTERFACES FOR VISA DETAIL PAGE --- 
@@ -124,7 +133,7 @@ export interface ProcessStep {
 }
 
 export interface VisaRequirementDocType {
-  type: string; 
+  type: string;
   docs: string[];
 }
 
@@ -136,8 +145,8 @@ export interface VisaRequirements {
 }
 
 export interface VisaPageVisaType {
-  id: string; 
-  name: string; 
+  id: string;
+  name: string;
   requirements: VisaRequirements;
 }
 
@@ -152,8 +161,8 @@ export interface PricingDetails {
 }
 
 export interface PricingTypeItem {
-  type: string; 
-  name: string; 
+  type: string;
+  name: string;
   description?: string;
   validity?: string;
   stayDuration?: string;
@@ -165,15 +174,15 @@ export interface Testimonial {
   id: string;
   name: string;
   quote: string;
-  rating: number; 
-  image: string; 
+  rating: number;
+  image: string;
 }
 
 export interface RelatedArticle {
   id: string;
   title: string;
   url: string;
-  image: string; 
+  image: string;
 }
 
 export interface VisaImage {
@@ -195,9 +204,60 @@ export interface VisaDetail {
   pricing: PricingTypeItem[];
   testimonials: Testimonial[];
   relatedArticles: RelatedArticle[];
-  icon?: string; 
+  icon?: string;
   benefits?: Benefit[];
   process?: ProcessStep[];
   continentSlug: string;
   popularPlaces?: string[];
 }
+
+export interface newsPreview {
+  id: number;
+  slug: string;
+  imageUrl: string;
+  title: string;
+  category: string;
+  excerpt: string;
+  author: string;
+  date: string;
+  readTime: string;
+}
+
+export interface formContact {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+}
+
+export type ApiResponse<T = any> =
+  // Trạng thái Thành công
+  {
+    status: "success";
+    message: string;
+    data: T; // Dữ liệu thực tế. Kiểu T phụ thuộc vào endpoint cụ thể
+    // Các trường của trạng thái lỗi sẽ không tồn tại ở đây
+    errors?: undefined;
+    // Các trường khác chỉ có khi thành công có thể thêm vào đây
+  } |
+  // Trạng thái Thất bại (fail hoặc error)
+  {
+    status: "error" | "fail"; // "error" cho lỗi server, "fail" cho lỗi client (validation,...)
+    message: string; // Thông báo lỗi ngắn gọn
+    errors?: { // Trường errors tùy chọn
+      [key: string]: string | string[];
+    } | string[];
+    // Trường data sẽ không tồn tại ở đây
+    data?: undefined;
+    // Các trường khác chỉ có khi thất bại có thể thêm vào đây (ví dụ: code lỗi)
+    // code?: number | string;
+  };
+
+  export interface ContactInfo {
+    address: string;
+    phone: string;
+    email: string;
+    website: string;
+    facebook: string;
+    zalo: string;
+  };

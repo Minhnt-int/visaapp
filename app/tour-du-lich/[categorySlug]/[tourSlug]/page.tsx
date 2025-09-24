@@ -153,7 +153,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                 <div className="relative">
                   {tourDetails.image ? (
                     <Image
-                      src={tourDetails.image}
+                      src={tourDetails.image || 'https://via.placeholder.com/1200x800'}
                       alt={tourDetails.name || 'Hình ảnh tour'}
                       width={600}
                       height={400}

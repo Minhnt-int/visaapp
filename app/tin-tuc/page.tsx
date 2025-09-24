@@ -2,10 +2,44 @@ import { getAllNews } from '@/lib/data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, ArrowRight, Tag, Search, TrendingUp } from 'lucide-react';
-
+import { mockNews } from "@/lib/mock-data"; // Import mockNews để tạo metadata tĩnh ban đầu
+// Function to fetch keywords from API
+async function getKeywords() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`); // Gọi API
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch keywords');
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching keywords:", error);
+    return []; // Trả về mảng rỗng nếu có lỗi
+  }
+}
+// Metadata cho trang tin tức (có thể tùy chỉnh)
+export const metadata = {
+  title: 'Tin tức - Dịch vụ Visa và Tour Du lịch',
+  description: 'Cập nhật những tin tức mới nhất về dịch vụ visa, du lịch và các thông tin liên quan.',
+  // Thêm các thẻ openGraph và twitter nếu cần
+  openGraph: {
+    title: 'Tin tức - Dịch vụ Visa và Tour Du lịch',
+    description: 'Cập nhật những tin tức mới nhất về dịch vụ visa, du lịch và các thông tin liên quan.',
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/tin-tuc`,
+    // images: ['/some-image.jpg'], // Thêm hình ảnh nếu có
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tin tức - Dịch vụ Visa và Tour Du lịch',
+    description: 'Cập nhật những tin tức mới nhất về dịch vụ visa, du lịch và các thông tin liên quan.',
+    // images: ['/some-image.jpg'], // Thêm hình ảnh nếu có
+  },
+};
 export default async function TinTucPage() {
   // CORRECTED: Import path and function name
   const news = await getAllNews();
+  const keywords = await getKeywords(); // Lấy dữ liệu keywords từ API
+  const posts = mockNews; // Vẫn sử dụng mockNews cho danh sách bài viết
 
   // Handle case where news might be empty
   const featuredPost = news.length > 0 ? news[0] : null;

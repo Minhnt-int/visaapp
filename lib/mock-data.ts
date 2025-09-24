@@ -9,7 +9,9 @@ import {
     VisaDetail,
     Testimonial,
     RelatedArticle,
-    NavItem
+    NavItem,
+    newsPreview,
+    ContactInfo
 } from '@/types';
 import { Briefcase, UserCheck, Award, ClipboardCheck, MessageSquare, FileText, CalendarCheck, CheckCircle, Shield, Star } from 'lucide-react';
 
@@ -33,7 +35,7 @@ export const siteConfig = {
   ogImage: "https://visa5s.com/og-image.jpg", // Replace with your actual OG image URL
 };
 
-export const contactInfo = {
+export const contactInfo : ContactInfo = {
   address: "Tầng 5, toà nhà APTEK, 77-79-81 Nguyễn Văn Linh, phường Nam Dương, quận Hải Châu, TP. Đà Nẵng",
   phone: "0911.909.686",
   email: "info@visa5s.com",
@@ -109,9 +111,11 @@ export const mockNews: News[] = [
     title: "Bí quyết phỏng vấn visa Mỹ",
     content: "Nội dung chi tiết...",
     slug: "bi-quyet-phong-van-visa-my",
+    keyword: ["visa", "hướng dẫn", "phỏng vấn", "Mỹ"],
     metaTitle: "Bí quyết phỏng vấn visa Mỹ",
     metaDescription: "Mẹo phỏng vấn visa Mỹ",
     metaKeywords: "visa my, phong van",
+    description: "Mẹo phỏng vấn visa Mỹ",
     author: "Chuyên gia Visa",
     publishedAt: "2024-07-29T10:00:00Z",
     viewCount: 1500,
@@ -2052,3 +2056,40 @@ export const mockVisaPageData: Record<string, VisaDetail> = {
         ]
     }
 };
+
+export const newsData : newsPreview[] = [
+    {
+      id: 1,
+      slug: 'bi-quyet-xin-visa-du-lich-my-thanh-cong',
+      imageUrl: '/images/news/news-1.jpg',
+      title: 'Bí quyết xin visa du lịch Mỹ thành công 99%',
+      category: 'Visa Mỹ',
+      excerpt: 'Khám phá những bí quyết và kinh nghiệm thực tế để chuẩn bị hồ sơ và phỏng vấn xin visa du lịch Mỹ một cách hiệu quả nhất.',
+      author: 'Văn phòng visa',
+      date: '15/07/2024',
+      readTime: '6 phút đọc',
+    },
+    {
+      id: 2,
+      slug: 'nhung-thay-doi-moi-nhat-ve-chinh-sach-visa-schengen-2024',
+      imageUrl: '/images/news/news-2.jpg',
+      title: 'Những thay đổi mới nhất về chính sách visa Schengen 2024',
+      category: 'Visa Châu Âu',
+      excerpt: 'Cập nhật các quy định mới, lệ phí và yêu cầu về hồ sơ khi xin visa Schengen để bạn có sự chuẩn bị tốt nhất cho chuyến đi châu Âu.',
+      author: 'Chuyên gia di trú',
+      date: '12/07/2024',
+      readTime: '4 phút đọc',
+    },
+    {
+      id: 3,
+      slug: 'kinh-nghiem-du-lich-bui-han-quoc-khong-can-visa',
+      imageUrl: '/images/news/news-3.jpg',
+      title: 'Kinh nghiệm "săn" vé máy bay giá rẻ đi Canada',
+      category: 'Visa Canada',
+      excerpt: 'Tổng hợp các mẹo và công cụ hữu ích giúp bạn tìm kiếm và đặt vé máy bay đi Canada với chi phí tiết kiệm nhất.',
+      author: 'Travel Blogger',
+      date: '10/07/2024',
+      readTime: '5 phút đọc',
+    },
+  ];
+  

@@ -1,4 +1,4 @@
-
+'use client';
 import { getContactInfo, getVisaCategories, getTourCategories } from "@/lib/data"; // CORRECT: Import async functions
 import Link from "next/link";
 import { 
@@ -14,6 +14,8 @@ import {
   Shield,
   ArrowRight
 } from "lucide-react";
+import { useVisaData } from "@/contexts/VisaDataContext";
+import { useState, useEffect } from "react";
 
 const socialIcons = {
   Facebook: Facebook,
@@ -22,12 +24,9 @@ const socialIcons = {
   Youtube: Youtube
 };
 
-export default async function Footer() {
+export default function Footer() {
   // CORRECT: Fetch all necessary data asynchronously
-  const contactInfo = await getContactInfo();
-  const visaCategories = await getVisaCategories();
-  const tourCategories = await getTourCategories();
-
+const { visaCategories, tourCategories, contactInfo } = useVisaData();
   const footerInfo = {
       companyName: "Visa5s",
       description: "Chuyên cung cấp dịch vụ visa và tour du lịch trọn gói uy tín hàng đầu. Đồng hành cùng bạn trên mọi hành trình.",

@@ -1,45 +1,10 @@
-
+'use client';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { NewsCard } from './NewsCard';
-
-const newsData = [
-  {
-    id: 1,
-    slug: 'bi-quyet-xin-visa-du-lich-my-thanh-cong',
-    imageUrl: '/images/news/news-1.jpg',
-    title: 'Bí quyết xin visa du lịch Mỹ thành công 99%',
-    category: 'Visa Mỹ',
-    excerpt: 'Khám phá những bí quyết và kinh nghiệm thực tế để chuẩn bị hồ sơ và phỏng vấn xin visa du lịch Mỹ một cách hiệu quả nhất.',
-    author: 'Văn phòng visa',
-    date: '15/07/2024',
-    readTime: '6 phút đọc',
-  },
-  {
-    id: 2,
-    slug: 'nhung-thay-doi-moi-nhat-ve-chinh-sach-visa-schengen-2024',
-    imageUrl: '/images/news/news-2.jpg',
-    title: 'Những thay đổi mới nhất về chính sách visa Schengen 2024',
-    category: 'Visa Châu Âu',
-    excerpt: 'Cập nhật các quy định mới, lệ phí và yêu cầu về hồ sơ khi xin visa Schengen để bạn có sự chuẩn bị tốt nhất cho chuyến đi châu Âu.',
-    author: 'Chuyên gia di trú',
-    date: '12/07/2024',
-    readTime: '4 phút đọc',
-  },
-  {
-    id: 3,
-    slug: 'kinh-nghiem-du-lich-bui-han-quoc-khong-can-visa',
-    imageUrl: '/images/news/news-3.jpg',
-    title: 'Kinh nghiệm "săn" vé máy bay giá rẻ đi Canada',
-    category: 'Visa Canada',
-    excerpt: 'Tổng hợp các mẹo và công cụ hữu ích giúp bạn tìm kiếm và đặt vé máy bay đi Canada với chi phí tiết kiệm nhất.',
-    author: 'Travel Blogger',
-    date: '10/07/2024',
-    readTime: '5 phút đọc',
-  },
-];
-
+import { useVisaData } from '@/contexts/VisaDataContext';
 export default function NewsSection() { // Changed to export default
+const { newsPreview} = useVisaData();
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -50,7 +15,7 @@ export default function NewsSection() { // Changed to export default
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsData.map((post) => (
+          {newsPreview.map((post : any) => (
             <NewsCard key={post.id} post={post} />
           ))}
         </div>
