@@ -1,5 +1,4 @@
 'use client';
-import { getContactInfo, getVisaCategories, getTourCategories } from "@/lib/data"; // CORRECT: Import async functions
 import Link from "next/link";
 import { 
   Facebook, 

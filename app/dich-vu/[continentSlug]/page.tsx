@@ -7,10 +7,10 @@ import {
   MessageSquare, FileText, CalendarCheck, CheckCircle,
   LucideIcon
 } from "lucide-react";
-import { getVisaCategoryBySlug } from "@/lib/data"; // CORRECTED: Import modern data fetching functions
-import { getServicesByCategorySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
+import { getVisaContinentBySlug } from "@/lib/data"; // CORRECTED: Import modern data fetching functions
+import { getServicesByContinentSlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { ServiceCard } from "@/components/ServiceCard";
-import { Service } from "@/types";
+import { VisaService } from "@/types";
 
 // CORRECTED: benefits is now a local constant, not an export.
 const benefits = [
@@ -62,19 +62,19 @@ const processSteps = [
 
 
 interface PageProps {
-  params: { categorySlug: string };
+  params: { continentSlug: string };
 }
 
 // CORRECTED: Converted to async component to fetch its own data.
-export default async function VisaCategoryPage({ params }: PageProps) {
-  const category = await getVisaCategoryBySlug(params.categorySlug);
+export default async function VisaContinentPage({ params }: PageProps) {
+  const continent = await getVisaContinentBySlug(params.continentSlug);
 
-  if (!category) {
+  if (!continent) {
     notFound();
   }
 
-  // CORRECTED: Fetch all services and filter by the current category slug.
-  const categoryServices = await getServicesByCategorySlug(params.categorySlug);
+  // CORRECTED: Fetch all services and filter by the current continenty slug.
+  const categoryServices = await getServicesByContinentSlug(params.continentSlug);
 
   return (
     <main>
@@ -92,7 +92,7 @@ export default async function VisaCategoryPage({ params }: PageProps) {
           <li>
             <div className="flex items-center">
               <ChevronRight className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-              <span className="ml-4 text-sm font-medium text-gray-500">{category.name}</span>
+              <span className="ml-4 text-sm font-medium text-gray-500">{continent.name}</span>
             </div>
           </li>
         </ol>
@@ -108,8 +108,8 @@ export default async function VisaCategoryPage({ params }: PageProps) {
                               Dịch vụ chuyên nghiệp - Tỷ lệ đậu cao
                           </div>
                       </div>
-                      <h1 className="text-4xl font-display font-bold tracking-tight text-white sm:text-6xl">{category.name}</h1>
-                      <p className="mt-6 text-lg leading-8 text-gray-300">{category.description}</p>
+                      <h1 className="text-4xl font-display font-bold tracking-tight text-white sm:text-6xl">{continent.name}</h1>
+                      <p className="mt-6 text-lg leading-8 text-gray-300">{continent.description}</p>
                   </div>
               </div>
           </div>
@@ -120,13 +120,13 @@ export default async function VisaCategoryPage({ params }: PageProps) {
         <section className="py-16 md:py-24 bg-base-100">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Các quốc gia thuộc {category.name}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Các quốc gia thuộc {continent.name}</h2>
               <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                Chúng tôi cung cấp dịch vụ visa cho các quốc gia hàng đầu trong khu vực {category.name}.
+                Chúng tôi cung cấp dịch vụ visa cho các quốc gia hàng đầu trong khu vực {continent.name}.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categoryServices.map((visaService: Service) => (
+              {categoryServices.map((visaService: VisaService) => (
                 <ServiceCard key={visaService.id} service={visaService} />
               ))}
             </div>

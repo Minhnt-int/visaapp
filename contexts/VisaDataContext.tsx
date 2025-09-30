@@ -2,13 +2,13 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getTourCategories, getVisaCategories, getNewsPreview } from '@/lib/api'; // Use the new API call
-import { ContactInfo, newsPreview, TourCategory, VisaCategory } from '@/types'; // Use the updated VisaCategory type
+import { ContactInfo, NewsPreview, TourCategory, VisaContinent } from '@/types'; // Use the updated VisaCategory type
 import { getContactInfo } from '@/lib/data';
 
 interface VisaDataContextType {
-  visaCategories: VisaCategory[];
+  visaCategories: VisaContinent[];
   tourCategories: TourCategory[];
-  newsPreview: newsPreview[];
+  newsPreview: NewsPreview[];
   contactInfo: ContactInfo;
   loading: boolean;
   error: string | null;
@@ -18,9 +18,9 @@ interface VisaDataContextType {
 const VisaDataContext = createContext<VisaDataContextType | null>(null);
 
 export function VisaDataProvider({ children }: { children: React.ReactNode }) {
-  const [visaCategories, setVisaCategories] = useState<VisaCategory[]>([]);
+  const [visaCategories, setVisaCategories] = useState<VisaContinent[]>([]);
   const [tourCategories, setTourCategories] = useState<TourCategory[]>([]);
-  const [newsPreview, setNewsPreview] = useState<newsPreview[]>([]);
+  const [newsPreview, setNewsPreview] = useState<NewsPreview[]>([]);
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     address: '',
     phone: '',
@@ -40,7 +40,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       // Fetch both static categories and dynamic country data
       const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData] = await Promise.all([
         getVisaCategories(),
-        fetch('/api/visa').then(res => res.json()),
+        fetch('/api/contries-by-visa-continent').then(res => res.json()),
         getTourCategories(),
         getNewsPreview(),
         getContactInfo()
@@ -54,7 +54,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
         const countriesByContinent = countriesRes.data;
         
         // Combine static categories with dynamic country lists
-        const enrichedCategories = categories.map((category: VisaCategory) => ({
+        const enrichedCategories = categories.map((category: VisaContinent) => ({
           ...category,
           countries: countriesByContinent[category.slug] || []
         }));

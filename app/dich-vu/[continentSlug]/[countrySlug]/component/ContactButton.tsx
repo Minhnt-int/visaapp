@@ -28,7 +28,7 @@ export function ContactButton({ countryName, visaTypes }: ContactButtonProps) {
         className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-lg text-lg transition-colors"
         onClick={() => setIsContactModalOpen(true)}
       >
-        YÊU CẦU TƯ VẤN VISA {countryName.toUpperCase()}
+        YÊU CẦU TƯ VẤN {countryName.toUpperCase()}
       </button>
 
       {/* Contact Modal */}

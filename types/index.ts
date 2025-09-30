@@ -21,12 +21,12 @@ export interface HomepageService {
 }
 
 // CORRECTED: Redefined the Service interface to match the new, dynamic data structure.
-export interface Service {
+export interface VisaService {
   id: string;          // e.g., 'my'
   slug: string;        // e.g., 'my'
   title: string;       // e.g., 'Visa Mỹ (Du lịch, Công tác, Thăm thân)'
   country: string;     // e.g., 'Mỹ'
-  categorySlug: string;// e.g., 'visa-chau-my'
+  continentSlug: string;// e.g., 'visa-chau-my'
   image: string;       // URL to hero image
   description: string;
   successRate?: string;
@@ -91,7 +91,7 @@ export interface News {
   date: string;
 }
 
-export interface VisaCategory {
+export interface VisaContinent {
   name: string;
   slug: string;
   description?: string;
@@ -194,6 +194,7 @@ export interface VisaImage {
 // This is the primary data structure for a single visa detail page.
 export interface VisaDetail {
   title: string;
+  countryName: string;
   heroImage: string;
   successRate: string;
   processingTime: string;
@@ -211,12 +212,12 @@ export interface VisaDetail {
   popularPlaces?: string[];
 }
 
-export interface newsPreview {
+export interface NewsPreview {
   id: number;
   slug: string;
   imageUrl: string;
   title: string;
-  category: string;
+  category: string[];
   excerpt: string;
   author: string;
   date: string;
@@ -261,3 +262,8 @@ export type ApiResponse<T = any> =
     facebook: string;
     zalo: string;
   };
+
+  export interface FilterParams {
+    search?: string;
+    category?: string;
+  }

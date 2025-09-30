@@ -1,12 +1,10 @@
-import { visaCategories } from '@/lib/visa-mock-data'; 
-import { getServices } from '@/lib/api'; 
+import { getVisaContinentPreview } from '@/lib/api'; 
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, Globe } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import ServiceSection from '@/components/ServiceSection';
 
 export default async function DichVuPage() {
-  const allServices = await getServices();
+  const allServices = await getVisaContinentPreview();
   
   return (
     <>

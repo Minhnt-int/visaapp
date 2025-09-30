@@ -2,14 +2,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Tag } from 'lucide-react';
-import { Service } from '@/types';
+import { VisaService } from '@/types';
 
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({ service }: { service: VisaService }) {
   return (
     <article 
       className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group overflow-hidden h-full flex flex-col"
     >
-      <Link href={`/dich-vu/${service.categorySlug}/${service.slug}`} className="block h-full flex flex-col">
+      <Link href={`/dich-vu/${service.continentSlug}/${service.slug}`} className="block h-full flex flex-col">
         <div className="relative h-48 overflow-hidden rounded-t-2xl">
           <Image
             src={service.image}

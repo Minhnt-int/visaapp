@@ -3,7 +3,6 @@
 import { useFormState, useFormStatus } from 'react-dom';
 import { handleContactForm, FormState } from '@/app/actions';
 import { useEffect, useRef, useState } from 'react';
-import { postFormContact } from '@/lib/api';
 import { formContact } from '@/types';
 import { z } from 'zod';
 // Define initial state for the form

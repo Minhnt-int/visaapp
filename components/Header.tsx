@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react"; // CORRECT: Import hooks
 import { Menu, X, ChevronDown, ChevronRight, Phone, Loader2 } from "lucide-react";
 import { SearchContainer } from './search/SearchContainer';
-import { VisaCategory } from '@/types';
+import { VisaContinent } from '@/types';
 
 // Interfaces for navigation structure
 interface NavSubChild { href: string; label: string; }
@@ -73,7 +73,7 @@ export default function Header() {
     const visaServiceLink: NavLink = {
       href: "/dich-vu",
       label: "Dịch vụ Visa",
-      children: visaCategories.map((category: VisaCategory) => ({
+      children: visaCategories.map((category: VisaContinent) => ({
         href: `/dich-vu/${category.slug}`,
         label: `Visa ${category.name}`,
         subChildren: category.countries.map(country => ({

@@ -1,10 +1,10 @@
 
-import { Service, VisaDetail, Tour, News, VisaCategory, TourCategory, NavItem } from '@/types';
+import { VisaService, VisaDetail, Tour, News, VisaContinent, TourCategory, NavItem } from '@/types';
 import { 
     mockVisaPageData, 
     mockTours, 
     mockNews, 
-    mockVisaCategories, 
+    mockVisaContinents, 
     mockTourCategories,
     siteConfig, // Import siteConfig
     contactInfo, // Import contactInfo
@@ -33,7 +33,7 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
 
 // --- Service and Visa Data Functions ---
 
-export async function getAllServices(): Promise<Service[]> {
+export async function getAllServices(): Promise<VisaService[]> {
   await delay(100);
   const transformedData = Object.keys(mockVisaPageData).map(countryKey => {
     const countryData = mockVisaPageData[countryKey];
@@ -46,7 +46,7 @@ export async function getAllServices(): Promise<Service[]> {
         slug: `${countryKey}`,
         title: countryData.title,
         country: countryName,
-        categorySlug: countryData.continentSlug,
+        continentSlug: countryData.continentSlug,
         image: countryData.heroImage,
         description: countryData.description,
         successRate: countryData.successRate,
@@ -57,7 +57,7 @@ export async function getAllServices(): Promise<Service[]> {
 }
 
 // CORRECT: Add the missing function
-export async function getHomepageServices(): Promise<Service[]> {
+export async function getHomepageServices(): Promise<VisaService[]> {
     await delay(100);
     let services = await getAllServices();
     // Return only the first 3 services for the homepage
@@ -69,15 +69,15 @@ export async function getVisaDetailById(id: string): Promise<VisaDetail | undefi
   return mockVisaPageData[id];
 }
 
-export async function getVisaCategories(): Promise<VisaCategory[]> {
+export async function getVisaContinents(): Promise<VisaContinent[]> {
     await delay(100);
-    return mockVisaCategories;
+    return mockVisaContinents;
 }
 
-export async function getVisaCategoryBySlug(slug: string): Promise<VisaCategory | undefined> {
+export async function getVisaContinentBySlug(slug: string): Promise<VisaContinent | undefined> {
     await delay(100);
-    const categories = await getVisaCategories();
-    return categories.find(c => c.slug === slug);
+    const continents = await getVisaContinents();
+    return continents.find((c : any) => c.slug === slug);
 }
 
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 
 // CORRECTED: Import paths and types are now correct.
-import { getAllServices, getVisaDetailById, getVisaCategoryBySlug } from "@/lib/data";
+import { getAllServices, getVisaDetailById, getVisaContinentBySlug } from "@/lib/data";
 import { VisaDetail } from "@/types";
 
 // Import new components
@@ -18,7 +18,7 @@ import RelatedArticlesSection from "@/components/sections/RelatedArticlesSection
 
 interface PageProps {
   params: {
-    categorySlug: string; 
+    continentSlug: string; 
     countrySlug: string;   
   };
 }
@@ -27,7 +27,7 @@ interface PageProps {
 export async function generateStaticParams() {
     const services = await getAllServices();
     return services.map(service => ({
-        categorySlug: service.categorySlug,
+        continentSlug: service.continentSlug,
         countrySlug: service.slug,
     }));
 }
@@ -35,10 +35,10 @@ export async function generateStaticParams() {
 // CORRECTED: Data fetching logic is now simplified and uses the correct functions.
 export default async function VisaCountryDetailPage({ params }: PageProps) {
   const visaDetail = await getVisaDetailById(params.countrySlug);
-  const category = await getVisaCategoryBySlug(params.categorySlug);
+  const category = await getVisaContinentBySlug(params.continentSlug);
   
   // The country name is now derived from the visa detail data itself.
-  const countryName = visaDetail?.title.replace("Visa", "").trim() || "";
+  const countryName = visaDetail?.title || "";
 
   if (!category || !visaDetail) {
     notFound();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ServiceCard } from './ServiceCard';
-import { Service } from '@/types';
+import { VisaService } from '@/types';
 import { visaCategories } from '@/lib/visa-mock-data';
 
 interface ServiceSectionProps {
-  services: Service[];
+  services: VisaService[];
 }
 
 export default function ServiceSection({ services }: ServiceSectionProps) {
@@ -13,7 +13,7 @@ export default function ServiceSection({ services }: ServiceSectionProps) {
       <div className="container mx-auto px-4">
         {visaCategories.map((category) => {
           const servicesForCategory = services?.filter(
-            (service) => service.categorySlug === category.slug
+            (service) => service.continentSlug === category.slug
           );
 
           if (servicesForCategory?.length === 0) {

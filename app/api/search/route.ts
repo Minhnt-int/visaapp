@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 // CORRECTED: Import from the correct file path and add necessary data
-import { mockVisaCategories, mockTourCategories, mockVisaPageData } from '@/lib/mock-data';
+import { mockVisaContinents, mockTourCategories, mockVisaPageData } from '@/lib/mock-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
     // Search Visa Services
     // CORRECTED: The original logic was broken. This now searches through the actual visa page data.
-    mockVisaCategories.forEach(category => {
+    mockVisaContinents.forEach(category => {
       category.countries.forEach(country => {
         const visaPage = mockVisaPageData[country.slug];
         if (visaPage && (visaPage.title.toLowerCase().includes(query) || country.name.toLowerCase().includes(query))) {
