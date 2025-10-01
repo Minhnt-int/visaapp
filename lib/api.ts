@@ -5,6 +5,75 @@ import { contactInfo, mockNews, mockTourCategories, mockTours, mockVisaContinent
 // import { SomeApiDataType } from '@/lib/types'; // Giả định bạn có định nghĩa kiểu dữ liệu
 
 
+const api: AxiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL, // Sử dụng biến môi trường cho base URL
+    timeout: 10000, // Timeout requests after 10 seconds
+    headers: {
+        'Content-Type': 'application/json',
+        // Thêm các headers mặc định khác nếu cần (ví dụ: Authorization)
+        // 'Authorization': `Bearer ${yourAuthToken}`
+    },
+});
+
+// =========================================================================
+// AXIOS INTERCEPTORS (Optional but Recommended)
+// =========================================================================
+
+// Request Interceptor (Ví dụ: thêm token auth)
+api.interceptors.request.use(
+    (config) => {
+        return config;
+    },
+    (error) => {
+        // console.error('Request Interceptor Error:', error);
+        return Promise.reject(error);
+    }
+);
+api.interceptors.response.use(
+    (response) => {
+        // console.log('Response Interceptor:', response); // Logging response
+        return response;
+    },
+    async (error: AxiosError) => {
+        console.error('Response Interceptor Error:', error.message);
+        return Promise.reject(error);
+    }
+);
+// Hàm fetcher linh hoạt cho các yêu cầu HTTP
+export async function fetcher<T = any>(
+    url: string,
+    options?: AxiosRequestConfig
+): Promise<T> {
+    try {
+        // Sử dụng api instance để request
+        const response: AxiosResponse<T> = await api.request<T>({
+            url: url,
+            ...options, // Truyền các tùy chọn (method, headers, data, etc.)
+        });
+
+        // Axios tự động return response.data khi thành công
+        // và throw error cho status 4xx/5xx, nên không cần kiểm tra response.ok
+        return response.data;
+
+    } catch (error) {
+        const axiosError = error as AxiosError; // Ép kiểu sang AxiosError
+
+        console.error('Fetcher Error:', axiosError.message);
+        if (axiosError.response) {
+            console.error('Fetcher Error Response Data:', axiosError.response.data);
+            console.error('Fetcher Error Status:', axiosError.response.status);
+
+            // Cố gắng lấy message từ response body (mong đợi là object)
+            const backendErrorMessage = (axiosError.response.data as any)?.message || `Lỗi từ server: Status ${axiosError.response.status}`;
+            throw new Error(backendErrorMessage); // Ném ra Error mới với message từ backend
+
+        } else if (axiosError.request) {
+            throw new Error('No response received from server. Please check network connection.');
+        } else {
+            throw new Error('Error setting up request: ' + axiosError.message);
+        }
+    }
+}
 
 // =========================================================================
 // HELPER FUNCTIONS
@@ -121,10 +190,22 @@ export async function getTourCategories(): Promise<TourCategory[]> {
 /**
  * Fetches all visa categories (continents).
  */
-export async function getVisaCategories(): Promise<VisaContinent[]> {
+export async function getVisaContinentsPreview(): Promise<VisaContinent[]> {
     return mockVisaContinents;
 }
 
+/**
+ * Fetches a single visa category (continent) by its slug.
+ */
+export async function getVisaContinentPreviewBySlug(slug: string): Promise<VisaContinent | undefined> {
+    return mockVisaContinents.find(continent => continent.slug === slug);
+}
+
+export async function getVisaContinentBySlug(slug: string): Promise<VisaService | undefined> {
+    await delay(100);
+    const continents = await getVisaContinents();
+    return continents.find((c: any) => c.slug === slug);
+}
 export async function getServicesByContinentSlug(continentSlug: string): Promise<VisaService[]> {
     // Lọc mockServices theo continentSlug
     let services = await getVisaContinents()
@@ -211,34 +292,44 @@ export async function getHomepageServices(): Promise<VisaService[]> {
 }
 
 export async function getVisaDetailById(id: string): Promise<VisaDetail | undefined> {
-  await delay(100);
-  return mockVisaPageData[id];
+    await delay(100);
+    return mockVisaPageData[id];
 }
 
-export async function getVisaContinentBySlug(slug: string): Promise<VisaService | undefined> {
-    await delay(100);
-    const continents = await getVisaContinents();
-    return continents.find((c : any) => c.slug === slug);
-}
 
 
 // --- Tour Data Functions ---
 
 export async function getAllTours(): Promise<Tour[]> {
-  await delay(100);
-  return mockTours;
+    await delay(100);
+    return mockTours;
 }
 
 export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
-  await delay(100);
-  const tours = await getAllTours();
-  return tours.find(tour => tour.slug === slug);
+    await delay(100);
+    const tours = await getAllTours();
+    return tours.find(tour => tour.slug === slug);
 }
 
 
 // --- News Data Functions ---
 
 export async function getAllNews(): Promise<News[]> {
-  await delay(100);
-  return mockNews;
+    await delay(100);
+    return mockNews;
+}
+
+export async function postFormContact(formData: formContact): Promise<ApiResponse> { // Sử dụng type trả về mong muốn
+    // Không kiểm tra formData === null ở đây, để fetcher xử lý lỗi nếu body là null/undefined
+    // Nếu API /api/contact mong đợi formContactResponse, hãy khai báo Promise<formContactResponse>
+    // Nếu API chỉ trả về message string khi thành công, có thể dùng Promise<string> hoặc Promise<{ message: string }>
+
+    // Axios sử dụng 'data' cho body của POST/PUT/PATCH requests
+    const result = await fetcher<ApiResponse>('/api/contact', {
+        method: 'POST',
+        data: formData,
+        // Axios tự động set Content-Type: application/json nếu data là object
+    });
+
+    return result; // Trả về kết quả từ API (ví dụ: { message: "..." })
 }

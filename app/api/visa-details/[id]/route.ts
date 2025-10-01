@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getVisaDetailById } from "@/lib/data";
+import { getVisaDetailById } from "@/lib/api";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     const { id } = params;

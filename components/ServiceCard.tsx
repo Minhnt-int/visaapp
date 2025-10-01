@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Tag } from 'lucide-react';
 import { VisaService } from '@/types';
+import { truncateText } from '@/lib/utils';
 
 export function ServiceCard({ service }: { service: VisaService }) {
   return (
@@ -33,7 +34,7 @@ export function ServiceCard({ service }: { service: VisaService }) {
         
         <div className="p-5 flex flex-col flex-grow">
           <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
-            {service.description}
+            { truncateText(service.description, 50) }
           </p>
 
           {service.services && service.services.length > 0 && (

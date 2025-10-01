@@ -1,19 +1,16 @@
 
-import { 
-    VisaService,
-    HomepageService, 
-    Tour, 
-    News, 
-    VisaContinent, 
-    TourCategory, 
-    VisaDetail,
-    Testimonial,
-    RelatedArticle,
+import {
+    ContactInfo,
     NavItem,
+    News,
     NewsPreview,
-    ContactInfo
-} from '@/types';
-import { Briefcase, UserCheck, Award, ClipboardCheck, MessageSquare, FileText, CalendarCheck, CheckCircle, Shield, Star } from 'lucide-react';
+    RelatedArticle,
+    Testimonial,
+    Tour,
+    TourCategory,
+    VisaContinent,
+    VisaDetail} from '@/types';
+import { Award, FileText, MessageSquare, UserCheck } from 'lucide-react';
 
 export function getCountriesByContinent() {
   const map: Record<string, { slug: string; name: string }[]> = {};
@@ -63,42 +60,463 @@ export const navigationLinks: NavItem[] = [
 ];
 
 export const mockTours: Tour[] = [
-  {
-    id: "da-nang-hoi-an-hue-4n3d",
-    slug: "da-nang-hoi-an-hue-4n3d",
-    name: "Tour Đà Nẵng - Hội An - Huế 4N3D",
-    categorySlug: "tour-trong-nuoc",
-    country: "Việt Nam",
-    duration: "4 ngày 3 đêm",
-    price: 5500000,
-    originalPrice: 6500000,
-    departure: ["Hà Nội", "TP. Hồ Chí Minh"],
-    image: "https://images.unsplash.com/photo-1561053591-62d8c3b035f6?q=80&w=2070&auto=format&fit=crop",
-    gallery: [],
-    rating: 4.8,
-    reviewCount: 120,
-    isHot: true,
-    groupSize: { min: 10, max: 25 },
-    highlights: [
-      { id: "hl1", title: "Bà Nà Hills", description: "Khám phá Cầu Vàng nổi tiếng thế giới và Làng Pháp cổ kính." },
-      { id: "hl2", title: "Phố cổ Hội An", description: "Dạo bước trong khu phố đèn lồng lung linh về đêm." }
-    ],
-    itinerary: [
-      { day: "1", title: "Đà Nẵng - Ngũ Hành Sơn", description: "...", activities: [{ activity: "Tham quan Ngũ Hành Sơn" }] }
-    ],
-    services: {
-      included: [{ id: "inc1", name: "Xe đưa đón" }],
-      excluded: [{ id: "exc1", name: "Chi phí cá nhân" }]
+    {
+      id: "da-nang-hoi-an-hue-4n3d",
+      slug: "da-nang-hoi-an-hue-4n3d",
+      name: "Tour Đà Nẵng - Hội An - Huế 4N3D",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "4 ngày 3 đêm",
+      price: 5500000,
+      originalPrice: 6500000,
+      departure: ["Hà Nội", "TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1561053591-62d8c3b035f6?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.8,
+      reviewCount: 120,
+      isHot: true,
+      groupSize: { min: 10, max: 25 },
+      highlights: [
+        { id: "hl1", title: "Bà Nà Hills", description: "Khám phá Cầu Vàng nổi tiếng thế giới và Làng Pháp cổ kính." },
+        { id: "hl2", title: "Phố cổ Hội An", description: "Dạo bước trong khu phố đèn lồng lung linh về đêm." }
+      ],
+      itinerary: [
+        { day: "1", title: "Đà Nẵng - Ngũ Hành Sơn", description: "Khởi hành tour.", activities: [{ activity: "Tham quan Ngũ Hành Sơn" }] }
+      ],
+      services: {
+        included: [{ id: "inc1", name: "Xe đưa đón" }],
+        excluded: [{ id: "exc1", name: "Chi phí cá nhân" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 50% khi đăng ký."],
+        cancellation: ["Hủy tour trước 7 ngày, phí 30%."]
+      },
+      whyChooseUs: [
+        { id: "wcu1", title: "Lịch trình đa dạng", description: "Thiết kế độc đáo, điểm đến hấp dẫn.", icon: "star" }
+      ]
     },
-    terms: {
-      registration: ["Đặt cọc 50% khi đăng ký."],
-      cancellation: ["Hủy tour trước 7 ngày, phí 30%."]
+    // ------------------------- Dữ liệu Mẫu Bổ sung -------------------------
+    {
+      id: "phu-quoc-nghi-duong-3n2d",
+      slug: "phu-quoc-nghi-duong-3n2d",
+      name: "Tour Phú Quốc Nghỉ Dưỡng 3N2D",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 2 đêm",
+      price: 4200000,
+      originalPrice: 5000000,
+      departure: ["TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1574515513567-c052ed4c62c9?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.9,
+      reviewCount: 250,
+      isHot: true,
+      groupSize: { min: 8, max: 20 },
+      highlights: [
+        { id: "hl3", title: "Bãi Sao", description: "Tắm biển và nghỉ dưỡng tại bãi biển đẹp nhất Phú Quốc." },
+        { id: "hl4", title: "Cáp treo Hòn Thơm", description: "Trải nghiệm cáp treo vượt biển dài nhất thế giới." }
+      ],
+      itinerary: [
+        { day: "1", title: "Phú Quốc - Check-in", description: "Đến Phú Quốc, nhận phòng, tự do tham quan.", activities: [{ activity: "Tham quan Chợ đêm" }] }
+      ],
+      services: {
+        included: [{ id: "inc2", name: "Vé máy bay khứ hồi" }],
+        excluded: [{ id: "exc2", name: "Vé vui chơi" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 40%."],
+        cancellation: ["Hủy tour trước 10 ngày, phí 25%."]
+      },
+      whyChooseUs: [
+        { id: "wcu2", title: "Resort 5 sao", description: "Trải nghiệm dịch vụ nghỉ dưỡng cao cấp.", icon: "sun" }
+      ]
     },
-    whyChooseUs: [
-      { id: "wcu1", title: "Lịch trình đa dạng", description: "Thiết kế độc đáo, điểm đến hấp dẫn.", icon: "star" }
-    ]
-  }
-];
+    {
+      id: "ha-giang-mua-hoa-tam-giac-mach-3n2d",
+      slug: "ha-giang-mua-hoa-tam-giac-mach-3n2d",
+      name: "Tour Hà Giang Mùa Hoa Tam Giác Mạch 3N2D",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 2 đêm",
+      price: 3800000,
+      originalPrice: 4500000,
+      departure: ["Hà Nội"],
+      image: "https://images.unsplash.com/photo-1594916895315-927d3c53c4c9?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.7,
+      reviewCount: 85,
+      isHot: true,
+      groupSize: { min: 15, max: 30 },
+      highlights: [
+        { id: "hl5", title: "Đèo Mã Pí Lèng", description: "Ngắm nhìn một trong tứ đại đỉnh đèo của Việt Nam." },
+        { id: "hl6", title: "Cột cờ Lũng Cú", description: "Điểm cực Bắc thiêng liêng của Tổ quốc." }
+      ],
+      itinerary: [
+        { day: "1", title: "Hà Nội - Hà Giang", description: "Di chuyển lên Hà Giang, nhận phòng khách sạn.", activities: [{ activity: "Tham quan Cổng Trời Quản Bạ" }] }
+      ],
+      services: {
+        included: [{ id: "inc3", name: "Ăn 6 bữa chính" }],
+        excluded: [{ id: "exc3", name: "Tiền tip HDV" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 30%."],
+        cancellation: ["Hủy tour trước 5 ngày, phí 50%."]
+      },
+      whyChooseUs: [
+        { id: "wcu3", title: "Hướng dẫn viên địa phương", description: "Am hiểu văn hóa và phong tục tập quán.", icon: "map" }
+      ]
+    },
+    {
+      id: "campuchia-siam-reap-4n3d",
+      slug: "campuchia-siam-reap-4n3d",
+      name: "Khám phá Di sản Angkor Wat 4N3D",
+      categorySlug: "tour-quoc-te",
+      country: "Campuchia",
+      duration: "4 ngày 3 đêm",
+      price: 9800000,
+      originalPrice: 11000000,
+      departure: ["TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1596707372422-901b0b540192?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.6,
+      reviewCount: 65,
+      isHot: false,
+      groupSize: { min: 12, max: 28 },
+      highlights: [
+        { id: "hl7", title: "Angkor Wat", description: "Chiêm ngưỡng kiến trúc đền thờ vĩ đại nhất thế giới." },
+        { id: "hl8", title: "Bayon", description: "Khám phá đền Bayon với 216 khuôn mặt cười bí ẩn." }
+      ],
+      itinerary: [
+        { day: "1", title: "TPHCM - Siem Reap", description: "Bay đến Siem Reap, tham quan đền Preah Khan.", activities: [{ activity: "Tham quan Preah Khan" }] }
+      ],
+      services: {
+        included: [{ id: "inc4", name: "Visa nhập cảnh" }],
+        excluded: [{ id: "exc4", name: "Bảo hiểm" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 60% khi đăng ký."],
+        cancellation: ["Hủy tour trước 15 ngày, phí 40%."]
+      },
+      whyChooseUs: [
+        { id: "wcu4", title: "Lịch trình sâu sắc", description: "Tập trung vào giá trị lịch sử và văn hóa.", icon: "book" }
+      ]
+    },
+    {
+      id: "thai-lan-bangkok-pattaya-5n4d",
+      slug: "thai-lan-bangkok-pattaya-5n4d",
+      name: "Tour Thái Lan: Bangkok - Pattaya 5N4D",
+      categorySlug: "tour-quoc-te",
+      country: "Thái Lan",
+      duration: "5 ngày 4 đêm",
+      price: 7990000,
+      originalPrice: 9500000,
+      departure: ["Hà Nội", "TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1549410141-f7617b07548b?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.7,
+      reviewCount: 310,
+      isHot: true,
+      groupSize: { min: 20, max: 40 },
+      highlights: [
+        { id: "hl9", title: "Chùa Vàng", description: "Chiêm bái tượng Phật Vàng lớn nhất thế giới." },
+        { id: "hl10", title: "Đảo Coral", description: "Tắm biển và lặn ngắm san hô tại hòn đảo nổi tiếng." }
+      ],
+      itinerary: [
+        { day: "1", title: "Hà Nội/TPHCM - Bangkok", description: "Bay đến Bangkok, di chuyển về Pattaya.", activities: [{ activity: "Ăn tối buffet quốc tế" }] }
+      ],
+      services: {
+        included: [{ id: "inc5", name: "Khách sạn 4 sao" }],
+        excluded: [{ id: "exc5", name: "Visa (nếu có)" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 50%."],
+        cancellation: ["Hủy tour trước 10 ngày, phí 30%."]
+      },
+      whyChooseUs: [
+        { id: "wcu5", title: "Shopping thả ga", description: "Thỏa sức mua sắm tại các trung tâm thương mại lớn.", icon: "tag" }
+      ]
+    },
+    {
+      id: "nha-trang-doc-dao-3n2d",
+      slug: "nha-trang-doc-dao-3n2d",
+      name: "Tour Nha Trang Độc Đáo 3N2D",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 2 đêm",
+      price: 3650000,
+      originalPrice: 4300000,
+      departure: ["Hà Nội", "TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1620023058814-1e0818d795b5?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.6,
+      reviewCount: 190,
+      isHot: true,
+      groupSize: { min: 10, max: 25 },
+      highlights: [
+        { id: "hl11", title: "Vinpearl Land", description: "Tham gia các trò chơi cảm giác mạnh và giải trí." },
+        { id: "hl12", title: "Tháp Bà Ponagar", description: "Khám phá kiến trúc Chăm cổ kính." }
+      ],
+      itinerary: [
+        { day: "1", title: "Nha Trang - Biển đảo", description: "Khởi hành tham quan các đảo.", activities: [{ activity: "Lặn biển ngắm san hô" }] }
+      ],
+      services: {
+        included: [{ id: "inc6", name: "Tàu tham quan đảo" }],
+        excluded: [{ id: "exc6", name: "Thuê dụng cụ lặn" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 30%."],
+        cancellation: ["Hủy tour trước 7 ngày, phí 40%."]
+      },
+      whyChooseUs: [
+        { id: "wcu6", title: "Chủ đề Biển Đảo", description: "Tập trung vào trải nghiệm dưới nước và bãi biển.", icon: "anchor" }
+      ]
+    },
+    {
+      id: "singapore-malaysia-5n4d",
+      slug: "singapore-malaysia-5n4d",
+      name: "Tour Singapore - Malaysia (Liên tuyến) 5N4D",
+      categorySlug: "tour-quoc-te",
+      country: "Singapore, Malaysia",
+      duration: "5 ngày 4 đêm",
+      price: 13500000,
+      originalPrice: 15500000,
+      departure: ["TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1582239634220-3b2d131f6e21?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.8,
+      reviewCount: 150,
+      isHot: true,
+      groupSize: { min: 15, max: 35 },
+      highlights: [
+        { id: "hl13", title: "Gardens by the Bay", description: "Chiêm ngưỡng 'Siêu cây' và nhà kính độc đáo." },
+        { id: "hl14", title: "Tháp Đôi Petronas", description: "Check-in biểu tượng kiến trúc của Kuala Lumpur." }
+      ],
+      itinerary: [
+        { day: "1", title: "Singapore - Công viên Sư Tử Biển", description: "Đến Singapore, tham quan công viên Merlion.", activities: [{ activity: "Thăm quan Đảo Sentosa" }] }
+      ],
+      services: {
+        included: [{ id: "inc7", name: "Bảo hiểm du lịch" }],
+        excluded: [{ id: "exc7", name: "Phụ phí phòng đơn" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 70% khi đăng ký."],
+        cancellation: ["Hủy tour trước 20 ngày, phí 30%."]
+      },
+      whyChooseUs: [
+        { id: "wcu7", title: "Tour liên tuyến", description: "Khám phá hai quốc gia Đông Nam Á chỉ trong một chuyến đi.", icon: "link" }
+      ]
+    },
+    {
+      id: "mien-tay-song-nuoc-3n2d",
+      slug: "mien-tay-song-nuoc-3n2d",
+      name: "Tour Miền Tây Sông Nước 3N2D",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 2 đêm",
+      price: 2990000,
+      originalPrice: 3500000,
+      departure: ["TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1558239011-85f269a9dbd4?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.5,
+      reviewCount: 95,
+      isHot: false,
+      groupSize: { min: 20, max: 40 },
+      highlights: [
+        { id: "hl15", title: "Chợ nổi Cái Răng", description: "Trải nghiệm văn hóa chợ nổi độc đáo của miền Tây." },
+        { id: "hl16", title: "Miệt vườn trái cây", description: "Thưởng thức trái cây tươi tại vườn." }
+      ],
+      itinerary: [
+        { day: "1", title: "TPHCM - Cần Thơ", description: "Di chuyển đến Cần Thơ.", activities: [{ activity: "Tham quan nhà cổ Bình Thủy" }] }
+      ],
+      services: {
+        included: [{ id: "inc8", name: "Tàu du lịch" }],
+        excluded: [{ id: "exc8", name: "Quà mua sắm" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 20%."],
+        cancellation: ["Hủy tour trước 3 ngày, phí 60%."]
+      },
+      whyChooseUs: [
+        { id: "wcu8", title: "Giá siêu tiết kiệm", description: "Chi phí hợp lý, phù hợp với mọi đối tượng.", icon: "money" }
+      ]
+    },
+    {
+      id: "han-quoc-seoul-jeju-5n4d",
+      slug: "han-quoc-seoul-jeju-5n4d",
+      name: "Tour Hàn Quốc: Seoul - Jeju 5N4D",
+      categorySlug: "tour-quoc-te",
+      country: "Hàn Quốc",
+      duration: "5 ngày 4 đêm",
+      price: 18900000,
+      originalPrice: 21500000,
+      departure: ["Hà Nội"],
+      image: "https://images.unsplash.com/photo-1594248552192-3a3d5371f65d?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.9,
+      reviewCount: 78,
+      isHot: true,
+      groupSize: { min: 10, max: 20 },
+      highlights: [
+        { id: "hl17", title: "Đảo Jeju", description: "Khám phá hòn đảo tình yêu và di sản UNESCO." },
+        { id: "hl18", title: "Cung điện Gyeongbokgung", description: "Mặc Hanbok truyền thống check-in cung điện cổ." }
+      ],
+      itinerary: [
+        { day: "1", title: "Hà Nội - Seoul", description: "Bay đến Seoul, nghỉ ngơi.", activities: [{ activity: "Tham quan tháp Namsan" }] }
+      ],
+      services: {
+        included: [{ id: "inc9", name: "Vé tham quan" }],
+        excluded: [{ id: "exc9", name: "Ăn uống tự túc" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 50%."],
+        cancellation: ["Hủy tour trước 21 ngày, phí 25%."]
+      },
+      whyChooseUs: [
+        { id: "wcu9", title: "Điểm đến theo mùa", description: "Lịch trình tối ưu cho trải nghiệm hoa anh đào/lá vàng.", icon: "leaf" }
+      ]
+    },
+    {
+      id: "vinh-ha-long-cat-ba-3n2d",
+      slug: "vinh-ha-long-cat-ba-3n2d",
+      name: "Tour Vịnh Hạ Long - Cát Bà 3N2D (Du thuyền)",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 2 đêm",
+      price: 6500000,
+      originalPrice: 7500000,
+      departure: ["Hà Nội"],
+      image: "https://images.unsplash.com/photo-1528659850125-e51c6c6b3e71?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.9,
+      reviewCount: 155,
+      isHot: false,
+      groupSize: { min: 2, max: 15 },
+      highlights: [
+        { id: "hl19", title: "Du thuyền", description: "Nghỉ đêm trên du thuyền sang trọng tại Vịnh Hạ Long." },
+        { id: "hl20", title: "Đảo Cát Bà", description: "Tắm biển và khám phá Vườn Quốc gia Cát Bà." }
+      ],
+      itinerary: [
+        { day: "1", title: "Hà Nội - Du thuyền", description: "Di chuyển ra cảng, lên du thuyền.", activities: [{ activity: "Chèo thuyền Kayak" }] }
+      ],
+      services: {
+        included: [{ id: "inc10", name: "Cabin trên du thuyền" }],
+        excluded: [{ id: "exc10", name: "Đồ uống" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 80%."],
+        cancellation: ["Hủy tour trước 14 ngày, phí 50%."]
+      },
+      whyChooseUs: [
+        { id: "wcu10", title: "Trải nghiệm sang trọng", description: "Dịch vụ du thuyền cao cấp, không gian riêng tư.", icon: "ship" }
+      ]
+    },
+    {
+      id: "nhat-ban-mua-thu-vang-6n5d",
+      slug: "nhat-ban-mua-thu-vang-6n5d",
+      name: "Tour Nhật Bản Mùa Thu Lá Vàng 6N5D",
+      categorySlug: "tour-quoc-te",
+      country: "Nhật Bản",
+      duration: "6 ngày 5 đêm",
+      price: 32000000,
+      originalPrice: 35000000,
+      departure: ["Hà Nội", "TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-154205184124cd?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 5.0,
+      reviewCount: 45,
+      isHot: true,
+      groupSize: { min: 8, max: 18 },
+      highlights: [
+        { id: "hl21", title: "Kyoto", description: "Tham quan Chùa Vàng Kinkaku-ji." },
+        { id: "hl22", title: "Núi Phú Sĩ", description: "Ngắm cảnh sắc núi Phú Sĩ tuyệt đẹp trong mùa thu." }
+      ],
+      itinerary: [
+        { day: "1", title: "Việt Nam - Osaka", description: "Bay đến Osaka, nghỉ ngơi.", activities: [{ activity: "Tự do khám phá Dotonbori" }] }
+      ],
+      services: {
+        included: [{ id: "inc11", name: "Bảo hiểm toàn cầu" }],
+        excluded: [{ id: "exc11", name: "Chi phí mua sắm" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 40%."],
+        cancellation: ["Hủy tour trước 30 ngày, phí 20%."]
+      },
+      whyChooseUs: [
+        { id: "wcu11", title: "Trải nghiệm văn hóa", description: "Lịch trình tập trung vào văn hóa truyền thống Nhật Bản.", icon: "pagoda" }
+      ]
+    },
+    {
+      id: "da-lat-suong-mo-3n3d",
+      slug: "da-lat-suong-mo-3n3d",
+      name: "Tour Đà Lạt Ngắm Sương Mù 3N3D (Đêm đầu di chuyển)",
+      categorySlug: "tour-trong-nuoc",
+      country: "Việt Nam",
+      duration: "3 ngày 3 đêm",
+      price: 3200000,
+      originalPrice: 3800000,
+      departure: ["TP. Hồ Chí Minh"],
+      image: "https://images.unsplash.com/photo-1628173439050-c6517e6e584d?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.7,
+      reviewCount: 210,
+      isHot: false,
+      groupSize: { min: 18, max: 35 },
+      highlights: [
+        { id: "hl23", title: "Hồ Tuyền Lâm", description: "Khám phá vẻ đẹp yên bình của hồ và rừng thông." },
+        { id: "hl24", title: "Quảng trường Lâm Viên", description: "Check-in Bông Hoa Dã Quỳ nổi tiếng." }
+      ],
+      itinerary: [
+        { day: "1", title: "TPHCM - Đà Lạt (Đêm)", description: "Lên xe giường nằm chất lượng cao di chuyển.", activities: [{ activity: "Lên xe giường nằm" }] }
+      ],
+      services: {
+        included: [{ id: "inc12", name: "Xe giường nằm khứ hồi" }],
+        excluded: [{ id: "exc12", name: "Vé cáp treo" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 25%."],
+        cancellation: ["Hủy tour trước 5 ngày, phí 30%."]
+      },
+      whyChooseUs: [
+        { id: "wcu12", title: "Tối ưu thời gian", description: "Tận dụng đêm để di chuyển, tiết kiệm thời gian tham quan ban ngày.", icon: "clock" }
+      ]
+    },
+    {
+      id: "chau-au-4-nuoc-10n9d",
+      slug: "chau-au-4-nuoc-10n9d",
+      name: "Tour Châu Âu 4 Nước: Pháp - Bỉ - Hà Lan - Đức 10N9D",
+      categorySlug: "tour-quoc-te",
+      country: "Pháp, Bỉ, Hà Lan, Đức",
+      duration: "10 ngày 9 đêm",
+      price: 65000000,
+      originalPrice: 70000000,
+      departure: ["Hà Nội"],
+      image: "https://images.unsplash.com/photo-1520263155700-1111628cc340?q=80&w=2070&auto=format&fit=crop",
+      gallery: [],
+      rating: 4.9,
+      reviewCount: 30,
+      isHot: true,
+      groupSize: { min: 8, max: 15 },
+      highlights: [
+        { id: "hl25", title: "Tháp Eiffel", description: "Tham quan biểu tượng Paris và du thuyền sông Seine." },
+        { id: "hl26", title: "Quảng trường Grand Place", description: "Khám phá quảng trường đẹp nhất châu Âu ở Brussels." }
+      ],
+      itinerary: [
+        { day: "1", title: "Việt Nam - Paris (Pháp)", description: "Bay đến Paris, nhận phòng khách sạn.", activities: [{ activity: "Tham quan Tháp Eiffel" }] }
+      ],
+      services: {
+        included: [{ id: "inc13", name: "Visa Schengen" }],
+        excluded: [{ id: "exc13", name: "Mua sắm cá nhân" }]
+      },
+      terms: {
+        registration: ["Đặt cọc 80%."],
+        cancellation: ["Hủy tour trước 45 ngày, phí 20%."]
+      },
+      whyChooseUs: [
+        { id: "wcu13", title: "Trải nghiệm Đa Quốc gia", description: "Khám phá những di sản văn hóa và kiến trúc nổi tiếng nhất châu Âu.", icon: "globe" }
+      ]
+    }
+  ];
 
 export const mockTourCategories: TourCategory[] = [
     { name: "Tour Trong Nước", slug: "tour-trong-nuoc", description: "Khám phá vẻ đẹp Việt Nam", imageUrl: "", tours: mockTours },

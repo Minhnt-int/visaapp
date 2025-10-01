@@ -1,9 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTourCategories, getVisaCategories, getNewsPreview } from '@/lib/api'; // Use the new API call
+import { getTourCategories, getNewsPreview, getVisaContinentsPreview } from '@/lib/api'; // Use the new API call
 import { ContactInfo, NewsPreview, TourCategory, VisaContinent } from '@/types'; // Use the updated VisaCategory type
-import { getContactInfo } from '@/lib/data';
+import { getContactInfo } from '@/lib/api';
 
 interface VisaDataContextType {
   visaCategories: VisaContinent[];
@@ -39,7 +39,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       
       // Fetch both static categories and dynamic country data
       const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData] = await Promise.all([
-        getVisaCategories(),
+        getVisaContinentsPreview(),
         fetch('/api/contries-by-visa-continent').then(res => res.json()),
         getTourCategories(),
         getNewsPreview(),

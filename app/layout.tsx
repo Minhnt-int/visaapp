@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Manrope, Poppins } from "next/font/google";
-import { getSiteConfig } from "@/lib/data"; // CORRECT: Import the async function
+import { getSiteConfig } from "@/lib/api"; // CORRECT: Import the async function
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";

@@ -17,7 +17,17 @@ export interface HomepageService {
   title: string;
   description: string;
   image: string;
-  categorySlug: string; // Added to resolve the error
+  continentSlug: string; // FIX: Corrected property name
+}
+
+export interface VisaContinent {
+  name: string;
+  slug: string;
+  description?: string;
+  countries: {
+    slug: string;
+    name: string;
+  }[];
 }
 
 // CORRECTED: Redefined the Service interface to match the new, dynamic data structure.
@@ -65,7 +75,7 @@ export interface Tour {
     registration: string[];
     cancellation: string[];
   };
-  whyChooseUs: { id: string; title: string; description: string; icon: 'shield' | 'star' | 'check'; }[];
+  whyChooseUs: { id: string; title: string; description: string; icon: "shield" | "star" | "check" | "globe" | "sun" | "map" | "tag" | "anchor" | "ship" | "leaf" | "clock" | "pagoda" | "money" | "link" | "book"; }[];
   tags?: string[];
 }
 
@@ -91,15 +101,7 @@ export interface News {
   date: string;
 }
 
-export interface VisaContinent {
-  name: string;
-  slug: string;
-  description?: string;
-  countries: {
-    slug: string;
-    name: string;
-  }[];
-}
+
 
 export interface TourCategory {
   name: string;

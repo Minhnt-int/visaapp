@@ -4,8 +4,8 @@ import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 
 // CORRECTED: Import paths and types are now correct.
-import { getAllServices, getVisaDetailById, getVisaContinentBySlug } from "@/lib/data";
-import { VisaDetail } from "@/types";
+import { getVisaDetailById, getVisaContinentPreviewBySlug } from "@/lib/api";
+import { getAllServices } from "@/lib/api";
 
 // Import new components
 import { ContactButton } from "./component/ContactButton";
@@ -35,7 +35,7 @@ export async function generateStaticParams() {
 // CORRECTED: Data fetching logic is now simplified and uses the correct functions.
 export default async function VisaCountryDetailPage({ params }: PageProps) {
   const visaDetail = await getVisaDetailById(params.countrySlug);
-  const category = await getVisaContinentBySlug(params.continentSlug);
+  const category = await getVisaContinentPreviewBySlug(params.continentSlug);
   
   // The country name is now derived from the visa detail data itself.
   const countryName = visaDetail?.title || "";

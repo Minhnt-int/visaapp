@@ -257,7 +257,7 @@ export async function getTourCategories(): Promise<TourCategory[]> {
   return mockTourCategories;
 }
 
-export async function getVisaCategories(): Promise<VisaContinent[]> {
+export async function getVisaContinents(): Promise<VisaContinent[]> {
   // const result = await fetcher<{ success: boolean; data: VisaContinent[] }>('/api/visa-continents');
   // return result.data;
   return mockVisaContinents;

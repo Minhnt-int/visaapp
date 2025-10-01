@@ -1,6 +1,6 @@
-import HomepageServiceCard from "@/components/HomepageServiceCard";
-import { getHomepageServices } from "@/lib/data";
+import { getHomepageServices } from "@/lib/api";
 import SectionTitle from "@/components/SectionTitle";
+import { ServiceCard } from "../ServiceCard";
 
 const ServiceSection = async () => {
   const services = await getHomepageServices();
@@ -15,7 +15,7 @@ const ServiceSection = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {services.map((service) => (
-            <HomepageServiceCard key={service.slug} service={service} />
+            <ServiceCard key={service.slug} service={service} />
           ))}
         </div>
       </div>
