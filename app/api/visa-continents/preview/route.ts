@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { getAllServices } from "@/lib/api";
+import { getServices } from "@/lib/api";
 
 export async function GET() {
-  const services = await getAllServices();
+  const response = await getServices();
+  const services = await response.data;
   return NextResponse.json(services);
 }

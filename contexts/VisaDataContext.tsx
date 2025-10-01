@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTourCategories, getNewsPreview, getVisaContinentsPreview } from '@/lib/api'; // Use the new API call
+import { getTourCategories, getVisaContinentsPreview, getNewsPreview } from '@/lib/api'; // Use the new API call
 import { ContactInfo, NewsPreview, TourCategory, VisaContinent } from '@/types'; // Use the updated VisaCategory type
 import { getContactInfo } from '@/lib/api';
 
@@ -64,7 +64,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
         setVisaCategories(categories);
       }
       setTourCategories(tourCats);
-      setNewsPreview(newsPreviewData);
+      setNewsPreview(newsPreviewData.data);
       setContactInfo(contactInfoData);
     } catch (err) {
       console.error('❌ Error loading visa categories:', err); 

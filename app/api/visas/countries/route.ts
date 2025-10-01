@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { getAllServices } from "@/lib/api";
+import { getServices } from "@/lib/api";
 
 export async function GET() {
   try {
-    const services = await getAllServices();
+    const response = await getServices();
+    const services = response.data;
     
     // Extract the country from each service
     const countries = services.map(service => service.country);

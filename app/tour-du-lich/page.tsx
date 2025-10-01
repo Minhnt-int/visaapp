@@ -1,7 +1,6 @@
 import { getAllTours, getTourCategories } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Star } from "lucide-react";
 import SectionTitle from "@/components/SectionTitle";
 import TourCard from "@/components/TourCard";
 

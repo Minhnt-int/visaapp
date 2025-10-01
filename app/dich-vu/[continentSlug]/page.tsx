@@ -6,7 +6,7 @@ import {
   Briefcase, UserCheck, Award, ClipboardCheck,
   MessageSquare, FileText, CalendarCheck, CheckCircle} from "lucide-react";
 import { getVisaContinentPreviewBySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
-import { getServicesByContinentSlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
+import { getServices } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { ServiceCard } from "@/components/ServiceCard";
 import { VisaService } from "@/types";
 
@@ -72,7 +72,8 @@ export default async function VisaContinentPage({ params }: PageProps) {
   }
 
   // CORRECTED: Fetch all services and filter by the current continenty slug.
-  const categoryServices = await getServicesByContinentSlug(params.continentSlug);
+  const categoryServices = await getServices({tags: params.continentSlug});
+  const categoryServicesData = categoryServices.data;
 
   return (
     <main>
@@ -114,7 +115,7 @@ export default async function VisaContinentPage({ params }: PageProps) {
       </div>
 
       {/* List of Visas for this category */}
-      {categoryServices.length > 0 && (
+      {categoryServicesData.length > 0 && (
         <section className="py-16 md:py-24 bg-base-100">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -124,7 +125,7 @@ export default async function VisaContinentPage({ params }: PageProps) {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categoryServices.map((visaService: VisaService) => (
+              {categoryServicesData.map((visaService: VisaService) => (
                 <ServiceCard key={visaService.id} service={visaService} />
               ))}
             </div>

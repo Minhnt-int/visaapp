@@ -5,7 +5,7 @@ dotenv.config({ path: '.env.local' });
 
 import algoliasearch from 'algoliasearch';
 import {
-  mockVisaCategories,
+  mockVisaContinents,
   mockVisaPageData,
   mockTours,
   mockNews,
@@ -45,7 +45,7 @@ async function syncData() {
 
     // 1. Process Visa Data
     console.log('... Processing Visa data');
-    for (const category of mockVisaCategories) {
+    for (const category of mockVisaContinents) {
       for (const country of category.countries) {
         const visaDetail = mockVisaPageData[country.slug];
         if (visaDetail) {

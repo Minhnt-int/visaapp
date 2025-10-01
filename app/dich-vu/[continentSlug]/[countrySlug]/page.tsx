@@ -5,7 +5,7 @@ import { CheckCircle } from "lucide-react";
 
 // CORRECTED: Import paths and types are now correct.
 import { getVisaDetailById, getVisaContinentPreviewBySlug } from "@/lib/api";
-import { getAllServices } from "@/lib/api";
+import { getServices } from "@/lib/api";
 
 // Import new components
 import { ContactButton } from "./component/ContactButton";
@@ -25,8 +25,9 @@ interface PageProps {
 
 // CORRECTED: generateStaticParams now uses the modern, efficient getAllServices function.
 export async function generateStaticParams() {
-    const services = await getAllServices();
-    return services.map(service => ({
+    const services = await getServices();
+    const servicesData = services.data;
+    return servicesData.map(service => ({
         continentSlug: service.continentSlug,
         countrySlug: service.slug,
     }));

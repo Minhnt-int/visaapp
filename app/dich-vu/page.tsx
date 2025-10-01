@@ -1,10 +1,11 @@
-import { getVisaContinentPreview } from '@/lib/api'; 
+import { getServices } from '@/lib/api'; 
 import Link from 'next/link';
 import { Globe } from 'lucide-react';
 import ServiceSection from '@/components/ServiceSection';
 
 export default async function DichVuPage() {
-  const allServices = await getVisaContinentPreview();
+  const response = await getServices();
+  const allServices = response.data;
   
   return (
     <>
