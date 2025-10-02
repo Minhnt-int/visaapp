@@ -3,28 +3,58 @@ import { getNewsPreview } from '@/lib/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, ArrowRight, Search, TrendingUp, FilterX } from 'lucide-react';
-import TagsFilter from '@/components/blog/TagsFilter'; // IMPORT the new multi-tag filter component
+import dynamic from 'next/dynamic'; // IMPORT dynamic for lazy loading
 
-// REVALIDATION: Ensures the page is re-fetched on every visit, crucial for the new filter system.
+// --- PERFORMANCE OPTIMIZATION: Sidebar Loading Skeleton ---
+// This lightweight skeleton is shown instantly while the actual sidebar component and its logic are loaded in the background.
+const SidebarSkeleton = () => (
+  <aside className="space-y-8">
+    <div className="bg-white rounded-xl shadow-lg p-6 animate-pulse">
+      <div className="h-6 w-1/2 bg-gray-200 rounded mb-6"></div>
+      <div className="flex flex-wrap gap-2">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="h-8 w-24 bg-gray-200 rounded-full"></div>
+        ))}
+      </div>
+    </div>
+    <div className="bg-white rounded-xl shadow-lg p-6 animate-pulse">
+       <div className="h-6 w-1/3 bg-gray-200 rounded mb-6"></div>
+       <div className="space-y-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="flex gap-3 items-center">
+            <div className="w-16 h-16 bg-gray-200 rounded-lg"></div>
+            <div className="flex-1 space-y-2">
+              <div className="h-4 bg-gray-200 rounded"></div>
+              <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        ))}
+       </div>
+    </div>
+  </aside>
+);
+
+// --- PERFORMANCE OPTIMIZATION: Dynamically import the sidebar ---
+// This prevents the sidebar's JavaScript from being included in the initial page load.
+const DynamicBlogSidebar = dynamic(() => import('@/components/blog/BlogSidebar'), {
+  loading: () => <SidebarSkeleton />,
+  ssr: false, // The sidebar is not essential for SEO, so we can render it only on the client-side.
+});
+
 export const revalidate = 0;
 
-// SEO OPTIMIZATION: Metadata is now generated based on the selected tags for better SEO.
 export async function generateMetadata({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined } }): Promise<Metadata> {
   const tags = typeof searchParams?.tags === 'string' ? searchParams.tags.split(',') : [];
-
   let title = 'Tin tức & Cẩm nang Visa - Cập nhật mới nhất';
   let description = 'Cập nhật những tin tức mới nhất về dịch vụ visa, du lịch, định cư và các thông tin, hướng dẫn liên quan.';
-  
   if (tags.length > 0) {
     const formattedTags = tags.map(t => t.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ');
     title = `Bài viết về ${formattedTags} - Tin tức Visa`;
     description = `Khám phá các bài viết, tin tức và hướng dẫn chuyên sâu về các chủ đề: ${formattedTags}.`;
   }
-
   const siteUrl = '/tin-tuc';
   const ogImage = 'https://YOUR_DOMAIN/images/og-news.png';
   const canonicalUrl = tags.length > 0 ? `${siteUrl}?tags=${tags.join(',')}`: siteUrl;
-
   return {
     title,
     description,
@@ -36,14 +66,10 @@ export async function generateMetadata({ searchParams }: { searchParams?: { [key
 
 export default async function TinTucPage({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined }}) {
   const tags = typeof searchParams?.tags === 'string' ? searchParams.tags : undefined;
-
-  // API call now uses the 'tags' parameter for multi-filtering
   const news = await getNewsPreview({ tags }); 
   const newsData = news.data;
-
   const featuredPost = newsData.length > 0 ? newsData[0] : null;
   const recentPosts = newsData.length > 1 ? newsData.slice(1, 4) : [];
-
   const currentFilters = tags ? tags.split(',') : [];
 
   return (
@@ -64,12 +90,10 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
       </section>
 
       <div className="container mx-auto px-4 py-20">
-        {/* FILTER INFO & CLEAR BUTTON: Displayed when a filter is active */}
         {currentFilters.length > 0 && (
           <div className="mb-12 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg flex items-center justify-between">
             <div>
-              <span className="font-semibold">Đang lọc theo {currentFilters.length} tag:</span> 
-              {/* FIX: Moved quotes inside the JS expression to avoid unescaped entities error */}
+              <span className="font-semibold">Đang lọc theo {currentFilters.length} tag:</span>
               <span className="italic ml-2">{`"${currentFilters.join(', ')}"`}</span>
             </div>
             <Link href="/tin-tuc" className="flex items-center gap-2 px-4 py-2 bg-white border border-blue-300 rounded-full text-sm font-semibold hover:bg-blue-100 transition-colors">
@@ -128,31 +152,8 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
               </>
             )}
           </div>
-          {/* --- Sidebar --- */}
-          <aside className="space-y-8">
-            {/* UPDATE: The new, interactive TagsFilter component is now used */}
-            <TagsFilter />
-            
-            {/* Recent Posts in Sidebar can still be useful */}
-            {newsData.length > 0 && (
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <h4 className="text-xl font-bold text-gray-900 mb-6">Bài viết mới nhất</h4>
-                <div className="space-y-4">
-                  {newsData.slice(0, 4).map((post: any) => (
-                    <Link key={post.slug} href={`/tin-tuc/${post.slug}`} className="block group">
-                      <div className="flex gap-3">
-                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0"><Image src={post.imageUrl} alt={post.title} width={64} height={64} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" /></div>
-                        <div className="flex-1 min-w-0">
-                          <h5 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors mb-1">{post.title}</h5>
-                          <p className="text-xs text-gray-500">{post.date}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </aside>
+          {/* The dynamically loaded sidebar is placed here */}
+          <DynamicBlogSidebar latestPosts={newsData.slice(0, 4)} />
         </div>
       </div>
     </main>

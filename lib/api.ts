@@ -86,7 +86,7 @@ export interface FetchParams {
   page?: number;
   limit?: number;
   search?: string;
-  tags?: string; // UPDATE: Changed to 'tags' to accept a comma-separated string
+  tags?: string; // Can be a single tag or comma-separated tags
   status?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
@@ -104,7 +104,7 @@ function queryData<T extends Record<string, any>>(
     sourceData: T[],
     params: FetchParams = {},
     searchableFields: (keyof T)[] = ['title', 'name', 'description'],
-    categoryField: keyof T = 'category' // Note: In mock data, 'category' field holds the tags.
+    categoryField: keyof T = 'category'
 ): PaginatedResponse<T> {
     const { page = 1, limit = 10, search, tags, status, sortBy, sortOrder = 'desc' } = params;
     let processedData = [...sourceData];
@@ -119,16 +119,20 @@ function queryData<T extends Record<string, any>>(
         );
     }
 
-    // UPDATE: Handle multi-tag filtering
+    // FIX: Updated filtering logic to handle both string and array fields.
     if (tags) {
-        const selectedTags = tags.split(',').map(t => t.trim());
+        const selectedTags = tags.split(',').map(t => normalizeVietnamese(t.trim()));
         if (selectedTags.length > 0) {
             processedData = processedData.filter(item => {
-                const itemTags = item[categoryField];
-                if (Array.isArray(itemTags)) {
-                    const normalizedItemTags = itemTags.map((tag : any) => normalizeVietnamese(tag));
-                    // Check if at least one of the item's tags is in the selectedTags list
-                    return selectedTags.every(selectedTag => normalizedItemTags.includes(selectedTag));
+                const fieldValue = item[categoryField];
+                if (Array.isArray(fieldValue)) {
+                    // Case 1: The field is an array of tags (for News)
+                    const normalizedItemTags = fieldValue.map((tag : any) => normalizeVietnamese(tag));
+                    return normalizedItemTags.some((tag : any) => selectedTags.includes(tag));
+                } else if (typeof fieldValue === 'string') {
+                    // Case 2: The field is a single string (for Service's continentSlug)
+                    const normalizedFieldValue = normalizeVietnamese(fieldValue);
+                    return selectedTags.includes(normalizedFieldValue);
                 }
                 return false;
             });
@@ -160,7 +164,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function getNewsPreview(params: FetchParams = {}): Promise<PaginatedResponse<NewsPreview>> {
     await delay(100);
-    // The logic now correctly handles filtering by multiple tags on the 'category' field.
+    // This will continue to work correctly for multi-tag filtering on the 'category' (tags) field.
     return queryData<NewsPreview>(newsPreview, params, ['title'], 'category');
 }
 
@@ -175,7 +179,6 @@ export async function getNewsBySlug(slug: string): Promise<News | undefined> {
 
 export async function getNewsKeywords(): Promise<{ name: string; count: number }[]> {
     const tagCount: { [key: string]: number } = {};
-    // Using newsPreview data as it's the source for the blog page
     newsPreview.forEach(item => {
         item.category?.forEach(tag => {
             tagCount[tag] = (tagCount[tag] || 0) + 1;
@@ -210,6 +213,7 @@ async function transformVisaData(): Promise<VisaService[]> {
 export async function getServices(params: FetchParams = {}): Promise<PaginatedResponse<VisaService>> {
     await delay(100);
     const allServices = await transformVisaData();
+    // This now works correctly as queryData can handle filtering by 'continentSlug'.
     return queryData<VisaService>(allServices, params, ['title', 'country', 'description'], 'continentSlug');
 }
 
