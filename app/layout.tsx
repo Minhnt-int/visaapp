@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Manrope, Poppins } from "next/font/google";
-import { getSiteConfig } from "@/lib/api"; // CORRECT: Import the async function
+import { getNavigationLinks, getSiteConfig } from "@/lib/api";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -23,7 +23,6 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
-// CORRECT: Use generateMetadata to fetch data asynchronously
 export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = await getSiteConfig();
   const metadata: Metadata = {
@@ -65,17 +64,28 @@ export async function generateMetadata(): Promise<Metadata> {
   return metadata;
 }
 
-export default function RootLayout({
+export const revalidate = 600; 
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // CORRECTED: Fixed the typo in the environment variable name.
   const algoliaConfig = {
     appId: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
     apiKey: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY!,
     indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME!,
   };
 
+  // Basic check to prevent crash if env vars are missing
+  if (!algoliaConfig.appId || !algoliaConfig.apiKey || !algoliaConfig.indexName) {
+    throw new Error("Algolia configuration is missing in .env.local. Please check the file.");
+  }
+
+  const navigationLinks = await getNavigationLinks();
+  console.log("layout", navigationLinks);
+  
   return (
     <html lang="vi" className={`${poppins.variable} ${manrope.variable}`}>
       <head>
@@ -87,7 +97,7 @@ export default function RootLayout({
       <body className={`font-sans bg-white text-gray-900 antialiased`}>
         <VisaDataProvider>
             <SearchProvider algoliaConfig={algoliaConfig}>
-                <Header />
+                <Header navigationLinks={navigationLinks} />
                 <main>{children}</main>
                 <Footer />
             </SearchProvider>

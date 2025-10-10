@@ -3,19 +3,17 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
-
-interface VisaImage {
-  type: string;
-  url: string;
-  description: string;
-}
+// CORRECTED: The unused VisaImage type is removed.
+import { ProductMedia } from "@/types";
 
 interface VisaImagesGalleryProps {
-  visaImages: VisaImage[];
+  // CORRECTED: The prop name is updated for clarity.
+  media: ProductMedia[];
   countryName: string;
 }
 
-export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGalleryProps) {
+// CORRECTED: The component is updated to use the new prop name.
+export function VisaImagesGallery({ media, countryName }: VisaImagesGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const openLightbox = (index: number) => {
@@ -28,38 +26,42 @@ export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGallery
 
   const nextImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % visaImages.length);
+      // CORRECTED: Use 'media.length' instead of 'visaImages.length'
+      setSelectedImage((selectedImage + 1) % media.length);
     }
   };
 
   const prevImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? visaImages.length - 1 : selectedImage - 1);
+      // CORRECTED: Use 'media.length' instead of 'visaImages.length'
+      setSelectedImage(selectedImage === 0 ? media.length - 1 : selectedImage - 1);
     }
   };
 
-  if (!visaImages || visaImages.length === 0) {
+  // CORRECTED: Check for 'media' prop.
+  if (!media || media.length === 0) {
     return null;
   }
 
   return (
     <div className="mb-16">
       <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-        Visa {countryName}
+        Hình ảnh Visa {countryName}
       </h2>
       
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {visaImages.map((image, index) => (
+        {media.map((image, index) => (
           <div 
-            key={index}
+            key={image.id} // Use a unique ID for the key
             className="group relative bg-white rounded-lg border border-gray-200 overflow-hidden hover:border-blue-300 transition-colors cursor-pointer"
             onClick={() => openLightbox(index)}
           >
             <div className="aspect-[4/3] relative">
               <Image
                 src={image.url}
-                alt={image.type}
+                // CORRECTED: Use 'altText' or 'name' for the alt attribute.
+                alt={image.altText || image.name || `Visa Image ${index + 1}`}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -73,8 +75,8 @@ export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGallery
             </div>
             
             <div className="p-4">
-              <h3 className="font-semibold text-gray-900 mb-2 text-center">{image.type}</h3>
-              {/* <p className="text-sm text-gray-600 leading-relaxed">{image.description}</p> */}
+              {/* CORRECTED: Use the 'name' property for the title. */}
+              <h3 className="font-semibold text-gray-900 mb-2 text-center">{image.name || image.type}</h3>
             </div>
           </div>
         ))}
@@ -95,7 +97,7 @@ export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGallery
             </button>
 
             {/* Navigation buttons */}
-            {visaImages.length > 1 && (
+            {media.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
@@ -115,8 +117,9 @@ export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGallery
             {/* Image */}
             <div className="relative aspect-[4/3] w-full max-w-2xl">
               <Image
-                src={visaImages[selectedImage].url}
-                alt={visaImages[selectedImage].type}
+                src={media[selectedImage].url}
+                // CORRECTED: Use 'altText' or 'name' for alt text
+                alt={media[selectedImage].altText || media[selectedImage].name || 'Visa Image'}
                 fill
                 className="object-contain"
               />
@@ -125,13 +128,15 @@ export function VisaImagesGallery({ visaImages, countryName }: VisaImagesGallery
             {/* Image info */}
             <div className="mt-4 text-center">
               <h3 className="text-xl font-semibold text-white mb-2">
-                {visaImages[selectedImage].type}
+                {/* CORRECTED: Use the 'name' property. */}
+                {media[selectedImage].name || media[selectedImage].type}
               </h3>
               <p className="text-gray-300">
-                {visaImages[selectedImage].description}
+                {/* CORRECTED: Use 'altText' instead of 'description'. */}
+                {media[selectedImage].altText}
               </p>
               <div className="mt-2 text-gray-400 text-sm">
-                {selectedImage + 1} / {visaImages.length}
+                {selectedImage + 1} / {media.length}
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { LucideIcon } from 'lucide-react';
 export interface NavItem {
   label: string;
   href: string;
+  image?: string;
   children?: NavItem[];
 }
 
@@ -17,7 +18,7 @@ export interface HomepageService {
   title: string;
   description: string;
   image: string;
-  continentSlug: string; // FIX: Corrected property name
+  continentSlug: string; 
 }
 
 export interface VisaContinent {
@@ -30,18 +31,69 @@ export interface VisaContinent {
   }[];
 }
 
-// CORRECTED: Redefined the Service interface to match the new, dynamic data structure.
 export interface VisaService {
-  id: string;          // e.g., 'my'
-  slug: string;        // e.g., 'my'
-  title: string;       // e.g., 'Visa Mỹ (Du lịch, Công tác, Thăm thân)'
-  country: string;     // e.g., 'Mỹ'
-  continentSlug: string;// e.g., 'visa-chau-my'
-  image: string;       // URL to hero image
+  id: string;          
+  slug: string;        
+  title: string;       
+  country: string;     
+  continentSlug: string;
+  image: string;       
   description: string;
-  successRate?: string;
-  services?: string[];
+  successRate: string;
+  services: string[];
 }
+
+export interface VisaType {
+  id: string;
+  name: string;
+  requirements: Requirements;
+  pricing: Pricing[];
+}
+export interface Pricing {
+  type: string;
+  name: string;
+  description?: string;
+  prices: PricingEntry[];
+}
+export interface Requirements {
+  personal: string[];
+  work_individual: string[];
+  work_enterprise: string[];
+  financial: string[];
+  travel: string[];
+}
+
+export interface PricingEntry {
+  [key: string]: string;
+}
+export interface ProductMedia {
+  id: number;
+  url: string;
+  type: 'image' | 'video';
+  createdAt: string;
+  updatedAt: string;
+  productId: number;
+  altText?: string;
+  name?: string;
+}
+
+export interface VisaDetail {
+  slug: string; 
+  continentSlug: string;
+  title: string;
+  countryName: string;
+  heroImage: string;
+  successRate: string;
+  processingTime: string;
+  description: string;
+  services: string[];
+  visaTypes: VisaType[];
+  media: ProductMedia[];
+  status: 'published' | 'draft' | 'deleted';
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 
 export interface Tour {
@@ -88,7 +140,6 @@ export interface News {
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string;
-  description: string;
   author: string;
   publishedAt: string;
   viewCount: number;
@@ -118,8 +169,6 @@ export interface BlogCategory {
   count: number;
 }
 
-// --- NEW INTERFACES FOR VISA DETAIL PAGE --- 
-
 export type LucideIconType = LucideIcon;
 
 export interface Benefit {
@@ -132,86 +181,6 @@ export interface ProcessStep {
   name: string;
   description: string;
   icon: LucideIconType;
-}
-
-export interface VisaRequirementDocType {
-  type: string;
-  docs: string[];
-}
-
-export interface VisaRequirements {
-  personal: string[];
-  work: VisaRequirementDocType[];
-  financial: string[];
-  travel: string[];
-}
-
-export interface VisaPageVisaType {
-  id: string;
-  name: string;
-  requirements: VisaRequirements;
-}
-
-export interface PricingDetails {
-  group?: string;
-  adult: string;
-  child_6_12: string;
-  child_under_6: string;
-  consularFee?: string;
-  serviceFee?: string;
-  note?: string;
-}
-
-export interface PricingTypeItem {
-  type: string;
-  name: string;
-  description?: string;
-  validity?: string;
-  stayDuration?: string;
-  processingTime?: string;
-  prices: PricingDetails[];
-}
-
-export interface Testimonial {
-  id: string;
-  name: string;
-  quote: string;
-  rating: number;
-  image: string;
-}
-
-export interface RelatedArticle {
-  id: string;
-  title: string;
-  url: string;
-  image: string;
-}
-
-export interface VisaImage {
-  type: string;
-  url: string;
-  description: string;
-}
-
-// This is the primary data structure for a single visa detail page.
-export interface VisaDetail {
-  title: string;
-  countryName: string;
-  heroImage: string;
-  successRate: string;
-  processingTime: string;
-  visaImages?: VisaImage[];
-  description: string;
-  services: string[];
-  visaTypes: VisaPageVisaType[];
-  pricing: PricingTypeItem[];
-  testimonials: Testimonial[];
-  relatedArticles: RelatedArticle[];
-  icon?: string;
-  benefits?: Benefit[];
-  process?: ProcessStep[];
-  continentSlug: string;
-  popularPlaces?: string[];
 }
 
 export interface NewsPreview {
@@ -234,26 +203,19 @@ export interface formContact {
 }
 
 export type ApiResponse<T = any> =
-  // Trạng thái Thành công
   {
     status: "success";
     message: string;
-    data: T; // Dữ liệu thực tế. Kiểu T phụ thuộc vào endpoint cụ thể
-    // Các trường của trạng thái lỗi sẽ không tồn tại ở đây
+    data: T; 
     errors?: undefined;
-    // Các trường khác chỉ có khi thành công có thể thêm vào đây
   } |
-  // Trạng thái Thất bại (fail hoặc error)
   {
-    status: "error" | "fail"; // "error" cho lỗi server, "fail" cho lỗi client (validation,...)
-    message: string; // Thông báo lỗi ngắn gọn
-    errors?: { // Trường errors tùy chọn
+    status: "error" | "fail"; 
+    message: string; 
+    errors?: { 
       [key: string]: string | string[];
     } | string[];
-    // Trường data sẽ không tồn tại ở đây
     data?: undefined;
-    // Các trường khác chỉ có khi thất bại có thể thêm vào đây (ví dụ: code lỗi)
-    // code?: number | string;
   };
 
   export interface ContactInfo {
@@ -269,3 +231,20 @@ export type ApiResponse<T = any> =
     search?: string;
     category?: string;
   }
+
+  
+export interface RelatedArticle {
+  id: string;
+  title: string;
+  url: string;
+  image: string;
+}
+
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  quote: string;
+  rating: number;
+  image: string;
+}

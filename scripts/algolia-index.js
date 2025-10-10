@@ -39,7 +39,7 @@ async function main() {
         records.push({
           objectID: `tour-${destination.slug}`,
           type: 'Tour Du Lịch',
-          category: continent.name,
+          category: continent.slug,
           name: destination.name,
           slug: `/tour-du-lich/${continentKey}/${tour.slug}/${destination.slug}`,
           image: destination.image

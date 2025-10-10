@@ -35,24 +35,20 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
 
 export async function getAllServices(): Promise<VisaService[]> {
   await delay(100);
-  const transformedData = Object.keys(mockVisaPageData).map(countryKey => {
-    const countryData = mockVisaPageData[countryKey];
-    
-    // Lấy tên quốc gia từ key và viết hoa chữ cái đầu
-    const countryName = countryKey.charAt(0).toUpperCase() + countryKey.slice(1);
-    
+  // CORRECTED: Use .map directly on the array
+  const transformedData = mockVisaPageData.map(countryData => {
     return {
-        id: `${countryKey}`,
-        slug: `${countryKey}`,
+        id: countryData.slug,
+        slug: countryData.slug,
         title: countryData.title,
-        country: countryName,
+        country: countryData.countryName,
         continentSlug: countryData.continentSlug,
         image: countryData.heroImage,
         description: countryData.description,
         successRate: countryData.successRate,
         services: countryData.services,
     };
-});
+  });
   return transformedData;
 }
 
@@ -66,7 +62,8 @@ export async function getHomepageServices(): Promise<VisaService[]> {
 
 export async function getVisaDetailById(id: string): Promise<VisaDetail | undefined> {
   await delay(100);
-  return mockVisaPageData[id];
+  // CORRECTED: Use .find() for an array
+  return mockVisaPageData.find(d => d.slug === id);
 }
 
 export async function getVisaContinents(): Promise<VisaContinent[]> {

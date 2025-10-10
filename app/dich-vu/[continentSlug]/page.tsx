@@ -5,7 +5,7 @@ import {
   ChevronRight,
   Briefcase, UserCheck, Award, ClipboardCheck,
   MessageSquare, FileText, CalendarCheck, CheckCircle} from "lucide-react";
-import { getVisaContinentPreviewBySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
+import { getVisaContinentBySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { getServices } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { ServiceCard } from "@/components/ServiceCard";
 import { VisaService } from "@/types";
@@ -65,7 +65,7 @@ interface PageProps {
 
 // CORRECTED: Converted to async component to fetch its own data.
 export default async function VisaContinentPage({ params }: PageProps) {
-  const continentPreview = await getVisaContinentPreviewBySlug(params.continentSlug);
+  const continentPreview = await getVisaContinentBySlug(params.continentSlug);
 
   if (!continentPreview) {
     notFound();

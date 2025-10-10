@@ -1,105 +1,30 @@
 'use client';
 
-import { getContactInfo } from "@/lib/data"; // CORRECT: Import async function
 import { useVisaData } from "@/contexts/VisaDataContext";
 import Link from "next/link";
-import { useState, useEffect } from "react"; // CORRECT: Import hooks
+import { useState } from "react";
 import { Menu, X, ChevronDown, ChevronRight, Phone, Loader2 } from "lucide-react";
 import { SearchContainer } from './search/SearchContainer';
-import { VisaContinent } from '@/types';
+import { NavItem } from "@/types";
+import { visaContinentsSlugtoName } from "@/lib/visa-mock-data";
 
-// Interfaces for navigation structure
-interface NavSubChild { href: string; label: string; }
-interface NavChild { href: string; label: string; subChildren?: NavSubChild[]; }
-interface NavLink { href: string; label: string; children?: NavChild[]; }
-
-// CORRECT: Define a type for contact info state
-interface ContactInfoState {
-  phone: string;
-  email: string;
-}
-
-export default function Header() {
-  const { visaCategories, loading } = useVisaData(); 
+export default function Header({navigationLinks} : {navigationLinks : NavItem[]}) {
+  // Consume navItem, contactInfo, and loading state directly from the context
+  const { navItem, contactInfo, loading } = useVisaData();
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null);
-  
-  // CORRECT: Fetch contact info on the client side
-  const [contact, setContact] = useState<ContactInfoState | null>(null);
-
-  useEffect(() => {
-    const fetchContactInfo = async () => {
-      try {
-        const info = await getContactInfo();
-        setContact(info);
-      } catch (error) {
-        console.error("Failed to fetch contact info:", error);
-        // Set default or error state if needed
-        setContact({ phone: "N/A", email: "N/A" });
-      }
-    };
-    fetchContactInfo();
-  }, []);
-
-  // This function dynamically builds the navigation links based on visa data
-  const generateNavLinks = (): NavLink[] => {
-    const baseLinks: NavLink[] = [
-      { href: "/", label: "Trang chủ" },
-    ];
-
-    const staticLinks: NavLink[] = [
-        { href: "/tour-du-lich", label: "Tour du lịch" },
-        { href: "/tin-tuc", label: "Tin tức" },
-        { href: "/lien-he", label: "Liên hệ" }
-    ];
-
-    // Create a placeholder while data is loading
-    if (loading) {
-      return [
-        ...baseLinks,
-        { 
-          href: "/dich-vu", 
-          label: "Dịch vụ Visa",
-          children: [
-            { href: "#", label: "Đang tải dữ liệu...", subChildren: [] }
-          ]
-        },
-        ...staticLinks
-      ];
-    }
-
-    // Construct the Visa Service link dynamically from fetched visaCategories
-    const visaServiceLink: NavLink = {
-      href: "/dich-vu",
-      label: "Dịch vụ Visa",
-      children: visaCategories.map((category: VisaContinent) => ({
-        href: `/dich-vu/${category.slug}`,
-        label: `Visa ${category.name}`,
-        subChildren: category.countries.map(country => ({
-          href: `/dich-vu/${category.slug}/${country.slug}`,
-          label: country.name
-        }))
-      }))
-    };
-
-    return [
-      ...baseLinks,
-      visaServiceLink,
-      ...staticLinks
-    ];
-  };
-
-  const navLinks = generateNavLinks();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const handleDropdownToggle = (href: string) => {
-    setOpenDropdown(openDropdown === href ? null : href);
+  const handleDropdownToggle = (path: string) => {
+    setOpenDropdown(openDropdown === path ? null : path);
     setOpenSubDropdown(null);
   };
-  const handleSubDropdownToggle = (href: string) => {
-    setOpenSubDropdown(openSubDropdown === href ? null : href);
+  const handleSubDropdownToggle = (path: string) => {
+    setOpenSubDropdown(openSubDropdown === path ? null : path);
   };
+  console.log("header", navigationLinks);
 
   return (
     <>
@@ -110,11 +35,11 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <Phone size={16} />
               {/* CORRECT: Use state for contact info */}
-              <span className="font-medium">{contact ? contact.phone : '...'}</span>
+              <span className="font-medium">{contactInfo ? contactInfo.phone : '...'}</span>
             </div>
             <div className="hidden md:flex items-center gap-2">
-                <span>📧</span>
-                <span>{contact ? contact.email : '...'}</span>
+              <span>📧</span>
+              <span>{contactInfo ? contactInfo.email : '...'}</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -136,9 +61,9 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Simplified by mapping over navItem */}
           <nav className="hidden lg:flex items-center flex-1 justify-center">
-            {navLinks.map((link) => (
+            {navigationLinks.map((link) => (
               <div key={link.href} className="relative group" onMouseLeave={() => setOpenDropdown(null)}>
                 <Link href={link.href} className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors" onMouseEnter={() => link.children && setOpenDropdown(link.href)}>
                   {link.label}
@@ -148,13 +73,13 @@ export default function Header() {
                   <div className={`absolute top-full left-0 w-64 bg-white shadow-lg border rounded-lg py-2 z-40 transition-all duration-200 ${openDropdown === link.href ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                     {link.children.map((child) => (
                       <div key={child.href} className="relative group/sub" onMouseLeave={() => setOpenSubDropdown(null)}>
-                        <Link href={child.href} className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100" onMouseEnter={() => child.subChildren && setOpenSubDropdown(child.href)}>
-                          {child.label}
-                          {child.subChildren && child.subChildren.length > 0 && <ChevronRight size={16} />}
+                        <Link href={child.href} className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100" onMouseEnter={() => child.children && setOpenSubDropdown(child.href)}>
+                          { visaContinentsSlugtoName(child.label)}
+                          {child.children && child.children.length > 0 && <ChevronRight size={16} />}
                         </Link>
-                        {child.subChildren && child.subChildren.length > 0 && (
+                        {child.children && child.children.length > 0 && (
                           <div className={`absolute top-0 left-full w-64 bg-white shadow-lg border rounded-lg py-2 z-50 transition-all duration-200 ${openSubDropdown === child.href ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                            {child.subChildren.map((subChild) => (
+                            {child.children.map((subChild) => (
                               <Link key={subChild.href} href={subChild.href} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">{subChild.label}</Link>
                             ))}
                           </div>
@@ -174,10 +99,10 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Also simplified */}
         <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white border-t border-gray-200`}>
           <nav className="container mx-auto px-4 pb-4 mt-4 space-y-2">
-            {navLinks.map((link) => (
+            {navigationLinks.map((link) => (
               <div key={link.href}>
                 <div className="flex justify-between items-center">
                   <Link href={link.href} className="flex-1 py-2 font-medium text-gray-800">{link.label}</Link>
@@ -189,11 +114,11 @@ export default function Header() {
                       <div key={child.href}>
                         <div className="flex justify-between items-center">
                           <Link href={child.href} className="flex-1 py-2 text-gray-700">{child.label}</Link>
-                          {child.subChildren && child.subChildren.length > 0 && <button onClick={() => handleSubDropdownToggle(child.href)} className="p-2"><ChevronDown size={16} className={`transition-transform ${openSubDropdown === child.href ? 'rotate-180' : ''}`} /></button>}
+                          {child.children && child.children.length > 0 && <button onClick={() => handleSubDropdownToggle(child.href)} className="p-2"><ChevronDown size={16} className={`transition-transform ${openSubDropdown === child.href ? 'rotate-180' : ''}`} /></button>}
                         </div>
-                        {child.subChildren && child.subChildren.length > 0 && openSubDropdown === child.href && (
+                        {child.children && child.children.length > 0 && openSubDropdown === child.href && (
                           <div className="pl-4 border-l-2 border-gray-300 ml-2">
-                            {child.subChildren.map((subChild) => (
+                            {child.children.map((subChild) => (
                               <Link key={subChild.href} href={subChild.href} className="block py-2 text-gray-600">{subChild.label}</Link>
                             ))}
                           </div>

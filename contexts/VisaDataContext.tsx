@@ -1,14 +1,14 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTourCategories, getVisaContinentsPreview, getNewsPreview } from '@/lib/api'; // Use the new API call
-import { ContactInfo, NewsPreview, TourCategory, VisaContinent } from '@/types'; // Use the updated VisaCategory type
-import { getContactInfo } from '@/lib/api';
+import { getTourCategories, getVisaContinents, getNewsPreview, getNavigationLinks, getContactInfo } from '@/lib/api';
+import { ContactInfo, NewsPreview, TourCategory, VisaContinent, NavItem } from '@/types';
 
 interface VisaDataContextType {
   visaCategories: VisaContinent[];
   tourCategories: TourCategory[];
   newsPreview: NewsPreview[];
+  navItem: NavItem[];
   contactInfo: ContactInfo;
   loading: boolean;
   error: string | null;
@@ -21,7 +21,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
   const [visaCategories, setVisaCategories] = useState<VisaContinent[]>([]);
   const [tourCategories, setTourCategories] = useState<TourCategory[]>([]);
   const [newsPreview, setNewsPreview] = useState<NewsPreview[]>([]);
-  const [contactInfo, setContactInfo] = useState<ContactInfo>({
+  const [navItem, setNavItem] = useState<NavItem[]>([]);
+  // CORRECTED: Initial state now matches the ContactInfo type definition.
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({ 
     address: '',
     phone: '',
     email: '',
@@ -37,38 +39,35 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
       
-      // Fetch both static categories and dynamic country data
-      const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData] = await Promise.all([
-        getVisaContinentsPreview(),
+      const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData, navItemData] = await Promise.all([
+        getVisaContinents(),
         fetch('/api/contries-by-visa-continent').then(res => res.json()),
         getTourCategories(),
         getNewsPreview(),
-        getContactInfo()
+        getContactInfo(),
+        getNavigationLinks()
       ]);
 
-      const categories = visaCatsRes; // Extract data from visaCatsRes
-      const tourCats = tourCatsRes; // Extract data from tourCatsRes
-      
-      // If we have country data, attach it to the matching category
+      // Enrich visa categories with country data for other pages
       if (countriesRes.success && countriesRes.data) {
         const countriesByContinent = countriesRes.data;
-        
-        // Combine static categories with dynamic country lists
-        const enrichedCategories = categories.map((category: VisaContinent) => ({
+        const enrichedCategories = visaCatsRes.map((category: VisaContinent) => ({
           ...category,
           countries: countriesByContinent[category.slug] || []
         }));
-        
         setVisaCategories(enrichedCategories);
       } else {
-        setVisaCategories(categories);
+        setVisaCategories(visaCatsRes);
       }
-      setTourCategories(tourCats);
+
+      setTourCategories(tourCatsRes);
       setNewsPreview(newsPreviewData.data);
       setContactInfo(contactInfoData);
+      setNavItem(navItemData); // Set the navigation data for the header
+
     } catch (err) {
-      console.error('❌ Error loading visa categories:', err); 
-      setError(err instanceof Error ? err.message : 'Failed to load visa categories');
+      console.error('❌ Error loading application data:', err); 
+      setError(err instanceof Error ? err.message : 'Failed to load data');
     } finally {
       setLoading(false);
     }
@@ -87,6 +86,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
     tourCategories ,
     newsPreview,
     contactInfo,
+    navItem,
     loading,
     error,
     refreshData
@@ -107,8 +107,6 @@ export function useVisaData() {
   return context;
 }
 
-// No longer directly grouping countries by category here
-// The data now comes pre-grouped by category from the API (mock data)
 
 export function useVisaCategoryBySlug(categorySlug: string) {
   const { visaCategories, loading, error } = useVisaData();

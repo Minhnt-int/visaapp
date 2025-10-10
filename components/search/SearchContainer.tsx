@@ -42,7 +42,7 @@ export function SearchContainer({ className, placeholder }: SearchContainerProps
         {isSearchActive && (
             <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg z-50">
                 <Hits hitComponent={({ hit }: { hit: any }) => (
-                    <a href={`/visa/${hit.objectID}`} className="block p-4 hover:bg-gray-100">
+                    <a href={`${hit.path}`} className="block p-4 hover:bg-gray-100">
                         <h3 className="font-semibold">{hit.country}</h3>
                         <p className="text-sm text-gray-600">{hit.description}</p>
                     </a>

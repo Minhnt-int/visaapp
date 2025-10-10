@@ -1,6 +1,8 @@
 import { Tour, News, VisaContinent, TourCategory, VisaDetail, NewsPreview, formContact, ApiResponse, VisaService, NavItem } from '@/types';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { contactInfo, mockNews, mockTourCategories, mockTours, mockVisaContinents, mockVisaPageData, navigationLinks, newsPreview, siteConfig } from './mock-data';
+import algoliasearch, { SearchClient } from 'algoliasearch/lite';
+
 
 const api: AxiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -86,7 +88,7 @@ export interface FetchParams {
   page?: number;
   limit?: number;
   search?: string;
-  tags?: string; // Can be a single tag or comma-separated tags
+  tags?: string;
   status?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
@@ -119,18 +121,15 @@ function queryData<T extends Record<string, any>>(
         );
     }
 
-    // FIX: Updated filtering logic to handle both string and array fields.
     if (tags) {
         const selectedTags = tags.split(',').map(t => normalizeVietnamese(t.trim()));
         if (selectedTags.length > 0) {
             processedData = processedData.filter(item => {
                 const fieldValue = item[categoryField];
                 if (Array.isArray(fieldValue)) {
-                    // Case 1: The field is an array of tags (for News)
                     const normalizedItemTags = fieldValue.map((tag : any) => normalizeVietnamese(tag));
                     return normalizedItemTags.some((tag : any) => selectedTags.includes(tag));
                 } else if (typeof fieldValue === 'string') {
-                    // Case 2: The field is a single string (for Service's continentSlug)
                     const normalizedFieldValue = normalizeVietnamese(fieldValue);
                     return selectedTags.includes(normalizedFieldValue);
                 }
@@ -164,13 +163,12 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function getNewsPreview(params: FetchParams = {}): Promise<PaginatedResponse<NewsPreview>> {
     await delay(100);
-    // This will continue to work correctly for multi-tag filtering on the 'category' (tags) field.
     return queryData<NewsPreview>(newsPreview, params, ['title'], 'category');
 }
 
 export async function getNews(params: FetchParams = {}): Promise<PaginatedResponse<News>> {
     await delay(100);
-    return queryData<News>(mockNews, params, ['title', 'content', 'description'], 'keyword');
+    return queryData<News>(mockNews, params, ['title', 'content'], 'keyword');
 }
 
 export async function getNewsBySlug(slug: string): Promise<News | undefined> {
@@ -186,7 +184,7 @@ export async function getNewsKeywords(): Promise<{ name: string; count: number }
     });
     return Object.entries(tagCount)
       .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count); // Sort by count descending
+      .sort((a, b) => b.count - a.count);
 }
 
 export async function getTours(params: FetchParams = {}): Promise<PaginatedResponse<Tour>> {
@@ -202,37 +200,43 @@ export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
     return mockTours.find(tour => tour.slug === slug);
 }
 
-async function transformVisaData(): Promise<VisaService[]> {
-    return Object.keys(mockVisaPageData).map(countryKey => {
-        const countryData = mockVisaPageData[countryKey];
-        const countryName = countryKey.charAt(0).toUpperCase() + countryKey.slice(1);
-        return { id: countryKey, slug: countryKey, title: countryData.title, country: countryName, continentSlug: countryData.continentSlug, image: countryData.heroImage, description: countryData.description, successRate: countryData.successRate, services: countryData.services };
-    });
+export async function getAllServices(): Promise<VisaService[]> {
+    await delay(50);
+    return mockVisaPageData.map(detail => ({
+        id: detail.slug,
+        slug: detail.slug,
+        title: detail.title,
+        country: detail.countryName,
+        continentSlug: detail.continentSlug,
+        image: detail.heroImage,
+        description: detail.description,
+        successRate: detail.successRate,
+        services: detail.services,
+    }));
 }
 
 export async function getServices(params: FetchParams = {}): Promise<PaginatedResponse<VisaService>> {
     await delay(100);
-    const allServices = await transformVisaData();
-    // This now works correctly as queryData can handle filtering by 'continentSlug'.
+    const allServices = await getAllServices();
     return queryData<VisaService>(allServices, params, ['title', 'country', 'description'], 'continentSlug');
 }
 
 export async function getHomepageServices(): Promise<VisaService[]> {
-    const response = await getServices({ page: 1, limit: 3, sortBy: 'country', sortOrder: 'asc' });
-    return response.data;
+    const allServices = await getAllServices();
+    return allServices.slice(0, 3);
 }
 
-export async function getVisaContinentsPreview(): Promise<VisaContinent[]> {
+export async function getVisaContinents(): Promise<VisaContinent[]> {
     return mockVisaContinents;
 }
 
-export async function getVisaContinentPreviewBySlug(slug: string): Promise<VisaContinent | undefined> {
+export async function getVisaContinentBySlug(slug: string): Promise<VisaContinent | undefined> {
     return mockVisaContinents.find(continent => continent.slug === slug);
 }
 
 export async function getVisaDetailById(id: string): Promise<VisaDetail | undefined> {
     await delay(100);
-    return mockVisaPageData[id];
+    return mockVisaPageData.find(detail => detail.slug === id);
 }
 
 export async function getSiteConfig() {
@@ -243,6 +247,103 @@ export async function getContactInfo() {
     await delay(50); return contactInfo;
 }
 
+// UPDATED: This function now STRICTLY fetches from Algolia and will throw an error if it fails.
+// The fallback to mock data has been removed to ensure data consistency.
 export async function getNavigationLinks(): Promise<NavItem[]> {
-    await delay(50); return navigationLinks;
+    // Ensure all required Algolia environment variables are present.
+    if (!process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME) {
+        throw new Error('Algolia environment variables are missing. Please check your .env.local file.');
+    }
+
+    const algoliaClient: SearchClient = algoliasearch(
+        process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+        process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+    );
+    
+    const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME); 
+
+    try {
+        const [visaResponse, tourResponse] = await Promise.all([
+            algoliaIndex.search('', { // Query for visa data
+                facetFilters: ['type:visa'],
+                attributesToRetrieve: ['path', 'country', 'continent', 'image'],
+                hitsPerPage: 100 // Adjust as needed
+            }),
+            algoliaIndex.search('', { // Query for tour data
+                facetFilters: ['type:tour'],
+                attributesToRetrieve: ['path', 'continent'],
+                hitsPerPage: 100 // Adjust as needed
+            })
+        ]);
+        console.log("visaResponse", visaResponse);
+        
+        const visaHits = visaResponse.hits;
+        const tourHits = tourResponse.hits;
+
+        // Process visa data into a nested structure (Continent -> Country)
+        const visaContinents: { [key: string]: NavItem } = {};
+        visaHits.forEach((hit: any) => {
+            const continentName = hit.continent;
+            const continentSlug = hit.path.split('/')[2];
+
+            if (!continentName) return; // Skip if continent is not defined
+
+            // Create continent item if it doesn't exist
+            if (!visaContinents[continentName]) {
+                visaContinents[continentName] = {
+                    label: continentName,
+                    href: `/dich-vu/${continentSlug}`,
+                    children: []
+                };
+            }
+            console.log( "test api", visaContinents,continentSlug);
+            
+            // Add country to the continent's children array
+            visaContinents[continentName].children?.push({
+                label: hit.country,
+                href: hit.path,
+                image: hit.image
+            });
+        });
+
+        // Process tour data to create a flat list of tour categories
+        const tourCategoryItems: NavItem[] = [];
+        const uniqueTourCategories = new Set<string>();
+        tourHits.forEach((hit: any) => {
+            const categoryName = hit.continent; 
+            if (categoryName && !uniqueTourCategories.has(categoryName)) {
+                const categorySlug = hit.path.split('/')[2];
+                uniqueTourCategories.add(categoryName);
+                tourCategoryItems.push({
+                    label: categoryName,
+                    href: `/tour-du-lich/${categorySlug}`,
+                });
+            }
+        });
+
+        // Assemble the final navigation structure
+        const finalNavLinks: NavItem[] = [
+            { label: 'Trang chủ', href: '/' },
+            {
+                label: 'Dịch Vụ Visa',
+                href: '/dich-vu',
+                children: Object.values(visaContinents)
+            },
+            {
+                label: 'Tour Du Lịch',
+                href: '/tour-du-lich',
+                children: tourCategoryItems
+            },
+            { label: 'Tin Tức', href: '/tin-tuc' },
+            { label: 'Về chúng tôi', href: '/ve-chung-toi' },
+            { label: 'Liên hệ', href: '/lien-he' },
+        ];
+
+        return finalNavLinks;
+
+    } catch (error) {
+        console.error("FATAL: Error fetching navigation from Algolia:", error);
+        // Re-throw the error to ensure the application fails loudly instead of showing stale/mock data.
+        throw new Error(`Failed to fetch navigation links from Algolia. Please check API keys and index status. Details: ${(error as Error).message}`);
+    }
 }

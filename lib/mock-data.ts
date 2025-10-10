@@ -524,239 +524,344 @@ export const mockTourCategories: TourCategory[] = [
 ];
 
 export const mockNews: News[] = [
-    {
-      id: 1,
-      title: "Bí quyết phỏng vấn visa Mỹ",
-      content: "Nội dung chi tiết...",
-      slug: "bi-quyet-phong-van-visa-my",
-      keyword: ["visa", "hướng dẫn", "phỏng vấn", "Mỹ"],
-      metaTitle: "Bí quyết phỏng vấn visa Mỹ",
-      metaDescription: "Mẹo phỏng vấn visa Mỹ",
-      metaKeywords: "visa my, phong van",
-      description: "Mẹo phỏng vấn visa Mỹ",
-      author: "Chuyên gia Visa",
-      publishedAt: "2024-07-29T10:00:00Z",
-      viewCount: 1500,
-      blogCategoryId: 1,
-      avatarUrl: "/images/avatars/author.jpg",
-      status: "published",
-      createdAt: "2024-07-29T10:00:00Z",
-      updatedAt: "2024-07-29T10:00:00Z",
-      excerpt: "Phỏng vấn là bước quan trọng nhất...",
-      date: "2024-07-29"
-    },
-    // --- Bắt đầu 10 dữ liệu mới ---
-    {
-      id: 2,
-      title: "Chính sách visa mới của Canada: Cơ hội cho sinh viên quốc tế",
-      content: "Chi tiết về những thay đổi gần đây trong quy định cấp phép học tập và làm việc sau tốt nghiệp.",
-      slug: "chinh-sach-visa-moi-cua-canada-co-hoi-cho-sinh-vien",
-      keyword: ["visa", "du học", "Canada", "chính sách"],
-      metaTitle: "Chính sách visa du học Canada mới nhất",
-      metaDescription: "Phân tích những thay đổi có lợi cho sinh viên quốc tế tại Canada.",
-      metaKeywords: "visa canada, du hoc, lam viec",
-      description: "Phân tích những thay đổi có lợi cho sinh viên quốc tế tại Canada.",
-      author: "Tư vấn Di trú",
-      publishedAt: "2024-09-27T08:30:00Z",
-      viewCount: 3500,
-      blogCategoryId: 1,
-      avatarUrl: "/images/avatars/immigration_advisor.jpg",
-      status: "published",
-      createdAt: "2024-09-25T08:30:00Z",
-      updatedAt: "2024-09-27T08:30:00Z",
-      excerpt: "Canada nới lỏng quy định visa nhằm thu hút nhân tài.",
-      date: "2024-09-27"
-    },
-    {
-      id: 3,
-      title: "10 địa điểm du lịch 'bị lãng quên' ở Đông Nam Á",
-      content: "Những viên ngọc thô chưa được khai thác, mang vẻ đẹp hoang sơ và văn hóa độc đáo.",
-      slug: "10-dia-diem-du-lich-bi-lang-quen-dong-nam-a",
-      keyword: ["du lịch", "Đông Nam Á", "bí mật", "khám phá"],
-      metaTitle: "Khám phá 10 điểm du lịch bí mật ở Đông Nam Á",
-      metaDescription: "Gợi ý những điểm đến ít người biết, lý tưởng cho kỳ nghỉ yên tĩnh.",
-      metaKeywords: "du lich, dong nam a, hoang so, diem den",
-      description: "Gợi ý những điểm đến ít người biết, lý tưởng cho kỳ nghỉ yên tĩnh.",
-      author: "Travel Blogger",
-      publishedAt: "2024-09-20T14:45:00Z",
-      viewCount: 4200,
-      blogCategoryId: 3,
-      avatarUrl: "/images/avatars/travel_blogger.jpg",
-      status: "published",
-      createdAt: "2024-09-18T14:45:00Z",
-      updatedAt: "2024-09-20T14:45:00Z",
-      excerpt: "Tránh xa đám đông tại các bãi biển và khu di tích nổi tiếng.",
-      date: "2024-09-20"
-    },
-    {
-      id: 4,
-      title: "Bầu cử Mỹ: Tác động của cuộc tranh luận đầu tiên đến thị trường châu Á",
-      content: "Phân tích sự biến động của chỉ số chứng khoán và đồng tiền các nước châu Á sau cuộc đối đầu chính trị.",
-      slug: "bau-cu-my-tac-dong-thi-truong-chau-a",
-      keyword: ["tin tức nước ngoài", "kinh tế", "chính trị", "Mỹ"],
-      metaTitle: "Ảnh hưởng của bầu cử Mỹ đến thị trường tài chính châu Á",
-      metaDescription: "Phân tích chuyên sâu về sự liên kết giữa chính trị Mỹ và kinh tế châu Á.",
-      metaKeywords: "bau cu my, tin tuc, kinh te, chau a",
-      description: "Phân tích chuyên sâu về sự liên kết giữa chính trị Mỹ và kinh tế châu Á.",
-      author: "Chuyên gia Kinh tế",
-      publishedAt: "2024-09-29T09:00:00Z",
-      viewCount: 1800,
-      blogCategoryId: 2,
-      avatarUrl: "/images/avatars/economy_expert.jpg",
-      status: "published",
-      createdAt: "2024-09-28T09:00:00Z",
-      updatedAt: "2024-09-29T09:00:00Z",
-      excerpt: "Thị trường châu Á phản ứng thận trọng trước kết quả tranh luận.",
-      date: "2024-09-29"
-    },
-    {
-      id: 5,
-      title: "Quy trình xin visa Schengen (Châu Âu) chi tiết từ A đến Z",
-      content: "Các bước chuẩn bị hồ sơ, lịch hẹn và những sai lầm cần tránh khi xin visa khối Schengen.",
-      slug: "quy-trinh-xin-visa-schengen-chi-tiet",
-      keyword: ["visa", "Châu Âu", "Schengen", "hồ sơ"],
-      metaTitle: "Hướng dẫn xin visa Schengen thành công",
-      metaDescription: "Quy trình từng bước để hoàn tất hồ sơ visa du lịch Châu Âu.",
-      metaKeywords: "visa schengen, chau au, ho so, huong dan",
-      description: "Quy trình từng bước để hoàn tất hồ sơ visa du lịch Châu Âu.",
-      author: "Tư vấn Visa",
-      publishedAt: "2024-09-15T16:00:00Z",
-      viewCount: 5100,
-      blogCategoryId: 1,
-      avatarUrl: "/images/avatars/visa_expert.jpg",
-      status: "published",
-      createdAt: "2024-09-12T16:00:00Z",
-      updatedAt: "2024-09-15T16:00:00Z",
-      excerpt: "Hồ sơ tài chính và lịch trình du lịch là hai yếu tố quyết định.",
-      date: "2024-09-15"
-    },
-    {
-      id: 6,
-      title: "Kinh nghiệm du lịch tự túc Nhật Bản: Tàu điện và chỗ ở giá rẻ",
-      content: "Mẹo sử dụng JR Pass hiệu quả và tìm kiếm khách sạn con nhộng (capsule hotel) tiết kiệm.",
-      slug: "kinh-nghiem-du-lich-tu-tuc-nhat-ban",
-      keyword: ["du lịch", "Nhật Bản", "tự túc", "tiết kiệm"],
-      metaTitle: "Du lịch Nhật Bản tự túc và tiết kiệm chi phí",
-      metaDescription: "Cẩm nang di chuyển và chỗ ở dành cho du khách muốn khám phá Nhật Bản.",
-      metaKeywords: "du lich nhat ban, tu tuc, jr pass",
-      description: "Cẩm nang di chuyển và chỗ ở dành cho du khách muốn khám phá Nhật Bản.",
-      author: "Phượt Thủ Á-Âu",
-      publishedAt: "2024-08-05T09:15:00Z",
-      viewCount: 6800,
-      blogCategoryId: 3,
-      avatarUrl: "/images/avatars/traveller_asia.jpg",
-      status: "published",
-      createdAt: "2024-08-01T09:15:00Z",
-      updatedAt: "2024-08-05T09:15:00Z",
-      excerpt: "Hệ thống tàu điện Nhật Bản vô cùng phức tạp nhưng rất tiện lợi.",
-      date: "2024-08-05"
-    },
-    {
-      id: 7,
-      title: "Diễn biến xung đột Nga-Ukraine: Cập nhật tình hình mới nhất từ tiền tuyến",
-      content: "Phân tích các báo cáo tình báo và đánh giá về chiến lược quân sự gần đây của cả hai bên.",
-      slug: "dien-bien-xung-dot-nga-ukraine-cap-nhat",
-      keyword: ["tin tức nước ngoài", "quân sự", "Nga", "Ukraine"],
-      metaTitle: "Tin tức chiến sự Nga-Ukraine: Cập nhật hàng ngày",
-      metaDescription: "Phân tích sâu sắc về những diễn biến mới nhất của cuộc xung đột.",
-      metaKeywords: "chien su, nga ukraine, tin the gioi",
-      description: "Phân tích sâu sắc về những diễn biến mới nhất của cuộc xung đột.",
-      author: "Phân tích Quốc tế",
-      publishedAt: "2024-09-29T11:30:00Z",
-      viewCount: 8900,
-      blogCategoryId: 2,
-      avatarUrl: "/images/avatars/foreign_analyst.jpg",
-      status: "published",
-      createdAt: "2024-09-29T11:30:00Z",
-      updatedAt: "2024-09-29T11:30:00Z",
-      excerpt: "Cuộc chiến vẫn đang diễn ra căng thẳng tại các khu vực trọng điểm.",
-      date: "2024-09-29"
-    },
-    {
-      id: 8,
-      title: "Điều kiện và thủ tục nhập cư diện tay nghề cao tại Úc",
-      content: "Hướng dẫn chi tiết về các loại visa định cư diện tay nghề, hệ thống tính điểm và danh sách ngành nghề ưu tiên (Skilled Visa).",
-      slug: "thu-tuc-nhap-cu-dien-tay-nghe-cao-tai-uc",
-      keyword: ["visa", "nhập cư", "Úc", "tay nghề", "di trú"],
-      metaTitle: "Nhập cư Úc diện tay nghề: Hướng dẫn chi tiết",
-      metaDescription: "Tìm hiểu về cơ hội định cư Úc dành cho lao động có kỹ năng cao.",
-      metaKeywords: "nhap cu uc, visa tay nghe, skilled visa",
-      description: "Tìm hiểu về cơ hội định cư Úc dành cho lao động có kỹ năng cao.",
-      author: "Luật sư Di trú",
-      publishedAt: "2024-09-25T10:30:00Z",
-      viewCount: 2900,
-      blogCategoryId: 1,
-      avatarUrl: "/images/avatars/lawyer.jpg",
-      status: "published",
-      createdAt: "2024-09-20T10:30:00Z",
-      updatedAt: "2024-09-25T10:30:00Z",
-      excerpt: "Úc tiếp tục ưu tiên các ngành nghề về IT và Y tế.",
-      date: "2024-09-25"
-    },
-    {
-      id: 9,
-      title: "Khám phá Lễ hội Ánh sáng Vivid Sydney (Úc): Thời gian và hoạt động nổi bật",
-      content: "Tổng hợp những tác phẩm ánh sáng, nghệ thuật sắp đặt và sự kiện âm nhạc lớn nhất năm.",
-      slug: "kham-pha-le-hoi-anh-sang-vivid-sydney",
-      keyword: ["du lịch", "Úc", "lễ hội", "Sydney"],
-      metaTitle: "Vivid Sydney: Lễ hội ánh sáng lớn nhất thế giới",
-      metaDescription: "Thông tin cần biết để trải nghiệm trọn vẹn lễ hội Vivid Sydney hàng năm.",
-      metaKeywords: "du lich uc, sydney, le hoi anh sang",
-      description: "Thông tin cần biết để trải nghiệm trọn vẹn lễ hội Vivid Sydney hàng năm.",
-      author: "Du lịch & Văn hóa",
-      publishedAt: "2024-09-18T13:00:00Z",
-      viewCount: 1600,
-      blogCategoryId: 3,
-      avatarUrl: "/images/avatars/culture_reporter.jpg",
-      status: "published",
-      createdAt: "2024-09-15T13:00:00Z",
-      updatedAt: "2024-09-18T13:00:00Z",
-      excerpt: "Hàng triệu du khách đổ về Sydney để chiêm ngưỡng ánh sáng nghệ thuật.",
-      date: "2024-09-18"
-    },
-    {
-      id: 10,
-      title: "EU đề xuất quy định mới về AI: Cân bằng giữa đổi mới và an toàn",
-      content: "Phân tích sâu về Đạo luật AI (AI Act) của Liên minh châu Âu và tác động toàn cầu của nó.",
-      slug: "eu-de-xuat-quy-dinh-moi-ve-ai",
-      keyword: ["tin tức nước ngoài", "AI", "EU", "công nghệ", "pháp luật"],
-      metaTitle: "Đạo luật AI của EU: Điều chỉnh Trí tuệ Nhân tạo",
-      metaDescription: "Tìm hiểu về những quy định chặt chẽ mà EU đặt ra cho các hệ thống AI rủi ro cao.",
-      metaKeywords: "eu, ai act, tri tue nhan tao, quy dinh",
-      description: "Tìm hiểu về những quy định chặt chẽ mà EU đặt ra cho các hệ thống AI rủi ro cao.",
-      author: "Bình luận Công nghệ",
-      publishedAt: "2024-08-20T17:10:00Z",
-      viewCount: 2200,
-      blogCategoryId: 2,
-      avatarUrl: "/images/avatars/tech_commentator.jpg",
-      status: "published",
-      createdAt: "2024-08-15T17:10:00Z",
-      updatedAt: "2024-08-20T17:10:00Z",
-      excerpt: "Châu Âu dẫn đầu thế giới trong việc pháp lý hóa AI.",
-      date: "2024-08-20"
-    },
-    {
-      id: 11,
-      title: "5 điều cần chuẩn bị khi đi du lịch Hàn Quốc không cần visa (K-ETA)",
-      content: "Các bước đăng ký K-ETA, quy định nhập cảnh và mẹo vặt cần thiết cho chuyến đi của bạn.",
-      slug: "du-lich-han-quoc-khong-can-visa-keta",
-      keyword: ["visa", "du lịch", "Hàn Quốc", "K-ETA", "hướng dẫn"],
-      metaTitle: "Du lịch Hàn Quốc với K-ETA: Hướng dẫn từ A đến Z",
-      metaDescription: "Tất cả những gì bạn cần biết về hệ thống K-ETA mới của Hàn Quốc.",
-      metaKeywords: "du lich han quoc, k-eta, visa",
-      description: "Tất cả những gì bạn cần biết về hệ thống K-ETA mới của Hàn Quốc.",
-      author: "Korea Insight",
-      publishedAt: "2024-09-01T15:00:00Z",
-      viewCount: 4700,
-      blogCategoryId: 1,
-      avatarUrl: "/images/avatars/korea_expert.jpg",
-      status: "published",
-      createdAt: "2024-08-28T15:00:00Z",
-      updatedAt: "2024-09-01T15:00:00Z",
-      excerpt: "Hàn Quốc tạo điều kiện cho du khách quốc tế với hệ thống K-ETA mới.",
-      date: "2024-09-01"
-    }
-  ];
+  {
+    id: 1,
+    title: "Bí quyết phỏng vấn visa Mỹ",
+    content: `
+      <h2>1. Chuẩn bị Hồ sơ Tài chính Kỹ lưỡng</h2>
+      <p>Phần lớn các hồ sơ bị từ chối đều liên quan đến việc không chứng minh được tài chính đủ mạnh và mối ràng buộc tại Việt Nam. Đảm bảo sao kê ngân hàng 6 tháng gần nhất có số dư ổn định, không có giao dịch bất thường.</p>
+      <p><strong>Lưu ý:</strong> Sổ tiết kiệm nên được gửi trước ngày phỏng vấn ít nhất 3-6 tháng.</p>
+      
+      <h2>2. Tập trung vào Mục đích Chuyến đi</h2>
+      <p>Hãy trả lời thẳng vào câu hỏi của viên chức lãnh sự. Nếu đi du lịch, hãy mô tả lịch trình chi tiết và hợp lý. Tránh trả lời chung chung về mục đích tham quan.</p>
+      
+      <h3>Sai lầm thường gặp:</h3>
+      <ul>
+        <li>Không nắm rõ thông tin về nơi lưu trú hoặc người bảo lãnh.</li>
+        <li>Ăn mặc quá xuề xòa hoặc quá kiểu cách.</li>
+      </ul>
+    `,
+    slug: "bi-quyet-phong-van-visa-my",
+    keyword: ["visa", "hướng dẫn", "phỏng vấn", "Mỹ"],
+    metaTitle: "Bí quyết phỏng vấn visa Mỹ",
+    metaDescription: "Mẹo phỏng vấn visa Mỹ",
+    metaKeywords: "visa my, phong van",
+    author: "Chuyên gia Visa",
+    publishedAt: "2024-07-29T10:00:00Z",
+    viewCount: 1500,
+    blogCategoryId: 1,
+    avatarUrl: "/images/avatars/author.jpg",
+    status: "published",
+    createdAt: "2024-07-29T10:00:00Z",
+    updatedAt: "2024-07-29T10:00:00Z",
+    excerpt: "Phỏng vấn là bước quan trọng nhất...",
+    date: "2024-07-29"
+  },
+  // --- Bắt đầu 10 dữ liệu mới ---
+  {
+    id: 2,
+    title: "Chính sách visa mới của Canada: Cơ hội cho sinh viên quốc tế",
+    content: `
+      <p>Chính phủ Canada đã công bố các thay đổi mới nhằm đơn giản hóa quy trình xin giấy phép học tập và mở rộng cơ hội làm việc sau tốt nghiệp cho sinh viên quốc tế, đặc biệt trong các ngành thiếu hụt nhân lực.</p>
+      
+      <h2>Điểm mới nổi bật:</h2>
+      <ol>
+        <li><strong>Giảm yêu cầu tài chính chứng minh:</strong> Giảm nhẹ gánh nặng chứng minh số dư tài khoản ngân hàng.</li>
+        <li><strong>Visa làm việc sau tốt nghiệp (PGWP):</strong> Quy định mới giúp sinh viên các khóa học ngắn hạn đủ điều kiện xin PGWP dễ dàng hơn.</li>
+      </ol>
+      
+      <p>Các ứng viên nên tham khảo chi tiết trên website chính thức của IRCC để cập nhật thông tin kịp thời.</p>
+    `,
+    slug: "chinh-sach-visa-moi-cua-canada-co-hoi-cho-sinh-vien",
+    keyword: ["visa", "du học", "Canada", "chính sách"],
+    metaTitle: "Chính sách visa du học Canada mới nhất",
+    metaDescription: "Phân tích những thay đổi có lợi cho sinh viên quốc tế tại Canada.",
+    metaKeywords: "visa canada, du hoc, lam viec",
+    author: "Tư vấn Di trú",
+    publishedAt: "2024-09-27T08:30:00Z",
+    viewCount: 3500,
+    blogCategoryId: 1,
+    avatarUrl: "/images/avatars/immigration_advisor.jpg",
+    status: "published",
+    createdAt: "2024-09-25T08:30:00Z",
+    updatedAt: "2024-09-27T08:30:00Z",
+    excerpt: "Canada nới lỏng quy định visa nhằm thu hút nhân tài.",
+    date: "2024-09-27"
+  },
+  {
+    id: 3,
+    title: "10 địa điểm du lịch 'bị lãng quên' ở Đông Nam Á",
+    content: `
+      <p>Đông Nam Á không chỉ có Bali hay Bangkok. Có những hòn đảo và thành phố cổ vẫn giữ được vẻ đẹp hoang sơ và văn hóa bản địa độc đáo, hoàn hảo cho những ai tìm kiếm sự yên tĩnh.</p>
+      
+      <h2>Top 3 điểm đến cần khám phá:</h2>
+      <ul>
+        <li><strong>Koh Rong, Campuchia:</strong> Thiên đường biển ẩn mình, lý tưởng cho lặn biển.</li>
+        <li><strong>Hà Giang, Việt Nam:</strong> Vùng đất của những cung đường đèo hùng vĩ và văn hóa dân tộc thiểu số.</li>
+        <li><strong>Luang Prabang, Lào:</strong> Thành phố tâm linh với hàng ngàn ngôi chùa cổ kính, không khí thanh bình.</li>
+      </ul>
+      
+      <p>Hãy chuẩn bị hành trang và khám phá những viên ngọc thô này trước khi chúng trở nên quá đông đúc.</p>
+    `,
+    slug: "10-dia-diem-du-lich-bi-lang-quen-dong-nam-a",
+    keyword: ["du lịch", "Đông Nam Á", "bí mật", "khám phá"],
+    metaTitle: "Khám phá 10 điểm du lịch bí mật ở Đông Nam Á",
+    metaDescription: "Gợi ý những điểm đến ít người biết, lý tưởng cho kỳ nghỉ yên tĩnh.",
+    metaKeywords: "du lich, dong nam a, hoang so, diem den",
+    author: "Travel Blogger",
+    publishedAt: "2024-09-20T14:45:00Z",
+    viewCount: 4200,
+    blogCategoryId: 3,
+    avatarUrl: "/images/avatars/travel_blogger.jpg",
+    status: "published",
+    createdAt: "2024-09-18T14:45:00Z",
+    updatedAt: "2024-09-20T14:45:00Z",
+    excerpt: "Tránh xa đám đông tại các bãi biển và khu di tích nổi tiếng.",
+    date: "2024-09-20"
+  },
+  {
+    id: 4,
+    title: "Bầu cử Mỹ: Tác động của cuộc tranh luận đầu tiên đến thị trường châu Á",
+    content: `
+      <p>Cuộc tranh luận tổng thống Mỹ vừa qua đã tạo ra làn sóng bất ổn, đặc biệt là tại các thị trường tài chính châu Á. Sự không chắc chắn về chính sách thương mại và đầu tư đã khiến nhà đầu tư thận trọng.</p>
+      
+      <p>Các chỉ số chứng khoán như Nikkei 225 (Nhật Bản) và KOSPI (Hàn Quốc) ghi nhận mức giảm nhẹ, trong khi đồng Nhân dân tệ (CNY) và Won (KRW) có xu hướng mất giá so với USD.</p>
+      
+      <h2>Dự báo Ngắn hạn:</h2>
+      <p>Thị trường sẽ tiếp tục theo dõi sát sao các tuyên bố chính sách từ hai ứng viên. Các ngành xuất khẩu lớn sang Mỹ như dệt may và điện tử có thể chịu tác động tiêu cực nếu căng thẳng thương mại leo thang.</p>
+    `,
+    slug: "bau-cu-my-tac-dong-thi-truong-chau-a",
+    keyword: ["tin tức nước ngoài", "kinh tế", "chính trị", "Mỹ"],
+    metaTitle: "Ảnh hưởng của bầu cử Mỹ đến thị trường tài chính châu Á",
+    metaDescription: "Phân tích chuyên sâu về sự liên kết giữa chính trị Mỹ và kinh tế châu Á.",
+    metaKeywords: "bau cu my, tin tuc, kinh te, chau a",
+    author: "Chuyên gia Kinh tế",
+    publishedAt: "2024-09-29T09:00:00Z",
+    viewCount: 1800,
+    blogCategoryId: 2,
+    avatarUrl: "/images/avatars/economy_expert.jpg",
+    status: "published",
+    createdAt: "2024-09-28T09:00:00Z",
+    updatedAt: "2024-09-29T09:00:00Z",
+    excerpt: "Thị trường châu Á phản ứng thận trọng trước kết quả tranh luận.",
+    date: "2024-09-29"
+  },
+  {
+    id: 5,
+    title: "Quy trình xin visa Schengen (Châu Âu) chi tiết từ A đến Z",
+    content: `
+      <p>Để xin visa Schengen thành công, việc chuẩn bị hồ sơ phải đảm bảo tính logic và trung thực. Schengen yêu cầu bạn chứng minh rõ ràng mục đích chuyến đi và khả năng quay về nước.</p>
+      
+      <h2>Các Bước Quan trọng:</h2>
+      <ol>
+        <li><strong>Chọn quốc gia nộp hồ sơ:</strong> Phải là quốc gia lưu trú dài nhất hoặc là điểm đến đầu tiên.</li>
+        <li><strong>Hồ sơ tài chính:</strong> Sao kê tài khoản, sổ tiết kiệm, và giấy tờ sở hữu tài sản (nhà đất, xe hơi).</li>
+        <li><strong>Bảo hiểm du lịch:</strong> Bắt buộc, với mức bảo hiểm tối thiểu là 30.000 EUR.</li>
+      </ol>
+      
+      <p>Hãy luôn nộp hồ sơ trước ngày khởi hành ít nhất 3 tuần.</p>
+    `,
+    slug: "quy-trinh-xin-visa-schengen-chi-tiet",
+    keyword: ["visa", "Châu Âu", "Schengen", "hồ sơ"],
+    metaTitle: "Hướng dẫn xin visa Schengen thành công",
+    metaDescription: "Quy trình từng bước để hoàn tất hồ sơ visa du lịch Châu Âu.",
+    metaKeywords: "visa schengen, chau au, ho so, huong dan",
+    author: "Tư vấn Visa",
+    publishedAt: "2024-09-15T16:00:00Z",
+    viewCount: 5100,
+    blogCategoryId: 1,
+    avatarUrl: "/images/avatars/visa_expert.jpg",
+    status: "published",
+    createdAt: "2024-09-12T16:00:00Z",
+    updatedAt: "2024-09-15T16:00:00Z",
+    excerpt: "Hồ sơ tài chính và lịch trình du lịch là hai yếu tố quyết định.",
+    date: "2024-09-15"
+  },
+  {
+    id: 6,
+    title: "Kinh nghiệm du lịch tự túc Nhật Bản: Tàu điện và chỗ ở giá rẻ",
+    content: `
+      <p>Hệ thống giao thông công cộng ở Nhật Bản là một thách thức, nhưng việc nắm vững cách sử dụng các loại thẻ tàu và JR Pass sẽ giúp bạn tiết kiệm hàng trăm đô la.</p>
+      
+      <h2>Di chuyển thông minh:</h2>
+      <ul>
+        <li><strong>JR Pass:</strong> Chỉ nên mua nếu bạn di chuyển giữa các thành phố lớn (Tokyo, Osaka, Kyoto).</li>
+        <li><strong>Thẻ IC:</strong> Sử dụng thẻ Suica hoặc Pasmo cho các chuyến đi ngắn trong thành phố.</li>
+      </ul>
+      
+      <p>Về chỗ ở, các khách sạn con nhộng (capsule hotel) không chỉ rẻ mà còn mang lại trải nghiệm độc đáo, sạch sẽ, đặc biệt tại các khu vực trung tâm như Shinjuku hay Shibuya.</p>
+    `,
+    slug: "kinh-nghiem-du-lich-tu-tuc-nhat-ban",
+    keyword: ["du lịch", "Nhật Bản", "tự túc", "tiết kiệm"],
+    metaTitle: "Du lịch Nhật Bản tự túc và tiết kiệm chi phí",
+    metaDescription: "Cẩm nang di chuyển và chỗ ở dành cho du khách muốn khám phá Nhật Bản.",
+    metaKeywords: "du lich nhat ban, tu tuc, jr pass",
+    author: "Phượt Thủ Á-Âu",
+    publishedAt: "2024-08-05T09:15:00Z",
+    viewCount: 6800,
+    blogCategoryId: 3,
+    avatarUrl: "/images/avatars/traveller_asia.jpg",
+    status: "published",
+    createdAt: "2024-08-01T09:15:00Z",
+    updatedAt: "2024-08-05T09:15:00Z",
+    excerpt: "Hệ thống tàu điện Nhật Bản vô cùng phức tạp nhưng rất tiện lợi.",
+    date: "2024-08-05"
+  },
+  {
+    id: 7,
+    title: "Diễn biến xung đột Nga-Ukraine: Cập nhật tình hình mới nhất từ tiền tuyến",
+    content: `
+      <p>Tình hình chiến sự tại Donbas và Crimea vẫn là trọng tâm của cuộc xung đột. Phía Ukraine tăng cường sử dụng máy bay không người lái tầm xa, trong khi Nga duy trì áp lực pháo binh và tên lửa vào các mục tiêu cơ sở hạ tầng.</p>
+      
+      <h2>Phân tích Chiến lược:</h2>
+      <ul>
+        <li><strong>Đông Ukraine:</strong> Cả hai bên đang tranh giành từng khu vực nhỏ, không có bước tiến đột phá lớn.</li>
+        <li><strong>Hậu cần:</strong> Cả hai nước đều đang đối mặt với thách thức lớn về duy trì chuỗi cung ứng đạn dược và thiết bị quân sự.</li>
+      </ul>
+      
+      <p>Cộng đồng quốc tế tiếp tục bày tỏ quan ngại về thiệt hại nhân mạng và khủng hoảng lương thực toàn cầu.</p>
+    `,
+    slug: "dien-bien-xung-dot-nga-ukraine-cap-nhat",
+    keyword: ["tin tức nước ngoài", "quân sự", "Nga", "Ukraine"],
+    metaTitle: "Tin tức chiến sự Nga-Ukraine: Cập nhật hàng ngày",
+    metaDescription: "Phân tích sâu sắc về những diễn biến mới nhất của cuộc xung đột.",
+    metaKeywords: "chien su, nga ukraine, tin the gioi",
+    author: "Phân tích Quốc tế",
+    publishedAt: "2024-09-29T11:30:00Z",
+    viewCount: 8900,
+    blogCategoryId: 2,
+    avatarUrl: "/images/avatars/foreign_analyst.jpg",
+    status: "published",
+    createdAt: "2024-09-29T11:30:00Z",
+    updatedAt: "2024-09-29T11:30:00Z",
+    excerpt: "Cuộc chiến vẫn đang diễn ra căng thẳng tại các khu vực trọng điểm.",
+    date: "2024-09-29"
+  },
+  {
+    id: 8,
+    title: "Điều kiện và thủ tục nhập cư diện tay nghề cao tại Úc",
+    content: `
+      <p>Úc đang tích cực thu hút lao động tay nghề cao thông qua hệ thống di trú dựa trên điểm (Points-Based System). Các ngành IT, Y tế và Xây dựng luôn nằm trong danh sách ưu tiên.</p>
+      
+      <h2>Quy trình cơ bản:</h2>
+      <ol>
+        <li>Đánh giá kỹ năng (Skill Assessment) bởi cơ quan chuyên môn Úc.</li>
+        <li>Nộp thư bày tỏ nguyện vọng (Expression of Interest - EOI) qua SkillSelect.</li>
+        <li>Nhận thư mời nộp hồ sơ (Invitation to Apply - ITA) cho loại visa (ví dụ: Visa 189, 190, 491).</li>
+      </ol>
+      
+      <p>Để đạt điểm cao, ứng viên nên cải thiện trình độ tiếng Anh và kinh nghiệm làm việc liên quan.</p>
+    `,
+    slug: "thu-tuc-nhap-cu-dien-tay-nghe-cao-tai-uc",
+    keyword: ["visa", "nhập cư", "Úc", "tay nghề", "di trú"],
+    metaTitle: "Nhập cư Úc diện tay nghề: Hướng dẫn chi tiết",
+    metaDescription: "Tìm hiểu về cơ hội định cư Úc dành cho lao động có kỹ năng cao.",
+    metaKeywords: "nhap cu uc, visa tay nghe, skilled visa",
+    author: "Luật sư Di trú",
+    publishedAt: "2024-09-25T10:30:00Z",
+    viewCount: 2900,
+    blogCategoryId: 1,
+    avatarUrl: "/images/avatars/lawyer.jpg",
+    status: "published",
+    createdAt: "2024-09-20T10:30:00Z",
+    updatedAt: "2024-09-25T10:30:00Z",
+    excerpt: "Úc tiếp tục ưu tiên các ngành nghề về IT và Y tế.",
+    date: "2024-09-25"
+  },
+  {
+    id: 9,
+    title: "Khám phá Lễ hội Ánh sáng Vivid Sydney (Úc): Thời gian và hoạt động nổi bật",
+    content: `
+      <p>Vivid Sydney là sự kiện ánh sáng, âm nhạc và ý tưởng lớn nhất tại Nam Bán Cầu, biến thành phố Sydney thành một bảo tàng ngoài trời đầy màu sắc vào mùa Đông.</p>
+      
+      <h2>Các Địa điểm Không thể bỏ qua:</h2>
+      <ul>
+        <li><strong>Circular Quay:</strong> Nơi tập trung các tác phẩm chiếu sáng trên Nhà hát Opera Sydney và Cầu cảng Sydney.</li>
+        <li><strong>The Rocks:</strong> Khu phố cổ kính trở nên sống động với nghệ thuật sắp đặt 3D.</li>
+        <li><strong>Darling Harbour:</strong> Các màn trình diễn nhạc nước và pháo hoa ánh sáng.</li>
+      </ul>
+      
+      <p>Lễ hội thường diễn ra vào cuối tháng 5 đến giữa tháng 6. Du khách nên đặt chỗ ở sớm.</p>
+    `,
+    slug: "kham-pha-le-hoi-anh-sang-vivid-sydney",
+    keyword: ["du lịch", "Úc", "lễ hội", "Sydney"],
+    metaTitle: "Vivid Sydney: Lễ hội ánh sáng lớn nhất thế giới",
+    metaDescription: "Thông tin cần biết để trải nghiệm trọn vẹn lễ hội Vivid Sydney hàng năm.",
+    metaKeywords: "du lich uc, sydney, le hoi anh sang",
+    author: "Du lịch & Văn hóa",
+    publishedAt: "2024-09-18T13:00:00Z",
+    viewCount: 1600,
+    blogCategoryId: 3,
+    avatarUrl: "/images/avatars/culture_reporter.jpg",
+    status: "published",
+    createdAt: "2024-09-15T13:00:00Z",
+    updatedAt: "2024-09-18T13:00:00Z",
+    excerpt: "Hàng triệu du khách đổ về Sydney để chiêm ngưỡng ánh sáng nghệ thuật.",
+    date: "2024-09-18"
+  },
+  {
+    id: 10,
+    title: "EU đề xuất quy định mới về AI: Cân bằng giữa đổi mới và an toàn",
+    content: `
+      <p>Đạo luật AI (AI Act) của Liên minh châu Âu là khung pháp lý toàn diện đầu tiên trên thế giới nhằm điều chỉnh Trí tuệ Nhân tạo dựa trên mức độ rủi ro.</p>
+      
+      <h2>Các Cấp độ Rủi ro:</h2>
+      <ul>
+        <li><strong>Rủi ro không thể chấp nhận được:</strong> Bị cấm (ví dụ: hệ thống chấm điểm xã hội của chính phủ).</li>
+        <li><strong>Rủi ro cao:</strong> Phải tuân thủ các quy tắc nghiêm ngặt về minh bạch, giám sát và bảo mật (ví dụ: thiết bị y tế, hệ thống quản lý giao thông).</li>
+        <li><strong>Rủi ro thấp/tối thiểu:</strong> Áp dụng các quy tắc về minh bạch nhẹ (ví dụ: chatbot).</li>
+      </ul>
+      
+      <p>Đạo luật này sẽ có tác động sâu rộng đến các công ty công nghệ toàn cầu hoạt động tại thị trường châu Âu.</p>
+    `,
+    slug: "eu-de-xuat-quy-dinh-moi-ve-ai",
+    keyword: ["tin tức nước ngoài", "AI", "EU", "công nghệ", "pháp luật"],
+    metaTitle: "Đạo luật AI của EU: Điều chỉnh Trí tuệ Nhân tạo",
+    metaDescription: "Tìm hiểu về những quy định chặt chẽ mà EU đặt ra cho các hệ thống AI rủi ro cao.",
+    metaKeywords: "eu, ai act, tri tue nhan tao, quy dinh",
+    author: "Bình luận Công nghệ",
+    publishedAt: "2024-08-20T17:10:00Z",
+    viewCount: 2200,
+    blogCategoryId: 2,
+    avatarUrl: "/images/avatars/tech_commentator.jpg",
+    status: "published",
+    createdAt: "2024-08-15T17:10:00Z",
+    updatedAt: "2024-08-20T17:10:00Z",
+    excerpt: "Châu Âu dẫn đầu thế giới trong việc pháp lý hóa AI.",
+    date: "2024-08-20"
+  },
+  {
+    id: 11,
+    title: "5 điều cần chuẩn bị khi đi du lịch Hàn Quốc không cần visa (K-ETA)",
+    content: `
+      <p>Hệ thống K-ETA (Korea Electronic Travel Authorization) giúp du khách từ một số quốc gia được miễn visa khi nhập cảnh Hàn Quốc. Tuy nhiên, việc đăng ký thành công K-ETA không đảm bảo 100% được nhập cảnh.</p>
+      
+      <h2>Checklist K-ETA:</h2>
+      <ul>
+        <li><strong>Đăng ký online:</strong> Hoàn thành đơn K-ETA ít nhất 72 giờ trước chuyến bay.</li>
+        <li><strong>Thông tin chuyến bay và khách sạn:</strong> Cần khai báo chính xác địa chỉ lưu trú và vé máy bay khứ hồi.</li>
+        <li><strong>Tài chính:</strong> Chuẩn bị sẵn chứng từ chứng minh khả năng chi trả cho chuyến đi (nếu được yêu cầu kiểm tra tại cửa khẩu).</li>
+      </ul>
+      
+      <p>Luôn giữ bản in K-ETA và vé khứ hồi để xuất trình khi cần thiết.</p>
+    `,
+    slug: "du-lich-han-quoc-khong-can-visa-keta",
+    keyword: ["visa", "du lịch", "Hàn Quốc", "K-ETA", "hướng dẫn"],
+    metaTitle: "Du lịch Hàn Quốc với K-ETA: Hướng dẫn từ A đến Z",
+    metaDescription: "Tất cả những gì bạn cần biết về hệ thống K-ETA mới của Hàn Quốc.",
+    metaKeywords: "du lich han quoc, k-eta, visa",
+    author: "Korea Insight",
+    publishedAt: "2024-09-01T15:00:00Z",
+    viewCount: 4700,
+    blogCategoryId: 1,
+    avatarUrl: "/images/avatars/korea_expert.jpg",
+    status: "published",
+    createdAt: "2024-08-28T15:00:00Z",
+    updatedAt: "2024-09-01T15:00:00Z",
+    excerpt: "Hàn Quốc tạo điều kiện cho du khách quốc tế với hệ thống K-ETA mới.",
+    date: "2024-09-01"
+  }
+];
 
 export const mockVisaContinents: VisaContinent[] = [
     {
@@ -812,9 +917,11 @@ export const mockRelatedArticles: RelatedArticle[] = [
     { id: "ra1", title: "Kinh nghiệm du lịch Mỹ tự túc", url: "/tin-tuc/kinh-nghiem-du-lich-my", image: "/images/articles/related1.jpg" }
 ];
 
-export const mockVisaPageData: Record<string, VisaDetail> = {
-    // Châu Á
-    "china": {
+
+export const mockVisaPageData: VisaDetail[] = [
+    // Châu Á - Trung Quốc (Đã có)
+    {
+        slug: "china",
         continentSlug: "visa-chau-a",
         title: "Dịch Vụ Xin Visa Trung Quốc",
         countryName: "Trung Quốc",
@@ -827,6 +934,23 @@ export const mockVisaPageData: Record<string, VisaDetail> = {
             {
                 id: "china-tourist",
                 name: "Du lịch",
+                pricing:[
+                    {
+                        type: "Trọn gói",
+                        name: "Gói cơ bản",
+                        prices: [
+                            {
+                                adult: "3,900,000 VNĐ",
+                                child_6_12: "2,900,000 VNĐ",
+                                child_under_6: "1,900,000 VNĐ",
+                                consularFee: "140 USD",
+                                serviceFee: "Từ 1,900,000 VNĐ",
+                                note: "Giá có thể thay đổi theo tỷ giá USD"
+                            }
+                        ],
+                        description: "Bao gồm xử lý hồ sơ, đặt lịch hẹn, dịch thuật, bảo hiểm cơ bản."
+                    }
+                ],
                 requirements: {
                     personal: [
                         "Hộ chiếu còn hạn trên 6 tháng",
@@ -835,26 +959,13 @@ export const mockVisaPageData: Record<string, VisaDetail> = {
                         "Sổ hộ khẩu công chứng",
                         "Form xin visa mới nhất"
                     ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 3 tháng"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế",
-                                "Đăng ký MST",
-                                "Báo cáo tài chính"
-                            ]
-                        }
+                    work_individual: [
+                        "Hợp đồng lao động",
+                        "Xác nhận công tác",
+                        "Đơn xin nghỉ phép",
+                        "Bảng lương 3 tháng"
                     ],
+                    work_enterprise: [],
                     financial: [
                         "Sao kê ngân hàng 3 tháng",
                         "Sổ tiết kiệm tối thiểu 100 triệu",
@@ -871,1841 +982,1383 @@ export const mockVisaPageData: Record<string, VisaDetail> = {
                 }
             }
         ],
-        pricing: [
+        media: [
             {
-                type: "standard",
-                name: "Gói Thường",
-                description: "Dành cho khách du lịch và công tác ngắn hạn",
-                validity: "3 tháng",
-                stayDuration: "Tối đa 30 ngày",
-                processingTime: "7-10 ngày làm việc",
-                prices: [
-                    {
-                        adult: "3,900,000 VNĐ",
-                        child_6_12: "2,900,000 VNĐ",
-                        child_under_6: "1,900,000 VNĐ",
-                        consularFee: "140 USD",
-                        serviceFee: "Từ 1,900,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá USD"
-                    }
-                ]
+                id: 145,
+                name: "china_great_wall.jpg",
+                url: "/images/mock/china_great_wall.jpg",
+                type: "image",
+                altText: "Vạn Lý Trường Thành",
+                 createdAt: "2025-09-11T08:52:14.000Z",
+                updatedAt: "2025-09-11T08:52:14.000Z",
+                productId: 1 // Hoặc visaServiceId
+            },
+            {
+                id: 146,
+                name: "china_shanghai.jpg",
+                url: "/images/mock/china_shanghai.jpg",
+                type: "image",
+                altText: "Thượng Hải hiện đại",
+                 createdAt: "2025-09-11T08:52:14.000Z",
+                updatedAt: "2025-09-11T08:52:14.000Z",
+                productId: 1 // Hoặc visaServiceId
             }
         ],
-        testimonials: [
-            {
-                id: "cn-test-1",
-                name: "Trương Văn M",
-                quote: "Dịch vụ rất tốt, được hướng dẫn chi tiết về cách điền form và chuẩn bị hồ sơ.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=11"
-            },
-            {
-                id: "cn-test-2",
-                name: "Lý Thị N",
-                quote: "Thủ tục nhanh gọn, nhân viên chuyên nghiệp. Đã nhận được visa đúng hẹn.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=12"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "cn-art-1",
-                title: "Hướng dẫn xin visa Trung Quốc 2025",
-                url: "/tin-tuc/huong-dan-xin-visa-trung-quoc-2025",
-                image: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b"
-            },
-            {
-                id: "cn-art-2",
-                title: "Kinh nghiệm du lịch Trung Quốc tự túc",
-                url: "/tin-tuc/kinh-nghiem-du-lich-trung-quoc-tu-tuc",
-                image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Trung Quốc",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Trung Quốc"
-            },
-            {
-                type: "Great Wall",
-                url: "https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b",
-                description: "Vạn Lý Trường Thành"
-            },
-            {
-                type: "Shanghai",
-                url: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d",
-                description: "Thượng Hải hiện đại"
-            },
-            {
-                type: "Forbidden City",
-                url: "https://images.unsplash.com/photo-1584646098378-0874589d76b1",
-                description: "Tử Cấm Thành - Bắc Kinh"
-            },
-            {
-                type: "Terracotta Army",
-                url: "https://images.unsplash.com/photo-1591014007443-536cd5984d2c",
-                description: "Đội quân đất nung - Tây An"
-            }
-        ]
+         status: 'published',
+         createdAt: "2025-09-11T08:52:14.000Z",
+         updatedAt: "2025-09-11T08:52:14.000Z"
     },
-
-    "thai-lan": {
-        continentSlug: "visa-chau-a",
-        title: "Dịch Vụ Xin Visa Thái Lan",
-        countryName: "Thái Lan",
-        heroImage: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a",
-        successRate: "95%",
-        processingTime: "3-5 ngày làm việc",
-        description: "Dịch vụ xin visa Thái Lan nhanh chóng, thủ tục đơn giản.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
-        visaImages: [
-            {
-                type: "Visa Thái Lan",
-                url: "https://images.unsplash.com/photo-1527631120902-378417754324",
-                description: "Mẫu visa Thái Lan mới nhất"
-            },
-            {
-                type: "Wat Phra Kaew",
-                url: "https://images.unsplash.com/photo-1563492065599-3520f775eeed",
-                description: "Chùa Phật Ngọc - Bangkok"
-            },
-            {
-                type: "Phố Khaosan",
-                url: "https://images.unsplash.com/photo-1508009603885-50cf7c579365",
-                description: "Con phố nổi tiếng của Bangkok"
-            },
-            {
-                type: "Biển Phuket",
-                url: "https://images.unsplash.com/photo-1537956965359-7573183d1f57",
-                description: "Thiên đường biển đảo Thái Lan"
-            },
-            {
-                type: "Chiang Mai",
-                url: "https://images.unsplash.com/photo-1598935888738-cd2957d157c8",
-                description: "Thành phố văn hóa phía Bắc"
-            }
-        ],
-        visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "CMND/CCCD"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác", "Đơn xin nghỉ phép"] }],
-                    financial: ["Sao kê 3 tháng", "Sổ tiết kiệm"],
-                    travel: ["Vé máy bay khứ hồi", "Book khách sạn", "Lịch trình du lịch"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "800.000 VNĐ",
-                    child_6_12: "800.000 VNĐ",
-                    child_under_6: "800.000 VNĐ",
-                    note: "Đã bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Nhanh chóng", description: "Xử lý trong 3-5 ngày làm việc.", icon: Award },
-            { name: "Đơn giản", description: "Thủ tục đơn giản, tỷ lệ đậu cao.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra và tư vấn hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "singapore": {
-        continentSlug: "visa-chau-a",
-        title: "Dịch Vụ Xin Visa Singapore",
-        countryName: "Singapore",
-        heroImage: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd",
-        successRate: "92%",
-        processingTime: "3-4 ngày làm việc",
-        description: "Dịch vụ xin visa Singapore chuyên nghiệp, nhanh chóng với tỷ lệ đậu cao.",
-        services: ["Tư vấn hồ sơ", "Điền form online", "Dịch thuật công chứng", "Đặt lịch nộp", "Bảo hiểm du lịch"],
-        visaTypes: [
-            {
-                id: "sg-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh 4x6 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng",
-                        "Form visa điện tử (e-Form 14A)"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 3 tháng gần nhất"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế",
-                                "Đăng ký MST",
-                                "Báo cáo tài chính"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê ngân hàng 3 tháng",
-                        "Sổ tiết kiệm tối thiểu 100 triệu",
-                        "Thẻ tín dụng quốc tế",
-                        "Giấy tờ sở hữu tài sản (nếu có)"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình chi tiết",
-                        "Chứng minh thu nhập"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói Tiêu chuẩn",
-                description: "Dành cho khách du lịch tự túc",
-                validity: "30-90 ngày",
-                stayDuration: "Tối đa 30 ngày",
-                processingTime: "3-4 ngày làm việc",
-                prices: [
-                    {
-                        adult: "2,900,000 VNĐ",
-                        child_6_12: "1,900,000 VNĐ",
-                        child_under_6: "1,500,000 VNĐ",
-                        consularFee: "30 SGD",
-                        serviceFee: "Từ 1,500,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá SGD"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "sg-test-1",
-                name: "Nguyễn Văn P",
-                quote: "Dịch vụ nhanh gọn, chuyên nghiệp. Visa được duyệt trong 3 ngày.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=13"
-            },
-            {
-                id: "sg-test-2",
-                name: "Trần Thị Q",
-                quote: "Thủ tục đơn giản, nhân viên nhiệt tình. Rất hài lòng với dịch vụ.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=14"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "sg-art-1",
-                title: "Kinh nghiệm xin visa Singapore 2025",
-                url: "/tin-tuc/kinh-nghiem-xin-visa-singapore-2025",
-                image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd"
-            },
-            {
-                id: "sg-art-2",
-                title: "Top 10 địa điểm must-visit ở Singapore",
-                url: "/tin-tuc/top-10-dia-diem-must-visit-o-singapore",
-                image: "https://images.unsplash.com/photo-1506351421178-63b52a2d2562"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Singapore",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Singapore"
-            },
-            {
-                type: "Marina Bay Sands",
-                url: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd",
-                description: "Khách sạn Marina Bay Sands"
-            },
-            {
-                type: "Gardens by the Bay",
-                url: "https://images.unsplash.com/photo-1506351421178-63b52a2d2562",
-                description: "Khu vườn Gardens by the Bay"
-            },
-            {
-                type: "Merlion Park",
-                url: "https://images.unsplash.com/photo-1496939376851-89342e90adcd",
-                description: "Công viên Merlion biểu tượng"
-            },
-            {
-                type: "Sentosa",
-                url: "https://images.unsplash.com/photo-1565967511849-76a60a516170",
-                description: "Đảo Sentosa giải trí"
-            }
-        ],
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Tỷ lệ đậu visa cao.", icon: Award },
-            { name: "Nhanh chóng", description: "Xử lý trong 3-4 ngày làm việc.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá và chuẩn bị hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "an-do": {
-        continentSlug: "visa-chau-a",
-        title: "Dịch Vụ Xin Visa Ấn Độ",
-        countryName: "Ấn Độ",
-        heroImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da",
-        successRate: "90%",
-        processingTime: "5-7 ngày làm việc",
-        description: "Dịch vụ xin visa Ấn Độ (e-Visa) nhanh chóng, thủ tục trực tuyến.",
-        services: ["Tư vấn hồ sơ", "Hướng dẫn điền form e-Visa", "Kiểm tra hồ sơ", "Theo dõi kết quả"],
-        visaImages: [
-            {
-                type: "Visa Ấn Độ",
-                url: "https://images.unsplash.com/photo-1597058712635-3182d1eacc1e",
-                description: "Mẫu e-Visa Ấn Độ"
-            },
-            {
-                type: "Đền Taj Mahal",
-                url: "https://images.unsplash.com/photo-1548013146-72479768bada",
-                description: "Kỳ quan thế giới tại Agra"
-            },
-            {
-                type: "Sông Hằng",
-                url: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc",
-                description: "Dòng sông thiêng của Ấn Độ"
-            },
-            {
-                type: "Jaipur",
-                url: "https://images.unsplash.com/photo-1477587458883-47145ed94245",
-                description: "Thành phố hồng của Ấn Độ"
-            },
-            {
-                type: "Mumbai Gateway",
-                url: "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7",
-                description: "Cổng India tại Mumbai"
-            }
-        ],
-        visaTypes: [
-            {
-                id: "evisa",
-                name: "e-Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6 nền trắng", "CMND/CCCD"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê ngân hàng"],
-                    travel: ["Vé máy bay", "Đặt phòng khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ e-Visa",
-                prices: [{
-                    adult: "900.000 VNĐ",
-                    child_6_12: "900.000 VNĐ",
-                    child_under_6: "900.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Tiện lợi", description: "Thủ tục trực tuyến đơn giản.", icon: Award },
-            { name: "Nhanh chóng", description: "Xử lý trong 5-7 ngày làm việc.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra điều kiện và chuẩn bị hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp trực tuyến và theo dõi.", icon: FileText }
-        ]
-    },
-    "han-quoc": {
-        continentSlug: "visa-chau-a",
-        title: "Dịch Vụ Xin Visa Hàn Quốc",
-        countryName: "Hàn Quốc",
-        heroImage: "https://images.unsplash.com/photo-1538485399081-7191377e8241",
-        successRate: "95%",
-        processingTime: "5-7 ngày làm việc",
-        description: "Dịch vụ xin visa Hàn Quốc trọn gói, tỷ lệ đậu cao, thủ tục nhanh gọn.",
-        services: ["Tư vấn hồ sơ", "Book lịch đăng ký", "Dịch thuật công chứng", "Hướng dẫn phỏng vấn"],
-        visaImages: [
-            {
-                type: "Visa Hàn Quốc",
-                url: "https://images.unsplash.com/photo-1535189043414-47a3c49a0bed",
-                description: "Mẫu visa Hàn Quốc mới nhất"
-            },
-            {
-                type: "Cung điện Gyeongbokgung",
-                url: "https://images.unsplash.com/photo-1578637387939-43c525550085",
-                description: "Cung điện hoàng gia lớn nhất Seoul"
-            },
-            {
-                type: "Đảo Jeju",
-                url: "https://images.unsplash.com/photo-1601585574224-68488a1cbb4b",
-                description: "Điểm du lịch nổi tiếng của Hàn Quốc"
-            },
-            {
-                type: "Phố Myeongdong",
-                url: "https://images.unsplash.com/photo-1585023525555-c0c499d08b78",
-                description: "Khu mua sắm sầm uất ở Seoul"
-            },
-            {
-                type: "Namsan Seoul Tower",
-                url: "https://images.unsplash.com/photo-1617440168937-c6497eaa8db5",
-                description: "Tháp truyền hình biểu tượng của Seoul"
-            }
-        ],
-        visaTypes: [
-            {
-                id: "c3",
-                name: "Visa C-3 (Du lịch)",
-                requirements: {
-                    personal: ["Hộ chiếu còn hạn", "Ảnh 3.5x4.5"],
-                    work: [{ type: "Công việc ổn định", docs: ["Hợp đồng lao động", "Xác nhận công tác"] }],
-                    financial: ["Sổ tiết kiệm", "Sao kê 3 tháng"],
-                    travel: ["Lịch trình du lịch", "Đặt phòng khách sạn", "Vé máy bay"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "1.500.000 VNĐ",
-                    child_6_12: "1.500.000 VNĐ",
-                    child_under_6: "1.500.000 VNĐ",
-                    note: "Đã bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Tỷ lệ đậu cao", description: "95% khách hàng được duyệt visa.", icon: Award },
-            { name: "Tư vấn chuyên sâu", description: "Đội ngũ có kinh nghiệm với visa Hàn Quốc.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá hồ sơ, tư vấn giải pháp.", icon: MessageSquare },
-            { name: "Hoàn thiện hồ sơ", description: "Chuẩn bị và nộp hồ sơ xin visa.", icon: FileText }
-        ]
-    },
-    "nhat-ban": {
-        continentSlug: "visa-chau-a",
-        title: "Dịch Vụ Xin Visa Nhật Bản",
-        countryName: "Nhật Bản",
-        heroImage: "https://images.unsplash.com/photo-1542051841857-5f90071e7989",
-        successRate: "93%",
-        processingTime: "5-7 ngày làm việc",
-        description: "Dịch vụ xin visa Nhật Bản chuyên nghiệp, uy tín với tỷ lệ đậu cao. Hỗ trợ visa du lịch, thăm thân và công tác.",
-        services: ["Tư vấn hồ sơ chi tiết", "Dịch thuật công chứng", "Đặt lịch LSQ", "Theo dõi kết quả", "Bảo hiểm du lịch"],
-        visaTypes: [
-            {
-                id: "jp-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh 4.5x4.5 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng",
-                        "Form xin visa theo mẫu mới 2025"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác song ngữ",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 6 tháng gần nhất",
-                                "Quyết định bổ nhiệm (nếu có)"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế năm gần nhất",
-                                "Đăng ký MST",
-                                "Báo cáo tài chính kiểm toán",
-                                "Biên lai nộp thuế"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê ngân hàng 6 tháng",
-                        "Sổ tiết kiệm tối thiểu 200 triệu",
-                        "Giấy tờ sở hữu bất động sản",
-                        "Hợp đồng cho thuê (nếu có)",
-                        "Thẻ tín dụng quốc tế"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn toàn bộ hành trình",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình chi tiết từng ngày",
-                        "JR Pass (nếu di chuyển nhiều)"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói Cao cấp",
-                description: "Dịch vụ trọn gói với tỷ lệ đậu visa cao",
-                validity: "3 tháng",
-                stayDuration: "15-90 ngày",
-                processingTime: "5-7 ngày làm việc",
-                prices: [
-                    {
-                        adult: "4,900,000 VNĐ",
-                        child_6_12: "3,900,000 VNĐ",
-                        child_under_6: "2,900,000 VNĐ",
-                        consularFee: "3,000 JPY",
-                        serviceFee: "Từ 2,900,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá JPY"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "jp-test-1",
-                name: "Vũ Văn R",
-                quote: "Dịch vụ rất chuyên nghiệp, được tư vấn chi tiết về cách chuẩn bị hồ sơ. Visa được duyệt đúng hẹn.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=15"
-            },
-            {
-                id: "jp-test-2",
-                name: "Đặng Thị S",
-                quote: "Thủ tục nhanh gọn, nhân viên nhiệt tình, chu đáo. Sẽ giới thiệu cho người thân.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=16"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "jp-art-1",
-                title: "Hướng dẫn xin visa Nhật Bản 2025",
-                url: "/tin-tuc/huong-dan-xin-visa-nhat-ban-2025",
-                image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989"
-            },
-            {
-                id: "jp-art-2",
-                title: "Kinh nghiệm du lịch Nhật Bản tự túc",
-                url: "/tin-tuc/kinh-nghiem-du-lich-nhat-ban-tu-tuc",
-                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Nhật Bản",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Nhật Bản"
-            },
-            {
-                type: "Mount Fuji",
-                url: "https://images.unsplash.com/photo-1542051841857-5f90071e7989",
-                description: "Núi Phú Sĩ biểu tượng"
-            },
-            {
-                type: "Tokyo Tower",
-                url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
-                description: "Tháp Tokyo về đêm"
-            },
-            {
-                type: "Kyoto Temple",
-                url: "https://images.unsplash.com/photo-1493997181344-712f2f19d87a",
-                description: "Đền chùa cổ kính ở Kyoto"
-            },
-            {
-                type: "Osaka Castle",
-                url: "https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e",
-                description: "Lâu đài Osaka tráng lệ"
-            }
-        ],
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có kinh nghiệm làm việc với LSQ Nhật.", icon: Award },
-            { name: "Hỗ trợ tận tâm", description: "Tư vấn chi tiết từng bước trong quy trình.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra và tư vấn hồ sơ.", icon: MessageSquare },
-            { name: "Dịch thuật & Nộp", description: "Dịch thuật và nộp hồ sơ LSQ.", icon: FileText }
-        ]
-    },
-
-    // Châu Âu (Schengen)
-    "italy": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Ý (Schengen)",
-        countryName: "Ý",
-        heroImage: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
-        successRate: "89%",
-        processingTime: "15-20 ngày làm việc",
-        description: "Dịch vụ xin visa Schengen qua Ý, phù hợp du lịch và công tác trong khối Schengen.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch VFS", "Dịch thuật", "Bảo hiểm du lịch"],
-        visaTypes: [
-            {
-                id: "italy-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh thẻ 4x6 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Biên lai thuế 3 tháng gần nhất"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê tài khoản ngân hàng 3 tháng gần nhất",
-                        "Sổ tiết kiệm",
-                        "Giấy tờ sở hữu bất động sản (nếu có)"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình du lịch chi tiết"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói cơ bản", 
-                description: "Phù hợp cho người có kinh nghiệm xin visa",
-                validity: "3 tháng",
-                stayDuration: "Tối đa 30 ngày",
-                processingTime: "15-20 ngày làm việc",
-                prices: [
-                    {
-                        adult: "5,900,000 VNĐ",
-                        child_6_12: "4,900,000 VNĐ",
-                        child_under_6: "2,900,000 VNĐ",
-                        consularFee: "80 EUR",
-                        serviceFee: "Từ 2,900,000 VNĐ",
-                        note: "Giá có thể thay đổi tùy theo tỷ giá"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "it-test-1",
-                name: "Nguyễn Văn A",
-                quote: "Dịch vụ rất tốt, được tư vấn đầy đủ và chi tiết. Đã được cấp visa thành công.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=1"
-            },
-            {
-                id: "it-test-2",
-                name: "Trần Thị B",
-                quote: "Thủ tục nhanh gọn, nhân viên nhiệt tình. Rất hài lòng với dịch vụ.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=2"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "it-art-1",
-                title: "Kinh nghiệm xin visa Ý năm 2025",
-                url: "/tin-tuc/kinh-nghiem-xin-visa-y-2025",
-                image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5"
-            },
-            {
-                id: "it-art-2",
-                title: "Du lịch Ý cần chuẩn bị những gì?",
-                url: "/tin-tuc/du-lich-y-can-chuan-bi-nhung-gi",
-                image: "https://images.unsplash.com/photo-1514890547357-a9ee288728e0"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Schengen Ý",
-                url: "https://images.unsplash.com/photo-1623345805784-8f648fead225",
-                description: "Mẫu visa Schengen do Ý cấp"
-            },
-            {
-                type: "Colosseum",
-                url: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
-                description: "Đấu trường La Mã - biểu tượng của Rome"
-            },
-            {
-                type: "Venice",
-                url: "https://images.unsplash.com/photo-1514890547357-a9ee288728e0",
-                description: "Thành phố Venice lãng mạn với các kênh đào"
-            },
-            {
-                type: "Florence",
-                url: "https://images.unsplash.com/photo-1543429257-3eb0b65d9c58",
-                description: "Nhà thờ Santa Maria del Fiore ở Florence"
-            },
-            {
-                type: "Pisa Tower",
-                url: "https://images.unsplash.com/photo-1516286282392-6b186adfa05c",
-                description: "Tháp nghiêng Pisa nổi tiếng"
-            }
-        ],
-    },
-
-    "germany": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Đức (Schengen)",
-        countryName: "Đức",
-        heroImage: "https://images.unsplash.com/photo-1599946347371-68eb71b16afc",
-        successRate: "92%",
-        processingTime: "15-20 ngày làm việc",
-        description: "Dịch vụ xin visa Schengen qua Đức, phù hợp cho du lịch, công tác và du học.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch LSQ", "Dịch thuật", "Bảo hiểm du lịch"],
-        visaTypes: [
-            {
-                id: "germany-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh thẻ 3.5x4.5 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 3 tháng gần nhất"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế",
-                                "Đăng ký MST"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê tài khoản 3 tháng",
-                        "Sổ tiết kiệm tối thiểu 150 triệu",
-                        "Giấy tờ sở hữu tài sản (nếu có)"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình chi tiết",
-                        "Thư mời (nếu có)"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói tiêu chuẩn", 
-                description: "Phù hợp cho khách hàng lần đầu xin visa Schengen",
-                validity: "3 tháng",
-                stayDuration: "Tối đa 30 ngày",
-                processingTime: "15-20 ngày làm việc",
-                prices: [
-                    {
-                        adult: "6,500,000 VNĐ",
-                        child_6_12: "5,500,000 VNĐ",
-                        child_under_6: "3,500,000 VNĐ",
-                        consularFee: "80 EUR",
-                        serviceFee: "Từ 3,500,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá EUR"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "de-test-1",
-                name: "Lê Văn C",
-                quote: "Thủ tục nhanh gọn, được hướng dẫn rất kỹ. Visa được duyệt đúng hẹn.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=3"
-            },
-            {
-                id: "de-test-2",
-                name: "Phạm Thị D",
-                quote: "Dịch vụ chuyên nghiệp, nhân viên tận tình. Sẽ giới thiệu cho bạn bè.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=4"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "de-art-1",
-                title: "Hướng dẫn xin visa Đức 2025",
-                url: "/tin-tuc/huong-dan-xin-visa-duc-2025",
-                image: "https://images.unsplash.com/photo-1599946347371-68eb71b16afc"
-            },
-            {
-                id: "de-art-2",
-                title: "Top 10 địa điểm du lịch tại Đức",
-                url: "/tin-tuc/top-10-dia-diem-du-lich-tai-duc",
-                image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Schengen Đức",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Schengen do Đức cấp"
-            },
-            {
-                type: "Brandenburg Gate",
-                url: "https://images.unsplash.com/photo-1599946347371-68eb71b16afc",
-                description: "Cổng Brandenburg - biểu tượng của Berlin"
-            },
-            {
-                type: "Neuschwanstein Castle",
-                url: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b",
-                description: "Lâu đài Neuschwanstein cổ tích"
-            },
-            {
-                type: "Munich",
-                url: "https://images.unsplash.com/photo-1595867818082-083862f3d630",
-                description: "Quảng trường Marienplatz ở Munich"
-            },
-            {
-                type: "Berlin Wall",
-                url: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b",
-                description: "Bức tường Berlin lịch sử"
-            }
-        ]
-    },
-
-    "uk": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Anh Quốc",
-        countryName: "Anh",
-        heroImage: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
-        successRate: "90%",
-        processingTime: "25-30 ngày làm việc",
-        description: "Dịch vụ xin visa Anh chuyên nghiệp, tỉ lệ đậu cao, thủ tục nhanh gọn.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch VFS", "Dịch thuật", "Bảo hiểm du lịch", "Book vé máy bay"],
-        visaTypes: [
-            {
-                id: "uk-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh 4.5x3.5 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng",
-                        "Form khai online"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Quyết định bổ nhiệm",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 6 tháng"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế năm gần nhất",
-                                "Bảng lương giám đốc",
-                                "Báo cáo tài chính"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê ngân hàng 6 tháng",
-                        "Sổ tiết kiệm tối thiểu 200 triệu",
-                        "Giấy tờ nhà đất (nếu có)",
-                        "Hợp đồng cho thuê (nếu có)"
-                    ],
-                    travel: [
-                        "Đặt vé máy bay khứ hồi",
-                        "Booking khách sạn toàn bộ hành trình",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình chi tiết",
-                        "Thư mời từ Anh (nếu có)"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói Standard",
-                description: "Dành cho khách hàng lần đầu xin visa Anh",
-                validity: "6 tháng",
-                stayDuration: "Tối đa 180 ngày",
-                processingTime: "25-30 ngày làm việc",
-                prices: [
-                    {
-                        adult: "8,900,000 VNĐ",
-                        child_6_12: "7,900,000 VNĐ",
-                        child_under_6: "4,900,000 VNĐ",
-                        consularFee: "120 GBP",
-                        serviceFee: "Từ 4,900,000 VNĐ",
-                        note: "Phí có thể thay đổi theo tỷ giá GBP"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "uk-test-1",
-                name: "Hoàng Văn E",
-                quote: "Được tư vấn rất tận tình, hồ sơ chuẩn bị kỹ nên visa được duyệt nhanh.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=5"
-            },
-            {
-                id: "uk-test-2",
-                name: "Nguyễn Thị F",
-                quote: "Dịch vụ chuyên nghiệp, được hướng dẫn chi tiết từng bước. Rất hài lòng!",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=6"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "uk-art-1",
-                title: "Cập nhật thủ tục xin visa Anh 2025",
-                url: "/tin-tuc/cap-nhat-thu-tuc-xin-visa-anh-2025",
-                image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad"
-            },
-            {
-                id: "uk-art-2",
-                title: "Kinh nghiệm du lịch Anh tự túc",
-                url: "/tin-tuc/kinh-nghiem-du-lich-anh-tu-tuc",
-                image: "https://images.unsplash.com/photo-1486299267070-83823f5448dd"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Anh",
-                url: "https://images.unsplash.com/photo-1589784355692-68785b19738d",
-                description: "Mẫu visa Anh Quốc"
-            },
-            {
-                type: "Big Ben",
-                url: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
-                description: "Tháp đồng hồ Big Ben - London"
-            },
-            {
-                type: "London Eye",
-                url: "https://images.unsplash.com/photo-1486299267070-83823f5448dd",
-                description: "Vòng quay London Eye"
-            },
-            {
-                type: "Tower Bridge",
-                url: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be",
-                description: "Cầu Tháp biểu tượng của London"
-            },
-            {
-                type: "Buckingham Palace",
-                url: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
-                description: "Cung điện Buckingham"
-            }
-        ]
-    },
-
-    "spain": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Tây Ban Nha (Schengen)",
-        countryName: "Tây Ban Nha",
-        heroImage: "https://images.unsplash.com/photo-1558642084-fd07fae5282e",
+    {
+        slug: "usa",
+        continentSlug: "visa-chau-my",
+        title: "Dịch Vụ Xin Visa Mỹ (Hoa Kỳ)",
+        countryName: "Hoa Kỳ",
+        heroImage: "https://images.unsplash.com/photo-1594950853828-569a7c385b03",
         successRate: "88%",
-        processingTime: "15-20 ngày làm việc",
-        description: "Dịch vụ xin visa Schengen qua Tây Ban Nha, phù hợp cho du lịch, công tác và thăm thân.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch BLS", "Dịch thuật", "Bảo hiểm du lịch", "Book vé máy bay"],
+        processingTime: "15-30 ngày (chờ phỏng vấn)",
+        description: "Hỗ trợ xin các loại visa không định cư B1/B2 (Du lịch/Công tác) với quy trình phỏng vấn chuyên nghiệp.",
+        services: ["Điền đơn DS-160", "Đặt lịch phỏng vấn", "Luyện phỏng vấn 1-1", "Tư vấn chứng minh tài chính"],
+        status: "published",
+        createdAt: "2025-09-01T10:00:00Z",
+        updatedAt: "2025-09-25T14:00:00Z",
         visaTypes: [
-            {
-                id: "spain-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh 4x6 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng",
-                        "Form xin visa điền đầy đủ"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 3 tháng"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế",
-                                "Đăng ký MST",
-                                "Bảng cân đối kế toán"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê ngân hàng 3 tháng",
-                        "Sổ tiết kiệm tối thiểu 150 triệu",
-                        "Giấy tờ nhà đất (nếu có)",
-                        "Thẻ tín dụng quốc tế (nếu có)"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn",
-                        "Bảo hiểm du lịch",
-                        "Lịch trình chi tiết",
-                        "Voucher tour (nếu đi theo tour)"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói Tiêu chuẩn",
-                description: "Dành cho khách hàng du lịch tự túc",
-                validity: "3 tháng",
-                stayDuration: "Tối đa 30 ngày",
-                processingTime: "15-20 ngày làm việc",
-                prices: [
-                    {
-                        adult: "5,900,000 VNĐ",
-                        child_6_12: "4,900,000 VNĐ",
-                        child_under_6: "2,900,000 VNĐ",
-                        consularFee: "80 EUR",
-                        serviceFee: "Từ 2,900,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá EUR"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "es-test-1",
-                name: "Trần Văn G",
-                quote: "Dịch vụ tốt, được tư vấn nhiệt tình. Visa được duyệt nhanh hơn dự kiến.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=7"
-            },
-            {
-                id: "es-test-2",
-                name: "Nguyễn Thị H",
-                quote: "Thủ tục đơn giản, nhân viên hỗ trợ tận tình. Chắc chắn sẽ quay lại!",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=8"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "es-art-1",
-                title: "Kinh nghiệm xin visa Tây Ban Nha 2025",
-                url: "/tin-tuc/kinh-nghiem-xin-visa-tay-ban-nha-2025",
-                image: "https://images.unsplash.com/photo-1558642084-fd07fae5282e"
-            },
-            {
-                id: "es-art-2",
-                title: "Top 10 địa điểm must-visit ở Tây Ban Nha",
-                url: "/tin-tuc/top-10-dia-diem-must-visit-o-tay-ban-nha",
-                image: "https://images.unsplash.com/photo-1551863863-e01bbf274ef6"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Schengen Tây Ban Nha",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Schengen do Tây Ban Nha cấp"
-            },
-            {
-                type: "Sagrada Familia",
-                url: "https://images.unsplash.com/photo-1558642084-fd07fae5282e",
-                description: "Nhà thờ Sagrada Familia - Barcelona"
-            },
-            {
-                type: "Plaza Mayor",
-                url: "https://images.unsplash.com/photo-1551863863-e01bbf274ef6",
-                description: "Quảng trường Plaza Mayor - Madrid"
-            },
-            {
-                type: "Alhambra Palace",
-                url: "https://images.unsplash.com/photo-1591291621060-69c8973801ba",
-                description: "Cung điện Alhambra - Granada"
-            },
-            {
-                type: "Park Güell",
-                url: "https://images.unsplash.com/photo-1583779457094-ab6f0d218d87",
-                description: "Công viên Güell độc đáo ở Barcelona"
-            }
-        ]
-    },
-
-    "switzerland": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Thụy Sĩ (Schengen)",
-        countryName: "Thụy Sĩ",
-        heroImage: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99",
-        successRate: "93%",
-        processingTime: "15-20 ngày làm việc",
-        description: "Dịch vụ xin visa Thụy Sĩ chuyên nghiệp, phù hợp cho du lịch, công tác và thăm thân.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch LSQ", "Dịch thuật", "Bảo hiểm du lịch", "Book vé máy bay"],
-        visaTypes: [
-            {
-                id: "swiss-tourist",
-                name: "Du lịch",
-                requirements: {
-                    personal: [
-                        "Hộ chiếu còn hạn trên 6 tháng",
-                        "Ảnh 3.5x4.5 nền trắng",
-                        "CMND/CCCD công chứng",
-                        "Sổ hộ khẩu công chứng",
-                        "Form xin visa theo mẫu mới nhất"
-                    ],
-                    work: [
-                        {
-                            type: "Người đi làm",
-                            docs: [
-                                "Hợp đồng lao động",
-                                "Xác nhận công tác song ngữ",
-                                "Đơn xin nghỉ phép",
-                                "Bảng lương 6 tháng gần nhất"
-                            ]
-                        },
-                        {
-                            type: "Chủ doanh nghiệp",
-                            docs: [
-                                "Giấy phép kinh doanh",
-                                "Báo cáo thuế năm gần nhất",
-                                "Đăng ký MST",
-                                "Báo cáo tài chính có kiểm toán"
-                            ]
-                        }
-                    ],
-                    financial: [
-                        "Sao kê ngân hàng 6 tháng",
-                        "Sổ tiết kiệm tối thiểu 200 triệu",
-                        "Giấy tờ sở hữu bất động sản",
-                        "Hợp đồng cho thuê (nếu có)"
-                    ],
-                    travel: [
-                        "Vé máy bay khứ hồi",
-                        "Booking khách sạn toàn bộ hành trình",
-                        "Bảo hiểm du lịch phạm vi Schengen",
-                        "Lịch trình chi tiết từng ngày",
-                        "Thư mời từ Thụy Sĩ (nếu có)"
-                    ]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "standard",
-                name: "Gói Premium",
-                description: "Dịch vụ trọn gói cao cấp với tỷ lệ đậu visa cao",
-                validity: "3 tháng",
-                stayDuration: "Tối đa 90 ngày",
-                processingTime: "15-20 ngày làm việc",
-                prices: [
-                    {
-                        adult: "7,900,000 VNĐ",
-                        child_6_12: "6,900,000 VNĐ",
-                        child_under_6: "3,900,000 VNĐ",
-                        consularFee: "80 CHF",
-                        serviceFee: "Từ 3,900,000 VNĐ",
-                        note: "Giá có thể thay đổi theo tỷ giá CHF"
-                    }
-                ]
-            }
-        ],
-        testimonials: [
-            {
-                id: "ch-test-1",
-                name: "Lê Văn K",
-                quote: "Được tư vấn rất chuyên nghiệp, hồ sơ chuẩn bị kỹ càng nên visa được duyệt nhanh chóng.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=9"
-            },
-            {
-                id: "ch-test-2",
-                name: "Phạm Thị L",
-                quote: "Dịch vụ tốt, nhân viên nhiệt tình. Đặc biệt ấn tượng với sự theo dõi hồ sơ liên tục.",
-                rating: 5,
-                image: "https://i.pravatar.cc/150?img=10"
-            }
-        ],
-        relatedArticles: [
-            {
-                id: "ch-art-1",
-                title: "Hướng dẫn xin visa Thụy Sĩ 2025",
-                url: "/tin-tuc/huong-dan-xin-visa-thuy-si-2025",
-                image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99"
-            },
-            {
-                id: "ch-art-2",
-                title: "Khám phá Thụy Sĩ - Thiên đường du lịch châu Âu",
-                url: "/tin-tuc/kham-pha-thuy-si-thien-duong-du-lich",
-                image: "https://images.unsplash.com/photo-1527668752968-14dc70a27c95"
-            }
-        ],
-        visaImages: [
-            {
-                type: "Visa Schengen Thụy Sĩ",
-                url: "https://images.unsplash.com/photo-1590674899484-d5640e854abe",
-                description: "Mẫu visa Schengen do Thụy Sĩ cấp"
-            },
-            {
-                type: "Matterhorn",
-                url: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99",
-                description: "Đỉnh Matterhorn hùng vĩ"
-            },
-            {
-                type: "Lake Geneva",
-                url: "https://images.unsplash.com/photo-1527668752968-14dc70a27c95",
-                description: "Hồ Geneva thơ mộng"
-            },
-            {
-                type: "Lucerne",
-                url: "https://images.unsplash.com/photo-1549877452-9c387954fbc2",
-                description: "Thành phố Lucerne cổ kính"
-            },
-            {
-                type: "Swiss Alps",
-                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
-                description: "Dãy Alps hùng vĩ của Thụy Sĩ"
-            }
-        ]
-    },
-    
-    "phap": {
-        continentSlug: "visa-chau-au",
-        title: "Dịch Vụ Xin Visa Pháp (Schengen)",
-        countryName: "Pháp",
-        heroImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
-        successRate: "91%",
-        processingTime: "15-20 ngày",
-        description: "Dịch vụ xin visa Schengen qua Pháp, phù hợp du lịch và công tác trong khối Schengen.",
-        services: ["Tư vấn hồ sơ", "Đặt lịch VFS", "Dịch thuật", "Bảo hiểm du lịch"],
-        visaImages: [
-            {
-                type: "Hộ chiếu với visa Pháp",
-                url: "https://images.unsplash.com/photo-1544112851-42d8f3b7f07c",
-                description: "Mẫu visa Schengen được cấp bởi Đại sứ quán Pháp"
-            },
-            {
-                type: "Tháp Eiffel - Pháp",
-                url: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f",
-                description: "Biểu tượng nổi tiếng của Pháp"
-            },
-            {
-                type: "Cung điện Versailles",
-                url: "https://images.unsplash.com/photo-1526816229784-65d5d54ac8bc",
-                description: "Di sản văn hóa thế giới tại Pháp"
-            },
-            {
-                type: "Đại lộ Champs-Élysées",
-                url: "https://images.unsplash.com/photo-1520939817895-060bdaf4fe1b",
-                description: "Con đường nổi tiếng nhất Paris"
-            },
-            {
-                type: "Nhà thờ Đức Bà Paris",
-                url: "https://images.unsplash.com/photo-1478391679764-b2d8b3cd1e94",
-                description: "Kiến trúc Gothic tiêu biểu của Pháp"
-            }
-        ],
-        visaTypes: [
-            {
-                id: "schengen",
-                name: "Visa Schengen (Du lịch)",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Form xin visa"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Hợp đồng lao động", "Quyết định bổ nhiệm"] }],
-                    financial: ["Sao kê 6 tháng", "Sổ tiết kiệm"],
-                    travel: ["Bảo hiểm du lịch", "Đặt khách sạn", "Vé máy bay"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "usa-b1-b2",
+            name: "Du lịch/Công tác (B1/B2)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa Schengen",
-                prices: [{
-                    adult: "2.500.000 VNĐ",
-                    child_6_12: "2.500.000 VNĐ",
-                    child_under_6: "2.500.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Phỏng vấn Vàng",
+                prices: [
+                  {
+                    adult: "7,500,000 VNĐ",
+                    child_6_12: "7,500,000 VNĐ",
+                    child_under_6: "Miễn phí (phỏng vấn chung)",
+                    consularFee: "185 USD",
+                    serviceFee: "Từ 5,000,000 VNĐ",
+                    note: "Phí LSQ không hoàn lại kể cả khi trượt"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, điền đơn DS-160, đặt lịch, luyện phỏng vấn chuyên sâu."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu còn hạn trên 6 tháng", "Ảnh 5x5 nền trắng", "Form DS-160", "Xác nhận đóng phí LSQ"],
+              work_individual: ["Hợp đồng lao động/Quyết định bổ nhiệm", "Thư xác nhận lương (nếu có)", "Giấy phép kinh doanh (nếu tự kinh doanh)"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng cá nhân/doanh nghiệp 6 tháng", "Sổ tiết kiệm (khuyến nghị trên 200 triệu)", "Giấy tờ sở hữu tài sản (nhà đất, ô tô)"],
+              travel: ["Lịch trình dự kiến (không bắt buộc vé máy bay/khách sạn)"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Kinh nghiệm", description: "Chuyên visa Schengen nhiều năm.", icon: Award },
-            { name: "Tư vấn tận tình", description: "Hỗ trợ 24/7 trong quá trình làm visa.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Tư vấn và lập kế hoạch hồ sơ.", icon: MessageSquare },
-            { name: "Hoàn thiện & Nộp", description: "Hoàn thiện và nộp hồ sơ tại VFS.", icon: FileText }
-        ]
-    },
-
-    // Châu Mỹ
-    "canada": {
+        media: []
+      },
+      {
+        slug: "canada",
         continentSlug: "visa-chau-my",
         title: "Dịch Vụ Xin Visa Canada",
         countryName: "Canada",
-        heroImage: "https://images.unsplash.com/photo-1517935706615-2717063c2225",
-        successRate: "85%",
-        processingTime: "20-25 ngày làm việc",
-        description: "Dịch vụ xin visa Canada cho du lịch, thăm thân và định cư.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch nộp", "Bảo hiểm du lịch"],
-        visaImages: [
-            {
-                type: "Visa Canada",
-                url: "https://images.unsplash.com/photo-1551651653-c5186a1fbba2",
-                description: "Mẫu visa Canada"
-            },
-            {
-                type: "CN Tower",
-                url: "https://images.unsplash.com/photo-1486325212027-8081e485255e",
-                description: "Tháp CN - biểu tượng của Toronto"
-            },
-            {
-                type: "Banff National Park",
-                url: "https://images.unsplash.com/photo-1609825488888-3a766db05542",
-                description: "Công viên quốc gia Banff tuyệt đẹp"
-            },
-            {
-                type: "Niagara Falls",
-                url: "https://images.unsplash.com/photo-1489447068241-b3490214e879",
-                description: "Thác Niagara hùng vĩ"
-            },
-            {
-                type: "Old Quebec",
-                url: "https://images.unsplash.com/photo-1519832979-6fa011b87667",
-                description: "Phố cổ Quebec với kiến trúc Pháp"
-            }
-        ],
+        heroImage: "https://images.unsplash.com/photo-1502604815183-b3c0765d70f6",
+        successRate: "90%",
+        processingTime: "30-60 ngày làm việc (chưa tính thời gian sinh trắc học)",
+        description: "Xin visa du lịch, công tác Canada multiple-entry 10 năm với tỷ lệ đậu cao.",
+        services: ["Tư vấn hồ sơ online", "Hỗ trợ dịch thuật", "Hoàn tất các Form IMM", "Đặt lịch lấy dấu vân tay"],
+        status: "published",
+        createdAt: "2025-09-05T09:30:00Z",
+        updatedAt: "2025-09-28T11:00:00Z",
         visaTypes: [
-            {
-                id: "visitor",
-                name: "Visitor Visa",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh sinh trắc học", "Form IMM"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Hợp đồng lao động", "Quyết định bổ nhiệm"] }],
-                    financial: ["Sao kê 6 tháng", "Sổ tiết kiệm", "Chứng minh tài sản"],
-                    travel: ["Bảo hiểm du lịch", "Lịch trình", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "canada-visitor",
+            name: "Du lịch/Thăm thân (Visitor)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "4.200.000 VNĐ",
-                    child_6_12: "4.200.000 VNĐ",
-                    child_under_6: "4.200.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Toàn diện",
+                prices: [
+                  {
+                    adult: "6,500,000 VNĐ",
+                    child_6_12: "6,500,000 VNĐ",
+                    child_under_6: "4,500,000 VNĐ",
+                    consularFee: "100 CAD (phí visa) + 85 CAD (phí sinh trắc)",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Phí dịch thuật công chứng có thể phát sinh"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, dịch thuật, điền form, và sắp xếp hồ sơ chứng minh tài chính."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Form IMM 5257", "Giấy tờ tùy thân (CCCD/CMND)"],
+              work_individual: ["Hợp đồng lao động/Quyết định bổ nhiệm", "Xác nhận công tác/Đơn xin nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sổ tiết kiệm tối thiểu 150 triệu", "Sao kê tài khoản 4-6 tháng gần nhất", "Bằng chứng thu nhập/Sở hữu tài sản"],
+              travel: ["Booking máy bay khứ hồi", "Booking khách sạn/Thư mời từ Canada"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có chứng chỉ ICCRC.", icon: Award },
-            { name: "Tư vấn chi tiết", description: "Hướng dẫn từng bước làm visa.", icon: UserCheck }
+        media: []
+      },
+      {
+        slug: "japan",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Nhật Bản",
+        countryName: "Nhật Bản",
+        heroImage: "https://images.unsplash.com/photo-1540959733332-eab4deecc6b4",
+        successRate: "97%",
+        processingTime: "5-7 ngày làm việc",
+        description: "Xin visa du lịch (single/multiple) Nhật Bản nhanh chóng, hỗ trợ tối đa cho các trường hợp khó.",
+        services: ["Kiểm tra và hoàn thiện hồ sơ", "Dịch thuật công chứng", "Nộp hồ sơ ủy thác tại LSQ"],
+        status: "published",
+        createdAt: "2025-09-10T08:00:00Z",
+        updatedAt: "2025-10-01T15:30:00Z",
+        visaTypes: [
+          {
+            id: "japan-tourist",
+            name: "Du lịch (Single/Multiple)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Chuẩn",
+                prices: [
+                  {
+                    adult: "3,500,000 VNĐ",
+                    child_6_12: "2,500,000 VNĐ",
+                    child_under_6: "1,500,000 VNĐ",
+                    consularFee: "Khoảng 630,000 VNĐ (tùy tỷ giá)",
+                    serviceFee: "Từ 1,900,000 VNĐ",
+                    note: "Phí lãnh sự chỉ thu khi có kết quả visa"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền đơn, nộp/nhận hồ sơ tại Lãnh sự quán."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu gốc", "Ảnh 4.5x3.5 nền trắng", "Tờ khai xin visa", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Giấy xác nhận đang làm việc", "Đơn xin nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm (khuyến nghị trên 100 triệu)"],
+              travel: ["Vé máy bay khứ hồi", "Xác nhận đặt phòng khách sạn", "Lịch trình du lịch chi tiết"]
+            }
+          }
         ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá và lập kế hoạch.", icon: MessageSquare },
-            { name: "Hoàn thiện & Nộp", description: "Nộp hồ sơ và theo dõi.", icon: FileText }
-        ]
-    },
-    "mexico": {
+        media: []
+      },
+      {
+        slug: "schengen-france",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Schengen (Pháp)",
+        countryName: "Khối Schengen (Pháp)",
+        heroImage: "https://images.unsplash.com/photo-1502602898624-ad818816c498",
+        successRate: "93%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Pháp, sử dụng cho chuyến đi du lịch Châu Âu.",
+        services: ["Tư vấn chọn nước nộp", "Hoàn thiện hồ sơ theo chuẩn châu Âu", "Đặt lịch hẹn VFS", "Mua bảo hiểm du lịch"],
+        status: "published",
+        createdAt: "2025-09-15T11:20:00Z",
+        updatedAt: "2025-10-05T10:00:00Z",
+        visaTypes: [
+          {
+            id: "schengen-tourist",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Đặc biệt",
+                prices: [
+                  {
+                    adult: "7,900,000 VNĐ",
+                    child_6_12: "5,900,000 VNĐ",
+                    child_under_6: "4,900,00Đ",
+                    consularFee: "80 EURO + Phí dịch vụ VFS",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Giá chưa bao gồm bảo hiểm du lịch"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, điền form, luyện phỏng vấn (nếu có)."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu còn hạn trên 3 tháng sau ngày về", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Đơn nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 120 triệu", "Thẻ tín dụng (nếu có)"],
+              travel: ["Bảo hiểm du lịch (mức 30.000 Euro)", "Vé máy bay khứ hồi", "Booking khách sạn/Kế hoạch du lịch"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "australia",
+        continentSlug: "visa-chau-dai-duong",
+        title: "Dịch Vụ Xin Visa Úc (Australia)",
+        countryName: "Úc",
+        heroImage: "https://images.unsplash.com/photo-1540700547798-251c8a169b14",
+        successRate: "91%",
+        processingTime: "25-45 ngày làm việc",
+        description: "Xin visa 600 (Visitor Visa) du lịch, thăm thân online, hồ sơ kỹ lưỡng, hỗ trợ chứng minh mối ràng buộc.",
+        services: ["Nộp hồ sơ online ImmiAccount", "Tư vấn hồ sơ công tác/thăm thân", "Hỗ trợ khám sức khỏe (nếu cần)"],
+        status: "published",
+        createdAt: "2025-09-20T14:30:00Z",
+        updatedAt: "2025-10-07T09:15:00Z",
+        visaTypes: [
+          {
+            id: "australia-600",
+            name: "Du lịch (Visitor Visa 600)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Cao cấp",
+                prices: [
+                  {
+                    adult: "6,900,000 VNĐ",
+                    child_6_12: "6,900,000 VNĐ",
+                    child_under_6: "3,900,000 VNĐ",
+                    consularFee: "190 AUD",
+                    serviceFee: "Từ 4,000,000 VNĐ",
+                    note: "Chỉ nhận hồ sơ có mục đích du lịch rõ ràng"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, nộp hồ sơ online, theo dõi tiến trình và bổ sung giấy tờ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4.5x3.5 nền trắng (scan)", "Form 1419", "Giấy khai sinh/Kết hôn"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép", "Giấy phép kinh doanh (nếu có)"],
+              work_enterprise: [],
+              financial: ["Bảng lương 3 tháng", "Sao kê tài khoản 3 tháng", "Sổ tiết kiệm (khuyến nghị trên 150 triệu)"],
+              travel: ["Lịch trình du lịch chi tiết", "Booking máy bay (dự kiến)", "Booking khách sạn/Thư mời"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "south-korea",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Hàn Quốc",
+        countryName: "Hàn Quốc",
+        heroImage: "https://images.unsplash.com/photo-1588725175317-1f481358d7c4",
+        successRate: "96%",
+        processingTime: "12-15 ngày làm việc",
+        description: "Xin visa du lịch C-3-9, hỗ trợ visa thăm thân, hỗ trợ miễn chứng minh tài chính cho trường hợp đặc biệt.",
+        services: ["Tư vấn hồ sơ miễn chứng minh tài chính", "Sắp xếp hồ sơ nộp tại KVAC", "Dịch thuật công chứng"],
+        status: "published",
+        createdAt: "2025-09-22T10:00:00Z",
+        updatedAt: "2025-10-07T12:00:00Z",
+        visaTypes: [
+          {
+            id: "korea-tourist",
+            name: "Du lịch (C-3-9)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Phổ thông",
+                prices: [
+                  {
+                    adult: "3,000,000 VNĐ",
+                    child_6_12: "2,000,000 VNĐ",
+                    child_under_6: "1,000,000 VNĐ",
+                    consularFee: "40 USD (single) - 60 USD (multiple)",
+                    serviceFee: "Từ 1,500,000 VNĐ",
+                    note: "Chi phí không bao gồm phí KVAC"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền đơn, đặt lịch hẹn nộp hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Đơn xin visa", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác", "Đơn xin nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 5.000 USD", "Giấy tờ nhà đất"],
+              travel: ["Vé máy bay khứ hồi", "Xác nhận đặt phòng khách sạn", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "uk",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Anh Quốc (UK)",
+        countryName: "Vương Quốc Anh",
+        heroImage: "https://images.unsplash.com/photo-1533929736458-ca588523c8c7",
+        successRate: "89%",
+        processingTime: "15-25 ngày làm việc",
+        description: "Hỗ trợ xin Standard Visitor Visa cho du lịch, công tác, thăm thân tại Anh.",
+        services: ["Điền đơn online", "Dịch thuật công chứng", "Đặt lịch hẹn VFS", "Luyện phỏng vấn (nếu có yêu cầu)"],
+        status: "published",
+        createdAt: "2025-09-25T15:00:00Z",
+        updatedAt: "2025-10-07T14:30:00Z",
+        visaTypes: [
+          {
+            id: "uk-standard-visitor",
+            name: "Du lịch (Standard Visitor)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Tiêu chuẩn",
+                prices: [
+                  {
+                    adult: "8,500,000 VNĐ",
+                    child_6_12: "8,500,000 VNĐ",
+                    child_under_6: "4,500,000 VNĐ",
+                    consularFee: "135 USD (6 tháng)",
+                    serviceFee: "Từ 5,500,000 VNĐ",
+                    note: "Phí lãnh sự có thể thay đổi tùy loại visa (2 năm, 5 năm, 10 năm)"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, dịch thuật, điền đơn online, nộp sinh trắc học."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 (chụp tại VFS)", "Đơn online", "Giấy tờ cá nhân khác"],
+              work_individual: ["Thư xác nhận từ công ty", "Hợp đồng lao động", "Bảng lương 6 tháng"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm (min 150 triệu, gửi trên 1 tháng)", "Giấy tờ sở hữu tài sản"],
+              travel: ["Booking máy bay", "Booking khách sạn/Địa chỉ lưu trú"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "taiwan",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Đài Loan",
+        countryName: "Đài Loan",
+        heroImage: "https://images.unsplash.com/photo-1579268616140-ff8f830d9354",
+        successRate: "98%",
+        processingTime: "5-8 ngày làm việc",
+        description: "Hỗ trợ xin visa du lịch, công tác Đài Loan, bao gồm cả visa dán và E-visa (Quan Hồng).",
+        services: ["Kiểm tra hồ sơ online/trực tiếp", "Dịch thuật", "Nộp/nhận hồ sơ tại Văn phòng Kinh tế và Văn hóa Đài Bắc"],
+        status: "published",
+        createdAt: "2025-09-28T09:45:00Z",
+        updatedAt: "2025-10-07T16:00:00Z",
+        visaTypes: [
+          {
+            id: "taiwan-tourist",
+            name: "Du lịch cá nhân",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Khởi hành",
+                prices: [
+                  {
+                    adult: "3,200,000 VNĐ",
+                    child_6_12: "2,200,000 VNĐ",
+                    child_under_6: "1,200,000 VNĐ",
+                    consularFee: "50 USD (single) - 100 USD (multiple)",
+                    serviceFee: "Từ 1,800,000 VNĐ",
+                    note: "Giá có thể thay đổi tùy loại visa"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, điền form, đặt lịch hẹn nộp/nhận hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4x6 nền trắng", "Tờ khai xin visa", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận chức vụ/Lương 3 tháng gần nhất"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3 tháng", "Sổ tiết kiệm tối thiểu 100 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Xác nhận đặt phòng khách sạn"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "india",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Ấn Độ (India)",
+        countryName: "Ấn Độ",
+        heroImage: "https://images.unsplash.com/photo-1564507548766-261561f3244b",
+        successRate: "99%",
+        processingTime: "3-5 ngày làm việc (E-visa)",
+        description: "Hỗ trợ xin E-visa du lịch, công tác Ấn Độ nhanh chóng và tiện lợi.",
+        services: ["Điền đơn E-visa", "Kiểm tra và chuẩn hóa ảnh/hộ chiếu", "Theo dõi và thông báo kết quả"],
+        status: "published",
+        createdAt: "2025-09-30T11:00:00Z",
+        updatedAt: "2025-10-06T09:00:00Z",
+        visaTypes: [
+          {
+            id: "india-e-visa",
+            name: "E-Visa Du lịch",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Du lịch",
+                prices: [
+                  {
+                    adult: "2,500,000 VNĐ",
+                    child_6_12: "2,500,000 VNĐ",
+                    child_under_6: "1,500,000 VNĐ",
+                    consularFee: "10 USD - 80 USD (tùy thời hạn)",
+                    serviceFee: "Từ 1,000,000 VNĐ",
+                    note: "Chỉ áp dụng cho E-visa"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ online, điền đơn, nộp phí LSQ và nhận E-visa."
+              }
+            ],
+            requirements: {
+              personal: ["Scan Hộ chiếu còn hạn trên 6 tháng", "Ảnh 5x5 nền trắng (scan)"],
+              work_individual: [],
+              work_enterprise: [],
+              financial: [],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "south-africa",
+        continentSlug: "visa-chau-phi",
+        title: "Dịch Vụ Xin Visa Nam Phi",
+        countryName: "Nam Phi",
+        heroImage: "https://images.unsplash.com/photo-1547477521-789f21d3f2a8",
+        successRate: "92%",
+        processingTime: "10-15 ngày làm việc",
+        description: "Xin visa du lịch, công tác Nam Phi, thủ tục đơn giản, hỗ trợ nộp hồ sơ tại Đại sứ quán.",
+        services: ["Tư vấn hồ sơ", "Dịch thuật công chứng", "Nộp hồ sơ trực tiếp tại Đại sứ quán"],
+        status: "published",
+        createdAt: "2025-10-01T14:00:00Z",
+        updatedAt: "2025-10-07T10:30:00Z",
+        visaTypes: [
+          {
+            id: "south-africa-tourist",
+            name: "Du lịch",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Safari",
+                prices: [
+                  {
+                    adult: "5,000,000 VNĐ",
+                    child_6_12: "4,000,000 VNĐ",
+                    child_under_6: "2,000,000 VNĐ",
+                    consularFee: "Khoảng 1,000,000 VNĐ (tùy tỷ giá)",
+                    serviceFee: "Từ 3,000,000 VNĐ",
+                    note: "Giá không bao gồm phí chuyển phát nhanh"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền form, sắp xếp hồ sơ nộp LSQ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Mẫu đơn DHA-84", "Giấy tờ cá nhân công chứng"],
+              work_individual: ["Thư xác nhận công việc/học tập"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3 tháng", "Chứng minh đủ khả năng chi trả cho chuyến đi"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn/Thư mời từ Nam Phi"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "thailand",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Thái Lan (Lao động/Định cư)",
+        countryName: "Thái Lan",
+        heroImage: "https://images.unsplash.com/photo-1518548419972-78ffb36a117b",
+        successRate: "98%",
+        processingTime: "7-10 ngày làm việc (trừ Miễn thị thực)",
+        description: "Hỗ trợ xin các loại visa Non-Immigrant (B, O, ED) cho mục đích công tác, học tập, hoặc kết hôn.",
+        services: ["Tư vấn visa Non-B/Non-O", "Hỗ trợ chuẩn bị giấy tờ từ Thái Lan", "Nộp hồ sơ tại LSQ"],
+        status: "published",
+        createdAt: "2025-10-02T08:30:00Z",
+        updatedAt: "2025-10-07T18:00:00Z",
+        visaTypes: [
+          {
+            id: "thailand-non-b",
+            name: "Non-Immigrant B (Công tác)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Công tác",
+                prices: [
+                  {
+                    adult: "3,500,000 VNĐ",
+                    child_6_12: "3,500,000 VNĐ",
+                    child_under_6: "1,500,000 VNĐ",
+                    consularFee: "80 USD (single) - 200 USD (multiple)",
+                    serviceFee: "Từ 2,000,000 VNĐ",
+                    note: "Phí dịch vụ chưa bao gồm phí xin Giấy phép lao động (Work Permit)"
+                  }
+                ],
+                description: "Xử lý hồ sơ, thư mời, giấy tờ công ty phía Thái Lan."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4x6 nền trắng", "Đơn xin visa", "Bản sao đăng ký kết hôn (nếu đi cùng vợ/chồng)"],
+              work_individual: ["Hợp đồng lao động", "Quyết định cử đi công tác"],
+              work_enterprise: ["Thư mời từ công ty Thái Lan", "Giấy phép đăng ký kinh doanh của công ty Thái Lan"],
+              financial: ["Bảng lương 6 tháng", "Sao kê tài khoản cá nhân"],
+              travel: ["Vé máy bay khứ hồi (hoặc một chiều)", "Booking khách sạn/Hợp đồng thuê nhà"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "dubai",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Dubai (UAE)",
+        countryName: "Các Tiểu Vương Quốc Ả Rập Thống Nhất",
+        heroImage: "https://images.unsplash.com/photo-1512495159081-3315a6b10766",
+        successRate: "99%",
+        processingTime: "2-4 ngày làm việc",
+        description: "Xin E-visa du lịch, công tác Dubai 30 ngày/60 ngày, thủ tục nhanh, đơn giản.",
+        services: ["Nộp hồ sơ E-visa", "Tư vấn hồ sơ khó (single female travel)", "Theo dõi tiến độ visa"],
+        status: "published",
+        createdAt: "2025-10-03T10:00:00Z",
+        updatedAt: "2025-10-07T19:30:00Z",
+        visaTypes: [
+          {
+            id: "dubai-tourist",
+            name: "E-Visa Du lịch 30 ngày",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Du lịch",
+                prices: [
+                  {
+                    adult: "4,500,000 VNĐ",
+                    child_6_12: "4,500,000 VNĐ",
+                    child_under_6: "3,500,000 VNĐ",
+                    consularFee: "Khoảng 100 USD (bao gồm bảo hiểm)",
+                    serviceFee: "Từ 2,500,000 VNĐ",
+                    note: "Giá visa có thể thay đổi tùy thuộc vào hãng hàng không bảo lãnh"
+                  }
+                ],
+                description: "Xử lý hồ sơ online, nộp phí chính phủ và nhận E-visa."
+              }
+            ],
+            requirements: {
+              personal: ["Scan Hộ chiếu còn hạn trên 6 tháng", "Ảnh thẻ 4x6 nền trắng (scan)"],
+              work_individual: [],
+              work_enterprise: [],
+              financial: [],
+              travel: ["Vé máy bay khứ hồi (hoặc thông tin booking)"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "new-zealand",
+        continentSlug: "visa-chau-dai-duong",
+        title: "Dịch Vụ Xin Visa New Zealand",
+        countryName: "New Zealand",
+        heroImage: "https://images.unsplash.com/photo-1510414169724-4f93427181f2",
+        successRate: "90%",
+        processingTime: "20-40 ngày làm việc",
+        description: "Hỗ trợ xin visa du lịch, thăm thân (Visitor Visa) New Zealand online, hồ sơ kỹ lưỡng.",
+        services: ["Nộp hồ sơ online", "Tư vấn chứng minh mối ràng buộc", "Dịch thuật công chứng"],
+        status: "published",
+        createdAt: "2025-10-04T12:00:00Z",
+        updatedAt: "2025-10-07T20:00:00Z",
+        visaTypes: [
+          {
+            id: "nz-visitor",
+            name: "Visitor Visa (Du lịch/Thăm thân)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Premium",
+                prices: [
+                  {
+                    adult: "7,200,000 VNĐ",
+                    child_6_12: "7,200,000 VNĐ",
+                    child_under_6: "4,000,000 VNĐ",
+                    consularFee: "246 NZD (Phí chính phủ + Phí IVL)",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Chi phí chưa bao gồm phí dịch thuật và phí sinh trắc học"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, điền form, nộp hồ sơ online, và theo dõi tiến trình."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4.5x3.5 nền trắng (scan)", "Giấy khai sinh/Kết hôn"],
+              work_individual: ["Hợp đồng lao động", "Thư xác nhận công tác/nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm (min 150 triệu VNĐ)", "Bằng chứng sở hữu tài sản"],
+              travel: ["Vé máy bay khứ hồi (dự kiến)", "Booking khách sạn/Thư mời"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "germany",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Đức (Schengen)",
+        countryName: "Đức",
+        heroImage: "https://images.unsplash.com/photo-1542466500-dcc217983059",
+        successRate: "95%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Đức, thích hợp cho du lịch và công tác Châu Âu.",
+        services: ["Điền đơn Videx", "Đặt lịch hẹn VFS", "Mua bảo hiểm du lịch", "Tư vấn hồ sơ công tác"],
+        status: "published",
+        createdAt: "2025-10-05T09:00:00Z",
+        updatedAt: "2025-10-07T21:15:00Z",
+        visaTypes: [
+          {
+            id: "germany-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Cơ bản",
+                prices: [
+                  {
+                    adult: "6,800,000 VNĐ",
+                    child_6_12: "4,800,000 VNĐ",
+                    child_under_6: "3,800,000 VNĐ",
+                    consularFee: "80 EURO + Phí dịch vụ VFS",
+                    serviceFee: "Từ 4,000,000 VNĐ",
+                    note: "Giá có thể thay đổi tùy tỷ giá Euro"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, điền đơn Videx, sắp xếp hồ sơ tại VFS."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa Videx", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3-6 tháng", "Sổ tiết kiệm tối thiểu 100 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "turkey",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Thổ Nhĩ Kỳ (Turkey)",
+        countryName: "Thổ Nhĩ Kỳ",
+        heroImage: "https://images.unsplash.com/photo-1524388836267-27b9a528f110",
+        successRate: "97%",
+        processingTime: "7-10 ngày làm việc",
+        description: "Hỗ trợ xin E-visa (nếu đủ điều kiện) và visa dán du lịch Thổ Nhĩ Kỳ.",
+        services: ["Tư vấn E-visa và Visa dán", "Hoàn thiện hồ sơ theo yêu cầu LSQ", "Đặt lịch hẹn VFS"],
+        status: "published",
+        createdAt: "2025-10-06T14:30:00Z",
+        updatedAt: "2025-10-07T21:30:00Z",
+        visaTypes: [
+          {
+            id: "turkey-tourist",
+            name: "Du lịch (Visa dán)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Phổ thông",
+                prices: [
+                  {
+                    adult: "3,800,000 VNĐ",
+                    child_6_12: "2,800,000 VNĐ",
+                    child_under_6: "1,800,000 VNĐ",
+                    consularFee: "Khoảng 60 USD (single) - 100 USD (multiple)",
+                    serviceFee: "Từ 2,000,000 VNĐ",
+                    note: "Phí dịch vụ chưa bao gồm phí nộp VFS"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ, dịch thuật (nếu cần), điền đơn, đặt lịch hẹn nộp hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 5x6 nền trắng", "Đơn xin visa online", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3 tháng", "Sổ tiết kiệm tối thiểu 100 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Bảo hiểm du lịch"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "singapore",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Singapore (Đối với nữ)",
+        countryName: "Singapore",
+        heroImage: "https://images.unsplash.com/photo-1541014526284-469b85c1893c",
+        successRate: "99%",
+        processingTime: "3-7 ngày làm việc",
+        description: "Hỗ trợ xin E-visa cho công dân Việt Nam, đặc biệt là phụ nữ trẻ đi một mình.",
+        services: ["Nộp hồ sơ E-visa (via đối tác/agency)", "Tư vấn chứng minh nghề nghiệp", "Theo dõi kết quả visa"],
+        status: "published",
+        createdAt: "2025-10-07T08:00:00Z",
+        updatedAt: "2025-10-07T22:00:00Z",
+        visaTypes: [
+          {
+            id: "singapore-tourist",
+            name: "E-Visa Du lịch",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Cơ bản",
+                prices: [
+                  {
+                    adult: "1,800,000 VNĐ",
+                    child_6_12: "1,800,000 VNĐ",
+                    child_under_6: "1,000,000 VNĐ",
+                    consularFee: "30 SGD",
+                    serviceFee: "Từ 1,000,000 VNĐ",
+                    note: "Giá cao hơn đối với nữ giới trẻ đi một mình"
+                  }
+                ],
+                description: "Xử lý hồ sơ, điền form online, nộp qua đối tác được cấp phép."
+              }
+            ],
+            requirements: {
+              personal: ["Scan Hộ chiếu còn hạn trên 6 tháng", "Ảnh 4x6 nền trắng (scan)"],
+              work_individual: ["Hợp đồng lao động/Thẻ nhân viên (nếu có)"],
+              work_enterprise: [],
+              financial: [],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "netherlands",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Hà Lan (Schengen)",
+        countryName: "Hà Lan",
+        heroImage: "https://images.unsplash.com/photo-1507548598851-91a62961d36c",
+        successRate: "93%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua VFS Hà Lan, thủ tục nghiêm ngặt, chuyên nghiệp.",
+        services: ["Tư vấn hồ sơ", "Hoàn thiện hồ sơ theo checklist", "Đặt lịch hẹn VFS"],
+        status: "published",
+        createdAt: "2025-10-08T10:00:00Z",
+        updatedAt: "2025-10-08T10:00:00Z",
+        visaTypes: [
+          {
+            id: "netherlands-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Hoàn thiện",
+                prices: [
+                  {
+                    adult: "7,500,000 VNĐ",
+                    child_6_12: "5,500,000 VNĐ",
+                    child_under_6: "4,500,000 VNĐ",
+                    consularFee: "80 EURO + Phí VFS",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Yêu cầu cung cấp giấy tờ trung thực tuyệt đối"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, điền đơn, sắp xếp hồ sơ chứng minh tài chính."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch 30.000 Euro"],
+              work_individual: ["Hợp đồng lao động/Quyết định bổ nhiệm", "Xác nhận công tác/Đơn nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 120 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "mexico",
         continentSlug: "visa-chau-my",
         title: "Dịch Vụ Xin Visa Mexico",
         countryName: "Mexico",
-        heroImage: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a",
-        successRate: "92%",
-        processingTime: "7-10 ngày làm việc",
-        description: "Dịch vụ xin visa Mexico cho du lịch và công tác ngắn hạn.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
+        heroImage: "https://images.unsplash.com/photo-1517424911762-c0733a1f81d5",
+        successRate: "85%",
+        processingTime: "10-15 ngày (chờ phỏng vấn)",
+        description: "Hỗ trợ xin visa du lịch, công tác Mexico, tư vấn miễn visa cho người có visa Mỹ/Schengen.",
+        services: ["Tư vấn miễn visa", "Điền đơn xin visa", "Luyện phỏng vấn 1-1", "Đặt lịch hẹn LSQ"],
+        status: "published",
+        createdAt: "2025-10-09T14:00:00Z",
+        updatedAt: "2025-10-09T14:00:00Z",
         visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Form xin visa"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê 3 tháng"],
-                    travel: ["Vé máy bay khứ hồi", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "mexico-visitor",
+            name: "Du lịch/Thăm thân",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "900.000 VNĐ",
-                    child_6_12: "900.000 VNĐ",
-                    child_under_6: "900.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Phỏng vấn",
+                prices: [
+                  {
+                    adult: "5,500,000 VNĐ",
+                    child_6_12: "5,500,000 VNĐ",
+                    child_under_6: "3,000,000 VNĐ",
+                    consularFee: "51 USD",
+                    serviceFee: "Từ 3,500,000 VNĐ",
+                    note: "Chi phí chưa bao gồm phí dịch thuật công chứng"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền đơn, luyện phỏng vấn tập trung."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.4 nền trắng", "Đơn xin visa", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 12 tháng (tối thiểu 15 triệu VNĐ/tháng)", "Sổ tiết kiệm (min 100 triệu, gửi trên 1 năm)"],
+              travel: ["Vé máy bay khứ hồi (đã mua)", "Booking khách sạn", "Lịch trình chi tiết"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Nhanh chóng", description: "Xử lý trong 7-10 ngày làm việc.", icon: Award },
-            { name: "Đơn giản", description: "Thủ tục đơn giản, dễ dàng.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra và tư vấn hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "brazil": {
-        continentSlug: "visa-chau-my",
-        title: "Dịch Vụ Xin Visa Brazil",
-        countryName: "Brazil",
-        heroImage: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325",
+        media: []
+      },
+      {
+        slug: "south-korea-multiple",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Hàn Quốc (Multiple 5 năm)",
+        countryName: "Hàn Quốc (Multiple)",
+        heroImage: "https://images.unsplash.com/photo-1619864239828-91217c46c07a",
         successRate: "90%",
-        processingTime: "10-15 ngày làm việc",
-        description: "Dịch vụ xin visa Brazil cho du lịch và công tác.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
-        visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Form xin visa"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê ngân hàng"],
-                    travel: ["Vé máy bay", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "1.200.000 VNĐ",
-                    child_6_12: "1.200.000 VNĐ",
-                    child_under_6: "1.200.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có kinh nghiệm với LSQ Brazil.", icon: Award },
-            { name: "Hỗ trợ toàn diện", description: "Tư vấn chi tiết mọi vấn đề.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá và lập kế hoạch.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "argentina": {
-        continentSlug: "visa-chau-my",
-        title: "Dịch Vụ Xin Visa Argentina",
-        countryName: "Argentina",
-        heroImage: "https://images.unsplash.com/photo-1589909202802-8f4aadce1849",
-        successRate: "88%",
-        processingTime: "10-15 ngày làm việc",
-        description: "Dịch vụ xin visa Argentina cho du lịch và công tác.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
-        visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Form xin visa"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê ngân hàng"],
-                    travel: ["Vé máy bay", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "1.100.000 VNĐ",
-                    child_6_12: "1.100.000 VNĐ",
-                    child_under_6: "1.100.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có kinh nghiệm với LSQ Argentina.", icon: Award },
-            { name: "Hỗ trợ toàn diện", description: "Tư vấn chi tiết mọi vấn đề.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá và lập kế hoạch.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "hoa-ky": {
-        continentSlug: "visa-chau-my",
-        title: "Dịch Vụ Xin Visa Mỹ (Du Lịch, Công Tác, Thăm Thân)",
-        countryName: "",
-        heroImage: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=2070&auto=format&fit=crop",
-        successRate: "98%",
-        processingTime: "Phụ thuộc lịch hẹn",
-        description: "Dịch vụ tư vấn và hoàn thiện hồ sơ xin visa Mỹ trọn gói.",
-        services: ["Tư vấn hồ sơ", "Điền đơn DS-160", "Luyện phỏng vấn", "Book lịch phỏng vấn"],
-        visaImages: [
-            {
-                type: "Visa Mỹ",
-                url: "https://images.unsplash.com/photo-1516138889890-ca695ed22b66",
-                description: "Mẫu visa Mỹ loại B1/B2"
-            },
-            {
-                type: "Tượng Nữ thần Tự do",
-                url: "https://images.unsplash.com/photo-1492666673288-3c4b4576ad9a",
-                description: "Biểu tượng của thành phố New York"
-            },
-            {
-                type: "Cầu Cổng Vàng",
-                url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29",
-                description: "Địa điểm nổi tiếng ở San Francisco"
-            },
-            {
-                type: "Times Square",
-                url: "https://images.unsplash.com/photo-1535964093004-55f10bd0a815",
-                description: "Trung tâm thương mại của Manhattan"
-            },
-            {
-                type: "Grand Canyon",
-                url: "https://images.unsplash.com/photo-1615551043360-33de8b5f410c",
-                description: "Kỳ quan thiên nhiên của Arizona"
-            }
-        ],
-        visaTypes: [
-            {
-                id: "b1b2",
-                name: "Visa B1/B2",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh visa Mỹ", "DS-160"],
-                    work: [{ type: "Chủ doanh nghiệp", docs: ["Giấy phép kinh doanh", "Báo cáo thuế"] }],
-                    financial: ["Sao kê ngân hàng", "Sổ tiết kiệm"],
-                    travel: ["Lịch trình chuyến đi", "Mục đích du lịch"]
-                }
-            }
-        ],
-        pricing: [
-            {
-                type: "Trọn gói",
-                name: "Dịch vụ visa Mỹ",
-                prices: [{
-                    adult: "3.500.000 VNĐ",
-                    child_6_12: "3.500.000 VNĐ",
-                    child_under_6: "3.500.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
-            }
-        ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Tỷ lệ đậu cao", description: "Hồ sơ được tối ưu bởi chuyên gia.", icon: Award },
-            { name: "Hỗ trợ 1-1", description: "Mỗi khách hàng có chuyên viên tư vấn riêng.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư Vấn & Đánh Giá", description: "Đánh giá hồ sơ và đưa ra giải pháp.", icon: MessageSquare },
-            { name: "Chuẩn Bị Hồ Sơ", description: "Hoàn thiện tất cả giấy tờ cần thiết.", icon: FileText }
-        ]
-    },
-
-    // Châu Úc
-    "new-zealand": {
-        continentSlug: "visa-chau-uc",
-        title: "Dịch Vụ Xin Visa New Zealand",
-        countryName: "New Zealand",
-        heroImage: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad",
-        successRate: "86%",
         processingTime: "15-20 ngày làm việc",
-        description: "Dịch vụ xin visa New Zealand cho du lịch, công tác và định cư.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Nộp hồ sơ online", "Theo dõi kết quả"],
-        visaImages: [
-            {
-                type: "Visa New Zealand",
-                url: "https://images.unsplash.com/photo-1589802829985-817e51171b92",
-                description: "Mẫu visa New Zealand"
-            },
-            {
-                type: "Mount Cook",
-                url: "https://images.unsplash.com/photo-1578438012440-115a4326cf2b",
-                description: "Núi Cook - đỉnh núi cao nhất New Zealand"
-            },
-            {
-                type: "Hobbiton",
-                url: "https://images.unsplash.com/photo-1628744876497-eb30460be9c7",
-                description: "Làng Hobbit nổi tiếng từ phim Lord of the Rings"
-            },
-            {
-                type: "Milford Sound",
-                url: "https://images.unsplash.com/photo-1542322796-f1583c697982",
-                description: "Vịnh Milford Sound tuyệt đẹp"
-            },
-            {
-                type: "Auckland Sky Tower",
-                url: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad",
-                description: "Tháp Sky Tower biểu tượng của Auckland"
-            }
-        ],
+        description: "Chuyên xin visa nhập cảnh nhiều lần (C-3-91) 5 năm, tư vấn điều kiện nộp hồ sơ.",
+        services: ["Tư vấn điều kiện nộp multiple", "Kiểm tra hồ sơ nâng cao", "Nộp hồ sơ tại KVAC"],
+        status: "published",
+        createdAt: "2025-10-10T08:00:00Z",
+        updatedAt: "2025-10-10T08:00:00Z",
         visaTypes: [
-            {
-                id: "visitor",
-                name: "Visitor Visa",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Form xin visa"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Hợp đồng lao động", "Xác nhận công tác"] }],
-                    financial: ["Sao kê 6 tháng", "Sổ tiết kiệm"],
-                    travel: ["Bảo hiểm du lịch", "Vé máy bay", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "korea-multiple",
+            name: "Du lịch Multiple (5 năm)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "2.500.000 VNĐ",
-                    child_6_12: "2.500.000 VNĐ",
-                    child_under_6: "2.500.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Đặc quyền",
+                prices: [
+                  {
+                    adult: "5,000,000 VNĐ",
+                    child_6_12: "5,000,000 VNĐ",
+                    child_under_6: "3,000,000 VNĐ",
+                    consularFee: "80 USD",
+                    serviceFee: "Từ 3,500,000 VNĐ",
+                    note: "Áp dụng cho người có hộ khẩu Hà Nội/HCM hoặc đã từng có visa châu Âu/Mỹ/Canada"
+                  }
+                ],
+                description: "Hỗ trợ chứng minh điều kiện và nộp hồ sơ xin visa multiple."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Đơn xin visa", "Hộ khẩu (chứng minh điều kiện)"],
+              work_individual: ["Giấy tờ chứng minh thu nhập cao/chức vụ cao (nếu nộp theo điều kiện thu nhập)"],
+              work_enterprise: [],
+              financial: ["Giấy tờ nhà đất/Sở hữu ô tô"],
+              travel: ["Vé máy bay khứ hồi", "Xác nhận đặt phòng khách sạn"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có chứng chỉ INZ.", icon: Award },
-            { name: "Tư vấn chi tiết", description: "Hướng dẫn từng bước làm visa.", icon: UserCheck }
+        media: []
+      },
+      {
+        slug: "qatar",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Qatar",
+        countryName: "Qatar",
+        heroImage: "https://images.unsplash.com/photo-1549487922-80718526a540",
+        successRate: "99%",
+        processingTime: "5-7 ngày làm việc",
+        description: "Hỗ trợ xin E-visa du lịch, quá cảnh, công tác Qatar, thủ tục đơn giản.",
+        services: ["Điền đơn E-visa", "Tư vấn hồ sơ", "Theo dõi và thông báo kết quả"],
+        status: "published",
+        createdAt: "2025-10-11T12:00:00Z",
+        updatedAt: "2025-10-11T12:00:00Z",
+        visaTypes: [
+          {
+            id: "qatar-e-visa",
+            name: "E-Visa Du lịch",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Phổ thông",
+                prices: [
+                  {
+                    adult: "3,000,000 VNĐ",
+                    child_6_12: "3,000,000 VNĐ",
+                    child_under_6: "2,000,000 VNĐ",
+                    consularFee: "Khoảng 100 QAR",
+                    serviceFee: "Từ 1,500,000 VNĐ",
+                    note: "Visa được nộp qua hệ thống của Bộ Nội vụ Qatar"
+                  }
+                ],
+                description: "Bao gồm xử lý hồ sơ online và nộp phí chính phủ."
+              }
+            ],
+            requirements: {
+              personal: ["Scan Hộ chiếu còn hạn trên 6 tháng", "Ảnh 4x6 nền trắng (scan)"],
+              work_individual: [],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng (nếu cần)"],
+              travel: ["Vé máy bay khứ hồi (có thể yêu cầu vé Qatar Airways)"]
+            }
+          }
         ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Đánh giá và lập kế hoạch.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp online và theo dõi.", icon: FileText }
-        ]
-    },
-    "fiji": {
-        continentSlug: "visa-chau-uc",
-        title: "Dịch Vụ Xin Visa Fiji",
-        countryName: "Fiji",
-        heroImage: "https://images.unsplash.com/photo-1511022890239-e52e7b6d7f37",
+        media: []
+      },
+      {
+        slug: "greece",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Hy Lạp (Schengen)",
+        countryName: "Hy Lạp",
+        heroImage: "https://images.unsplash.com/photo-1530990426861-12c1b18d2f7b",
+        successRate: "94%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Hy Lạp, khám phá lịch sử và đảo Santorini.",
+        services: ["Tư vấn hồ sơ", "Dịch thuật công chứng", "Đặt lịch hẹn VFS"],
+        status: "published",
+        createdAt: "2025-10-12T09:30:00Z",
+        updatedAt: "2025-10-12T09:30:00Z",
+        visaTypes: [
+          {
+            id: "greece-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Địa Trung Hải",
+                prices: [
+                  {
+                    adult: "7,000,000 VNĐ",
+                    child_6_12: "5,000,000 VNĐ",
+                    child_under_6: "4,000,000 VNĐ",
+                    consularFee: "80 EURO + Phí VFS",
+                    serviceFee: "Từ 4,000,000 VNĐ",
+                    note: "Yêu cầu bảo hiểm du lịch có mức bồi thường cao"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, điền đơn, sắp xếp hồ sơ tại VFS."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 120 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "south-america-general",
+        continentSlug: "visa-chau-my",
+        title: "Dịch Vụ Xin Visa Brazil & Argentina",
+        countryName: "Brazil & Argentina",
+        heroImage: "https://images.unsplash.com/photo-1549557929-e58f000302b1",
+        successRate: "80%",
+        processingTime: "20-30 ngày làm việc",
+        description: "Hỗ trợ xin visa du lịch Nam Mỹ, tư vấn thủ tục khó đối với các nước khu vực này.",
+        services: ["Tư vấn hồ sơ", "Dịch thuật", "Đặt lịch hẹn LSQ"],
+        status: "draft",
+        createdAt: "2025-10-13T10:00:00Z",
+        updatedAt: "2025-10-13T10:00:00Z",
+        visaTypes: [
+          {
+            id: "brazil-tourist",
+            name: "Du lịch Brazil",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Nam Mỹ",
+                prices: [
+                  {
+                    adult: "8,000,000 VNĐ",
+                    child_6_12: "6,000,000 VNĐ",
+                    child_under_6: "4,000,000 VNĐ",
+                    consularFee: "Khoảng 120 USD",
+                    serviceFee: "Từ 5,000,000 VNĐ",
+                    note: "Yêu cầu tiêm chủng Sốt Vàng Da (tùy thời điểm)"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền form, nộp/nhận hồ sơ tại Lãnh sự quán."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3x4 nền trắng", "Tờ khai xin visa", "Giấy chứng nhận tiêm chủng"],
+              work_individual: ["Chứng minh nghề nghiệp"],
+              work_enterprise: [],
+              financial: ["Sao kê tài khoản 6 tháng", "Sổ tiết kiệm"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "italy",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Ý (Schengen)",
+        countryName: "Ý (Italia)",
+        heroImage: "https://images.unsplash.com/photo-1552832230-14cd3b92200d",
         successRate: "95%",
-        processingTime: "5-7 ngày làm việc",
-        description: "Dịch vụ xin visa Fiji cho du lịch biển đảo.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Ý, khám phá vẻ đẹp cổ kính và thời trang của châu Âu.",
+        services: ["Điền đơn online", "Đặt lịch hẹn VFS", "Hỗ trợ mua bảo hiểm du lịch", "Tư vấn hồ sơ công tác"],
+        status: "published",
+        createdAt: "2025-10-14T08:00:00Z",
+        updatedAt: "2025-10-14T08:00:00Z",
         visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê ngân hàng"],
-                    travel: ["Vé máy bay khứ hồi", "Book khách sạn"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "italy-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "900.000 VNĐ",
-                    child_6_12: "900.000 VNĐ",
-                    child_under_6: "900.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Renaissance",
+                prices: [
+                  {
+                    adult: "7,000,000 VNĐ",
+                    child_6_12: "5,000,000 VNĐ",
+                    child_under_6: "4,000,000 VNĐ",
+                    consularFee: "80 EURO + Phí dịch vụ VFS",
+                    serviceFee: "Từ 4,000,000 VNĐ",
+                    note: "Giá chưa bao gồm phí dịch thuật công chứng"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật, điền đơn, sắp xếp hồ sơ tài chính."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 100 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn/Thư mời", "Lịch trình chi tiết"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Đơn giản", description: "Thủ tục đơn giản, nhanh chóng.", icon: Award },
-            { name: "Hỗ trợ tận tình", description: "Tư vấn chi tiết mọi vấn đề.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra và tư vấn hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "samoa": {
-        continentSlug: "visa-chau-uc",
-        title: "Dịch Vụ Xin Visa Samoa",
-        countryName: "Samoa",
-        heroImage: "https://images.unsplash.com/photo-1439396087961-98bc12c21176",
+        media: []
+      },
+      {
+        slug: "spain",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Tây Ban Nha (Schengen)",
+        countryName: "Tây Ban Nha",
+        heroImage: "https://images.unsplash.com/photo-1560960012-32a76f2357a8",
         successRate: "93%",
+        processingTime: "15-25 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Tây Ban Nha, khám phá văn hóa La-tin sôi động.",
+        services: ["Điền đơn online", "Đặt lịch hẹn BLS/VFS", "Tư vấn chứng minh chỗ ở"],
+        status: "published",
+        createdAt: "2025-10-15T09:30:00Z",
+        updatedAt: "2025-10-15T09:30:00Z",
+        visaTypes: [
+          {
+            id: "spain-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói La-tin",
+                prices: [
+                  {
+                    adult: "7,200,000 VNĐ",
+                    child_6_12: "5,200,000 VNĐ",
+                    child_under_6: "4,200,000 VNĐ",
+                    consularFee: "80 EURO + Phí dịch vụ BLS",
+                    serviceFee: "Từ 4,200,000 VNĐ",
+                    note: "Cần công chứng tất cả hồ sơ dịch thuật"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, dịch thuật công chứng, điền đơn, sắp xếp hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 120 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn/Hợp đồng thuê nhà", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "switzerland",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Thụy Sĩ (Schengen)",
+        countryName: "Thụy Sĩ",
+        heroImage: "https://images.unsplash.com/photo-1550218765-a84976766444",
+        successRate: "96%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Thụy Sĩ, nổi tiếng về độ khó và yêu cầu cao về tài chính.",
+        services: ["Tư vấn hồ sơ kỹ lưỡng", "Hoàn thiện hồ sơ chứng minh tài chính", "Đặt lịch hẹn VFS"],
+        status: "published",
+        createdAt: "2025-10-16T11:00:00Z",
+        updatedAt: "2025-10-16T11:00:00Z",
+        visaTypes: [
+          {
+            id: "switzerland-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Alpine",
+                prices: [
+                  {
+                    adult: "8,500,000 VNĐ",
+                    child_6_12: "6,500,000 VNĐ",
+                    child_under_6: "5,500,000 VNĐ",
+                    consularFee: "80 EURO + Phí dịch vụ VFS",
+                    serviceFee: "Từ 5,000,000 VNĐ",
+                    note: "Yêu cầu nghiêm ngặt về chứng minh tài chính và công việc"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền đơn, tập trung vào tính logic của chuyến đi và hồ sơ tài chính."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép", "Bảng lương 6 tháng"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm tối thiểu 150 triệu", "Giấy tờ nhà đất"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết và hợp lý"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "denmark",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Đan Mạch (Schengen)",
+        countryName: "Đan Mạch",
+        heroImage: "https://images.unsplash.com/photo-1552520697-76b4a3a30368",
+        successRate: "92%",
+        processingTime: "15-20 ngày làm việc",
+        description: "Xin visa Schengen qua Đại sứ quán Đan Mạch, thủ tục nộp tại VFS.",
+        services: ["Tư vấn hồ sơ", "Dịch thuật công chứng", "Đặt lịch hẹn VFS"],
+        status: "published",
+        createdAt: "2025-10-17T09:00:00Z",
+        updatedAt: "2025-10-17T09:00:00Z",
+        visaTypes: [
+          {
+            id: "denmark-schengen",
+            name: "Du lịch (Type C)",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Viking",
+                prices: [
+                  {
+                    adult: "6,500,000 VNĐ",
+                    child_6_12: "4,500,000 VNĐ",
+                    child_under_6: "3,500,000 VNĐ",
+                    consularFee: "80 EURO + Phí VFS",
+                    serviceFee: "Từ 3,800,000 VNĐ",
+                    note: "Hồ sơ công tác yêu cầu thêm thư mời và giấy tờ công ty"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền đơn, sắp xếp hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Bảo hiểm du lịch"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3 tháng", "Sổ tiết kiệm tối thiểu 100 triệu"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "ireland",
+        continentSlug: "visa-chau-au",
+        title: "Dịch Vụ Xin Visa Ireland (Ailen)",
+        countryName: "Ireland",
+        heroImage: "https://images.unsplash.com/photo-1536417769911-37d3ff53ed5b",
+        successRate: "85%",
+        processingTime: "15-25 ngày làm việc",
+        description: "Xin visa du lịch, công tác Ireland (không thuộc khối Schengen), thủ tục riêng biệt.",
+        services: ["Tư vấn hồ sơ Ireland", "Dịch thuật công chứng", "Nộp hồ sơ VFS"],
+        status: "published",
+        createdAt: "2025-10-18T10:00:00Z",
+        updatedAt: "2025-10-18T10:00:00Z",
+        visaTypes: [
+          {
+            id: "ireland-tourist",
+            name: "Du lịch (Short Stay 'C')",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Đảo Xanh",
+                prices: [
+                  {
+                    adult: "7,500,000 VNĐ",
+                    child_6_12: "7,500,000 VNĐ",
+                    child_under_6: "4,500,000 VNĐ",
+                    consularFee: "60 EUR (single) - 100 EUR (multiple)",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Yêu cầu chứng minh tài chính tương đối cao"
+                  }
+                ],
+                description: "Hỗ trợ trọn gói hồ sơ, điền đơn online, dịch thuật, sắp xếp hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa online", "Giấy tờ tùy thân"],
+              work_individual: ["Hợp đồng lao động", "Xác nhận công tác/Nghỉ phép", "Bảng lương 6 tháng"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm (min 150 triệu, gửi trên 1 tháng)"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn/Thư mời", "Bảo hiểm du lịch"]
+            }
+          }
+        ],
+        media: []
+      },
+      {
+        slug: "japan-business",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Nhật Bản (Công tác)",
+        countryName: "Nhật Bản (Công tác)",
+        heroImage: "https://images.unsplash.com/photo-1542407513-882410a69333",
+        successRate: "98%",
         processingTime: "5-7 ngày làm việc",
-        description: "Dịch vụ xin visa Samoa cho du lịch biển đảo.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật", "Book lịch hẹn", "Theo dõi kết quả"],
+        description: "Chuyên xin visa công tác Nhật Bản (Business Visa), hỗ trợ thư mời và hồ sơ từ phía Nhật.",
+        services: ["Tư vấn visa công tác", "Kiểm tra hồ sơ công ty", "Nộp hồ sơ ủy thác tại LSQ"],
+        status: "published",
+        createdAt: "2025-10-19T08:30:00Z",
+        updatedAt: "2025-10-19T08:30:00Z",
         visaTypes: [
-            {
-                id: "tourist",
-                name: "Visa Du lịch",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6"],
-                    work: [{ type: "Nghề nghiệp", docs: ["Xác nhận công tác"] }],
-                    financial: ["Sao kê ngân hàng"],
-                    travel: ["Vé máy bay khứ hồi"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "japan-business",
+            name: "Công tác (Business)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "800.000 VNĐ",
-                    child_6_12: "800.000 VNĐ",
-                    child_under_6: "800.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Doanh nghiệp",
+                prices: [
+                  {
+                    adult: "4,500,000 VNĐ",
+                    child_6_12: "4,500,000 VNĐ",
+                    child_under_6: "2,500,000 VNĐ",
+                    consularFee: "Khoảng 630,000 VNĐ",
+                    serviceFee: "Từ 2,500,000 VNĐ",
+                    note: "Giá có thể điều chỉnh nếu cần giấy tờ gấp"
+                  }
+                ],
+                description: "Xử lý hồ sơ cá nhân và công ty, dịch thuật, điền đơn, nộp/nhận hồ sơ."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4.5x3.5 nền trắng", "Tờ khai xin visa"],
+              work_individual: ["Hợp đồng lao động", "Quyết định cử đi công tác"],
+              work_enterprise: ["Thư mời từ Nhật Bản", "Giấy phép đăng ký kinh doanh công ty Việt Nam/Nhật Bản"],
+              financial: ["Sao kê ngân hàng công ty/cá nhân"],
+              travel: ["Vé máy bay khứ hồi", "Lịch trình công tác chi tiết"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Nhanh chóng", description: "Xử lý trong 5-7 ngày làm việc.", icon: Award },
-            { name: "Đơn giản", description: "Thủ tục đơn giản, dễ dàng.", icon: UserCheck }
-        ],
-        process: [
-            { name: "Tư vấn & Chuẩn bị", description: "Kiểm tra và tư vấn hồ sơ.", icon: MessageSquare },
-            { name: "Nộp hồ sơ", description: "Nộp và theo dõi kết quả.", icon: FileText }
-        ]
-    },
-    "uc": {
-        continentSlug: "visa-chau-uc",
-        title: "Dịch Vụ Xin Visa Úc",
-        countryName: "Úc",
-        heroImage: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be",
-        successRate: "90%",
-        processingTime: "20-25 ngày làm việc",
-        description: "Dịch vụ xin visa Úc chuyên nghiệp, đa dạng loại visa.",
-        services: ["Tư vấn hồ sơ", "Dịch thuật công chứng", "Book lịch nộp", "Theo dõi kết quả"],
-        visaImages: [
-            {
-                type: "Visa Úc",
-                url: "https://images.unsplash.com/photo-1589802829985-817e51171b92",
-                description: "Mẫu visa Úc loại Visitor (subclass 600)"
-            },
-            {
-                type: "Nhà hát Opera Sydney",
-                url: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9",
-                description: "Biểu tượng văn hóa của Úc"
-            },
-            {
-                type: "Great Barrier Reef",
-                url: "https://images.unsplash.com/photo-1582067276212-48c3bc3b69ae",
-                description: "Rạn san hô lớn nhất thế giới"
-            },
-            {
-                type: "Twelve Apostles",
-                url: "https://images.unsplash.com/photo-1529108190281-9a4f620bc2d8",
-                description: "Danh thắng trên Great Ocean Road"
-            },
-            {
-                type: "Sydney Harbour Bridge",
-                url: "https://images.unsplash.com/photo-1506374322094-6021fc3926f1",
-                description: "Cầu cảng Sydney nổi tiếng"
-            }
-        ],
+        media: []
+      },
+      {
+        slug: "philippines",
+        continentSlug: "visa-chau-a",
+        title: "Dịch Vụ Xin Visa Philippines (Lao động/Du học)",
+        countryName: "Philippines",
+        heroImage: "https://images.unsplash.com/photo-1579974261623-1d0b5e2978d2",
+        successRate: "99%",
+        processingTime: "7-10 ngày làm việc (trừ Miễn thị thực)",
+        description: "Hỗ trợ xin các loại visa Non-Immigrant cho mục đích lao động, du học tại Philippines.",
+        services: ["Tư vấn visa du học/lao động", "Hoàn thiện hồ sơ theo yêu cầu Đại sứ quán"],
+        status: "published",
+        createdAt: "2025-10-20T11:00:00Z",
+        updatedAt: "2025-10-20T11:00:00Z",
         visaTypes: [
-            {
-                id: "visitor600",
-                name: "Visa Visitor (600)",
-                requirements: {
-                    personal: ["Hộ chiếu", "Ảnh 4x6", "Lý lịch tư pháp"],
-                    work: [{ type: "Công việc", docs: ["Hợp đồng lao động", "Quyết định công tác"] }],
-                    financial: ["Sao kê 6 tháng", "Sổ tiết kiệm", "Tài sản"],
-                    travel: ["Kế hoạch du lịch", "Bảo hiểm du lịch"]
-                }
-            }
-        ],
-        pricing: [
-            {
+          {
+            id: "philippines-student",
+            name: "Visa Du học (9f)",
+            pricing: [
+              {
                 type: "Trọn gói",
-                name: "Dịch vụ visa du lịch",
-                prices: [{
-                    adult: "4.500.000 VNĐ",
-                    child_6_12: "4.500.000 VNĐ",
-                    child_under_6: "4.500.000 VNĐ",
-                    note: "Chưa bao gồm phí LSQ"
-                }]
+                name: "Gói Học tập",
+                prices: [
+                  {
+                    adult: "3,500,000 VNĐ",
+                    child_6_12: "3,500,000 VNĐ",
+                    child_under_6: "2,500,000 VNĐ",
+                    consularFee: "Khoảng 60 USD",
+                    serviceFee: "Từ 2,000,000 VNĐ",
+                    note: "Chi phí không bao gồm phí ghi danh trường học"
+                  }
+                ],
+                description: "Xử lý hồ sơ cá nhân, thư chấp nhận của trường, chứng minh tài chính."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 4.5x3.5 nền trắng", "Đơn xin visa", "Giấy khai sinh"],
+              work_individual: [],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 3 tháng", "Sổ tiết kiệm (min 100 triệu)"],
+              travel: ["Thư chấp nhận từ trường học", "Vé máy bay một chiều (hoặc khứ hồi)"]
             }
+          }
         ],
-        testimonials: mockTestimonials,
-        relatedArticles: mockRelatedArticles,
-        benefits: [
-            { name: "Chuyên nghiệp", description: "Đội ngũ có chứng chỉ tư vấn visa Úc.", icon: Award },
-            { name: "Hỗ trợ toàn diện", description: "Đồng hành từ đầu đến cuối.", icon: UserCheck }
+        media: []
+      },
+      {
+        slug: "south-america-peru",
+        continentSlug: "visa-chau-my",
+        title: "Dịch Vụ Xin Visa Peru",
+        countryName: "Peru",
+        heroImage: "https://images.unsplash.com/photo-1555620241-e94589d14660",
+        successRate: "82%",
+        processingTime: "15-25 ngày làm việc",
+        description: "Hỗ trợ xin visa du lịch, công tác Peru, tư vấn miễn visa cho người có visa Mỹ/Schengen.",
+        services: ["Tư vấn miễn visa", "Điền đơn xin visa", "Đặt lịch hẹn LSQ"],
+        status: "draft",
+        createdAt: "2025-10-21T10:00:00Z",
+        updatedAt: "2025-10-21T10:00:00Z",
+        visaTypes: [
+          {
+            id: "peru-tourist",
+            name: "Du lịch",
+            pricing: [
+              {
+                type: "Trọn gói",
+                name: "Gói Inca",
+                prices: [
+                  {
+                    adult: "7,000,000 VNĐ",
+                    child_6_12: "5,000,000 VNĐ",
+                    child_under_6: "4,000,000 VNĐ",
+                    consularFee: "Khoảng 30 USD",
+                    serviceFee: "Từ 4,500,000 VNĐ",
+                    note: "Yêu cầu chứng minh tài chính ổn định và đủ mạnh"
+                  }
+                ],
+                description: "Xử lý hồ sơ, dịch thuật, điền form, sắp xếp hồ sơ nộp Lãnh sự quán."
+              }
+            ],
+            requirements: {
+              personal: ["Hộ chiếu", "Ảnh 3.5x4.5 nền trắng", "Tờ khai xin visa", "Giấy tờ tùy thân"],
+              work_individual: ["Chứng minh nghề nghiệp"],
+              work_enterprise: [],
+              financial: ["Sao kê ngân hàng 6 tháng", "Sổ tiết kiệm"],
+              travel: ["Vé máy bay khứ hồi", "Booking khách sạn", "Lịch trình chi tiết"]
+            }
+          }
         ],
-        process: [
-            { name: "Tư vấn & Lập kế hoạch", description: "Đánh giá và lên chiến lược.", icon: MessageSquare },
-            { name: "Chuẩn bị & Nộp hồ sơ", description: "Thu thập và nộp hồ sơ online.", icon: FileText }
-        ]
-    }
-};
+        media: []
+      }
+];
 
 export const newsPreview : NewsPreview[] = [
     {
