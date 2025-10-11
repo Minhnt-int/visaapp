@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getVisaContinentsPreview } from '@/lib/api';
+import { getNavigationLinks } from '@/lib/api';
 
 /**
  * Dynamic sitemap generation cho Next.js App Router
@@ -71,23 +71,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     ];
     
-    // Dynamic visa pages từ API
-    let visaPages: MetadataRoute.Sitemap = [];
-    try {
-      const visaCategories = await getVisaContinentsPreview();
-      visaPages = visaCategories.flatMap((category) =>
-        category.countries.map((country) => ({
-          url: `${baseUrl}/dich-vu/${category.slug}/${country.slug}`,
+  // Dynamic visa pages từ API
+  let visaPages: MetadataRoute.Sitemap = [];
+  try {
+    const visaCategories = await getNavigationLinks();
+    const potentialVisaPages = visaCategories
+      .flatMap((category) =>
+        category.children?.map((country) => ({
+          url: `${baseUrl}/dich-vu/${category.href}/${country.href}`,
           lastModified: new Date(),
           changeFrequency: 'weekly' as const,
           priority: 0.9,
-        }))
+        })) ?? []
       );
-      
-      console.log(`✅ Generated ${visaPages.length} visa pages for sitemap`);
-    } catch (error) {
-      console.error('❌ Error fetching visa countries for sitemap:', error);
-    }
+
+    // Lọc bỏ undefined và ép kiểu an toàn
+    visaPages = potentialVisaPages.filter(
+      (item): item is { url: string; lastModified: Date; changeFrequency: "weekly"; priority: number; } => item !== undefined
+    );
+
+    console.log(`✅ Generated ${visaPages.length} visa pages for sitemap`);
+  } catch (error) {
+    console.error('❌ Error fetching visa countries for sitemap:', error);
+  }
     
     // Dynamic tour pages (mock data for now)
     const tourPages: MetadataRoute.Sitemap = [

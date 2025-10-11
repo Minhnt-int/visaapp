@@ -9,27 +9,30 @@ interface VisaTabsProps {
 }
 
 export function VisaTabs({ visaDetail }: VisaTabsProps) {
-  // CORRECTED: The logic now correctly checks if visaDetail exists and its visaTypes array is not empty.
-  if (!visaDetail || !visaDetail.visaTypes || visaDetail.visaTypes.length === 0) {
-    return <div className="bg-white rounded-lg border border-gray-200 p-8 text-gray-500 text-center">Không có thông tin yêu cầu cho loại visa này.</div>;
-  }
-
+  // SỬA LỖI: Di chuyển tất cả các Hook lên đầu component.
+  // Điều này đảm bảo chúng luôn được gọi theo đúng thứ tự.
   const [activeTab, setActiveTab] = useState('requirements');
   
-  const [activeVisaType, setActiveVisaType] = useState(visaDetail.visaTypes[0]?.id || '');
+  // Sử dụng optional chaining (?.) để phòng trường hợp visaDetail hoặc các thuộc tính lồng nhau chưa tồn tại
+  const [activeVisaType, setActiveVisaType] = useState(visaDetail?.visaTypes?.[0]?.id || '');
   
   const [activePriceType, setActivePriceType] = useState(
-    visaDetail.visaTypes[0]?.pricing?.[0]?.type || ''
+    visaDetail?.visaTypes?.[0]?.pricing?.[0]?.type || ''
   );
 
   useEffect(() => {
-    const currentVisaType = visaDetail.visaTypes.find(v => v.id === activeVisaType);
-    if (currentVisaType && currentVisaType.pricing.length > 0) {
+    const currentVisaType = visaDetail?.visaTypes?.find(v => v.id === activeVisaType);
+    if (currentVisaType && currentVisaType.pricing && currentVisaType.pricing.length > 0) {
       setActivePriceType(currentVisaType.pricing[0].type);
     } else {
       setActivePriceType('');
     }
-  }, [activeVisaType, visaDetail.visaTypes]);
+  }, [activeVisaType, visaDetail?.visaTypes]);
+
+  // Câu lệnh return sớm được giữ nguyên, nhưng bây giờ nó nằm SAU các Hook.
+  if (!visaDetail || !visaDetail.visaTypes || visaDetail.visaTypes.length === 0) {
+    return <div className="bg-white rounded-lg border border-gray-200 p-8 text-gray-500 text-center">Không có thông tin yêu cầu cho loại visa này.</div>;
+  }
 
   const currentVisaType = visaDetail.visaTypes.find(v => v.id === activeVisaType);
 

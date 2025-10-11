@@ -12,14 +12,14 @@ import {
     VisaDetail} from '@/types';
 import { Award, FileText, MessageSquare, UserCheck } from 'lucide-react';
 
-export function getCountriesByContinent() {
-  const map: Record<string, { slug: string; name: string }[]> = {};
-  for (const [slug, detail] of Object.entries(mockVisaPageData)) {
-    if (!map[detail.continentSlug]) map[detail.continentSlug] = [];
-    map[detail.continentSlug].push({ slug, name: detail.title.replace("Dịch Vụ Xin Visa ", "") });
-  }
-  return map;
-}
+// export function getCountriesByContinent() {
+//   const map: Record<string, { slug: string; name: string }[]> = {};
+//   for (const [slug, detail] of Object.entries(mockVisaPageData)) {
+//     if (!map[detail.continentSlug]) map[detail.continentSlug] = [];
+//     map[detail.continentSlug].push({ slug, name: detail.title.replace("Dịch Vụ Xin Visa ", "") });
+//   }
+//   return map;
+// }
 
 // =========================================================================
 // SITE CONFIGURATION
@@ -43,7 +43,6 @@ export const contactInfo : ContactInfo = {
 
 export const navigationLinks: NavItem[] = [
     { label: "Trang Chủ", href: "/" },
-    { label: "Về Chúng Tôi", href: "/ve-chung-toi" },
     { 
         label: "Dịch Vụ Visa", 
         href: "/dich-vu",
@@ -1190,7 +1189,7 @@ export const mockVisaPageData: VisaDetail[] = [
       },
       {
         slug: "australia",
-        continentSlug: "visa-chau-dai-duong",
+        continentSlug: "visa-chau-uc",
         title: "Dịch Vụ Xin Visa Úc (Australia)",
         countryName: "Úc",
         heroImage: "https://images.unsplash.com/photo-1540700547798-251c8a169b14",
@@ -1550,7 +1549,7 @@ export const mockVisaPageData: VisaDetail[] = [
       },
       {
         slug: "new-zealand",
-        continentSlug: "visa-chau-dai-duong",
+        continentSlug: "visa-chau-uc",
         title: "Dịch Vụ Xin Visa New Zealand",
         countryName: "New Zealand",
         heroImage: "https://images.unsplash.com/photo-1510414169724-4f93427181f2",

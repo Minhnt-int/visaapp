@@ -74,9 +74,6 @@ export default async function VisaContinentPage({ params }: PageProps) {
   // CORRECTED: Fetch all services and filter by the current continenty slug.
   const categoryServices = await getServices({tags: params.continentSlug});
   const categoryServicesData = categoryServices.data;
-  console.log("continentSlug: ", params.continentSlug);
-  console.log("continentPreview: ", continentPreview);
-  console.log("categoryServicesData: ", categoryServicesData, categoryServices);
   
   return (
     <main>

@@ -24,7 +24,6 @@ export default function Header({navigationLinks} : {navigationLinks : NavItem[]}
   const handleSubDropdownToggle = (path: string) => {
     setOpenSubDropdown(openSubDropdown === path ? null : path);
   };
-  console.log("header", navigationLinks);
 
   return (
     <>

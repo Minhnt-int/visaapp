@@ -35,7 +35,6 @@ const { visaCategories, tourCategories, contactInfo } = useVisaData();
           { label: "Email", href: `mailto:${contactInfo.email}`, icon: "Twitter" }, // Using Twitter icon for Mail
       ],
       quickLinks: [
-        { label: "Về chúng tôi", href: "/ve-chung-toi" },
         { label: "Câu hỏi thường gặp", href: "/faq" },
         { label: "Chính sách bảo mật", href: "/chinh-sach-bao-mat" },
         { label: "Điều khoản sử dụng", href: "/dieu-khoan-su-dung" },

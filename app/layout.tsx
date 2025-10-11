@@ -84,7 +84,6 @@ export default async function RootLayout({
   }
 
   const navigationLinks = await getNavigationLinks();
-  console.log("layout", navigationLinks);
   
   return (
     <html lang="vi" className={`${poppins.variable} ${manrope.variable}`}>

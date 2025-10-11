@@ -263,22 +263,15 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
     const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME); 
 
     try {
-        const [visaResponse, tourResponse] = await Promise.all([
+        const [visaResponse] = await Promise.all([
             algoliaIndex.search('', { // Query for visa data
                 facetFilters: ['type:visa'],
                 attributesToRetrieve: ['path', 'country', 'continent', 'image'],
                 hitsPerPage: 100 // Adjust as needed
             }),
-            algoliaIndex.search('', { // Query for tour data
-                facetFilters: ['type:tour'],
-                attributesToRetrieve: ['path', 'continent'],
-                hitsPerPage: 100 // Adjust as needed
-            })
         ]);
-        console.log("visaResponse", visaResponse);
         
         const visaHits = visaResponse.hits;
-        const tourHits = tourResponse.hits;
 
         // Process visa data into a nested structure (Continent -> Country)
         const visaContinents: { [key: string]: NavItem } = {};
@@ -296,7 +289,6 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
                     children: []
                 };
             }
-            console.log( "test api", visaContinents,continentSlug);
             
             // Add country to the continent's children array
             visaContinents[continentName].children?.push({
@@ -304,21 +296,6 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
                 href: hit.path,
                 image: hit.image
             });
-        });
-
-        // Process tour data to create a flat list of tour categories
-        const tourCategoryItems: NavItem[] = [];
-        const uniqueTourCategories = new Set<string>();
-        tourHits.forEach((hit: any) => {
-            const categoryName = hit.continent; 
-            if (categoryName && !uniqueTourCategories.has(categoryName)) {
-                const categorySlug = hit.path.split('/')[2];
-                uniqueTourCategories.add(categoryName);
-                tourCategoryItems.push({
-                    label: categoryName,
-                    href: `/tour-du-lich/${categorySlug}`,
-                });
-            }
         });
 
         // Assemble the final navigation structure
@@ -331,11 +308,9 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
             },
             {
                 label: 'Tour Du Lịch',
-                href: '/tour-du-lich',
-                children: tourCategoryItems
+                href: '/tour-du-lich'
             },
             { label: 'Tin Tức', href: '/tin-tuc' },
-            { label: 'Về chúng tôi', href: '/ve-chung-toi' },
             { label: 'Liên hệ', href: '/lien-he' },
         ];
 
