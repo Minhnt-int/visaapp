@@ -2,16 +2,17 @@
 import Link from 'next/link';
 import { Plane } from 'lucide-react';
 import TourCard from '@/components/TourCard'; // Corrected import
-import { getAllTours } from '@/lib/data'; 
+import { getTours } from '@/lib/api';
 
 /**
  * Component hiển thị section tour du lịch nổi bật trên trang chủ
  * Hiển thị 4 tour hot nhất với thiết kế card đẹp mắt
- * 
+ *
  * @returns JSX Component
  */
 export default async function TourSection() {
-  const allTours = await getAllTours();
+  const toursResponse = await getTours({ limit: 100, isHot: true });
+  const allTours = toursResponse.data;
   const hotTours = allTours.filter(tour => tour.isHot).slice(0, 4);
 
   return (

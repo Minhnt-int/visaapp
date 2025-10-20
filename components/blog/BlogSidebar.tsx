@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import TagsFilter from './TagsFilter';
-import type { NewsPreview } from '@/types';
+import type { News } from '@/types';
 
 interface BlogSidebarProps {
-  latestPosts: NewsPreview[];
+  latestPosts: News[];
 }
 
 // This component wraps the parts of the sidebar that are interactive or not immediately critical.
@@ -14,22 +14,28 @@ export default function BlogSidebar({ latestPosts }: BlogSidebarProps) {
   return (
     <aside className="space-y-8">
       <TagsFilter />
-      
+
       {latestPosts.length > 0 && (
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h4 className="text-xl font-bold text-gray-900 mb-6">Bài viết mới nhất</h4>
           <div className="space-y-4">
-            {latestPosts.map((post: any) => (
+            {latestPosts.map((post: News) => (
               <Link key={post.slug} href={`/tin-tuc/${post.slug}`} className="block group">
                 <div className="flex gap-3">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                    <Image 
-                      src={post.imageUrl} 
-                      alt={post.title}
-                      width={64}
-                      height={64}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                  <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
+                    {post.imageUrl ? (
+                      <Image
+                        src={post.imageUrl}
+                        alt={post.title}
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                        Không có ảnh
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h5 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors mb-1">

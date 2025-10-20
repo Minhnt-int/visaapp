@@ -150,6 +150,8 @@ export interface News {
   updatedAt: string;
   excerpt: string;
   date: string;
+  imageUrl?: string;
+  readTime?: string;
 }
 
 

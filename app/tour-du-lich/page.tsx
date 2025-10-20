@@ -1,11 +1,12 @@
-import { getAllTours, getTourCategories } from "@/lib/data";
+import { getTours, getTourCategories } from "@/lib/api";
 import Link from "next/link";
 import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
 import TourCard from "@/components/TourCard";
 
 export default async function TourDuLichPage() {
-  const tours = await getAllTours();
+  const toursResponse = await getTours({ limit: 100 });
+  const tours = toursResponse.data;
   const categories = await getTourCategories();
 
   return (
