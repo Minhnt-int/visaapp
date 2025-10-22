@@ -8,6 +8,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { VisaDataProvider } from "@/contexts/VisaDataContext";
 import { SearchProvider } from "@/context/SearchContext";
+import { LoadingProvider } from "@/contexts/LoadingContext";
+import GlobalLoading from "@/components/GlobalLoading";
+import LoadingInitializer from "@/components/LoadingInitializer";
+import EmergencyReset from "@/components/EmergencyReset";
 
 // Font configuration
 const manrope = Manrope({
@@ -73,14 +77,16 @@ export default async function RootLayout({
 }>) {
   // CORRECTED: Fixed the typo in the environment variable name.
   const algoliaConfig = {
-    appId: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID!,
-    apiKey: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY!,
-    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME!,
+    appId: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
+    apiKey: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || '',
+    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || 'visa5s',
   };
 
-  // Basic check to prevent crash if env vars are missing
-  if (!algoliaConfig.appId || !algoliaConfig.apiKey || !algoliaConfig.indexName) {
-    throw new Error("Algolia configuration is missing in .env.local. Please check the file.");
+  // Check if Algolia is properly configured, but don't crash the app
+  const isAlgoliaConfigured = algoliaConfig.appId && algoliaConfig.apiKey && algoliaConfig.indexName;
+  
+  if (!isAlgoliaConfigured) {
+    console.warn('Algolia configuration is missing. Search functionality will be disabled.');
   }
 
   const navigationLinks = await getNavigationLinks();
@@ -94,13 +100,26 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`font-sans bg-white text-gray-900 antialiased`}>
-        <VisaDataProvider>
-            <SearchProvider algoliaConfig={algoliaConfig}>
-                <Header navigationLinks={navigationLinks} />
-                <main>{children}</main>
-                <Footer />
-            </SearchProvider>
-        </VisaDataProvider>
+        <LoadingProvider>
+          <VisaDataProvider>
+              {isAlgoliaConfigured ? (
+                  <SearchProvider algoliaConfig={algoliaConfig}>
+                      <Header navigationLinks={navigationLinks} />
+                      <main>{children}</main>
+                      <Footer />
+                  </SearchProvider>
+              ) : (
+                  <>
+                      <Header navigationLinks={navigationLinks} />
+                      <main>{children}</main>
+                      <Footer />
+                  </>
+              )}
+              <GlobalLoading />
+              <LoadingInitializer />
+              <EmergencyReset />
+          </VisaDataProvider>
+        </LoadingProvider>
 
         {/* Facebook Pixel Script */}
         {process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID && (

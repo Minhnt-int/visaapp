@@ -5,6 +5,11 @@ import { NewsCard } from './NewsCard';
 import { useVisaData } from '@/contexts/VisaDataContext';
 export default function NewsSection() { // Changed to export default
 const { newsPreview} = useVisaData();
+
+// Ensure newsPreview is an array
+if(!newsPreview || !Array.isArray(newsPreview)) {
+  return <p className="text-center">Không có tin tức nào.</p>;
+}
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">

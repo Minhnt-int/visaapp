@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTourCategories, getVisaContinents, getNewsPreview, getNavigationLinks, getContactInfo } from '@/lib/api';
+import { getTourCategories, getVisaContinents, getNewsPreview, getNavigationLinks, getContactInfo, getServices } from '@/lib/api';
 import { ContactInfo, NewsPreview, TourCategory, VisaContinent, NavItem } from '@/types';
 
 interface VisaDataContextType {
@@ -41,7 +41,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       
       const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData, navItemData] = await Promise.all([
         getVisaContinents(),
-        fetch('/api/contries-by-visa-continent').then(res => res.json()),
+        getServices({ limit: 1000 }), // Use new API function
         getTourCategories(),
         getNewsPreview(),
         getContactInfo(),
@@ -49,8 +49,27 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       ]);
 
       // Enrich visa categories with country data for other pages
-      if (countriesRes.success && countriesRes.data) {
-        const countriesByContinent = countriesRes.data;
+      if (countriesRes && countriesRes.data) {
+        const services = countriesRes.data;
+        const countriesByContinent: { [key: string]: any[] } = {};
+        
+        // Group services by continent
+        services.forEach((service: any) => {
+          const continentSlug = service.continentSlug || service.continent_slug;
+          if (continentSlug) {
+            if (!countriesByContinent[continentSlug]) {
+              countriesByContinent[continentSlug] = [];
+            }
+            countriesByContinent[continentSlug].push({
+              id: service.id || service.slug,
+              slug: service.slug,
+              name: service.country || service.country_name,
+              image: service.image || service.hero_image,
+              description: service.description
+            });
+          }
+        });
+        
         const enrichedCategories = visaCatsRes.map((category: VisaContinent) => ({
           ...category,
           countries: countriesByContinent[category.slug] || []
@@ -61,7 +80,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       }
 
       setTourCategories(tourCatsRes);
-      setNewsPreview(newsPreviewData.data);
+      setNewsPreview(Array.isArray(newsPreviewData.data) ? newsPreviewData.data : []);
       setContactInfo(contactInfoData);
       setNavItem(navItemData); // Set the navigation data for the header
 

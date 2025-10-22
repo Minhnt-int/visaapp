@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { FrontendPerformanceOptimizer } from '../lib/performance-optimizer';
 
 interface OptimizedImageProps {
   src: string;
@@ -12,6 +13,11 @@ interface OptimizedImageProps {
   quality?: number;
   placeholder?: 'blur' | 'empty';
   blurDataURL?: string;
+  lazy?: boolean;
+  onLoad?: () => void;
+  onError?: () => void;
+  fallbackSrc?: string;
+  webpSupport?: boolean;
 }
 
 /**
@@ -28,19 +34,37 @@ export default function OptimizedImage({
   sizes = '100vw',
   quality = 85,
   placeholder = 'empty',
-  blurDataURL
+  blurDataURL,
+  lazy = true,
+  onLoad,
+  onError,
+  fallbackSrc,
+  webpSupport = true
 }: OptimizedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
 
-  const handleLoad = () => {
+  const handleLoad = useCallback(() => {
     setIsLoaded(true);
-  };
+    onLoad?.();
+  }, [onLoad]);
 
-  const handleError = () => {
-    setHasError(true);
-    setIsLoaded(true);
-  };
+  const handleError = useCallback(() => {
+    if (fallbackSrc && currentSrc !== fallbackSrc) {
+      setCurrentSrc(fallbackSrc);
+      setHasError(false);
+    } else {
+      setHasError(true);
+      setIsLoaded(true);
+      onError?.();
+    }
+  }, [fallbackSrc, currentSrc, onError]);
+
+  // Optimize image source with WebP support
+  const optimizedSrc = webpSupport 
+    ? FrontendPerformanceOptimizer.getOptimizedImageSrc(currentSrc, width, quality)
+    : currentSrc;
 
   if (hasError) {
     return (
@@ -71,7 +95,7 @@ export default function OptimizedImage({
       )}
       
       <Image
-        src={src}
+        src={optimizedSrc}
         alt={alt}
         width={width}
         height={height}
@@ -86,7 +110,10 @@ export default function OptimizedImage({
         // Performance attributes
         fetchPriority={priority ? 'high' : 'auto'}
         // SEO attributes
-        loading={priority ? 'eager' : 'lazy'}
+        loading={priority || !lazy ? 'eager' : 'lazy'}
+        // Additional optimization
+        unoptimized={false}
+        draggable={false}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 
-import { getVisaDetailById, getVisaContinents } from "@/lib/api";
+import { getVisaDetailBySlug, getVisaContinents } from "@/lib/api";
 import { getAllServices } from "@/lib/api";
 
 // Import new components
@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 }
 
 export default async function VisaCountryDetailPage({ params }: PageProps) {
-  const visaDetail: VisaDetail | undefined = await getVisaDetailById(params.countrySlug);
+  const visaDetail: VisaDetail | undefined = await getVisaDetailBySlug(params.countrySlug);
 
   const continents: VisaContinent[] = await getVisaContinents();
   const category = continents.find(c => c.slug === params.continentSlug);

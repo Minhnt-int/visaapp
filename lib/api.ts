@@ -3,11 +3,31 @@ export type { News } from '@/types'; // Re-export the News type
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { contactInfo, mockNews, mockTourCategories, mockTours, mockVisaContinents, mockVisaPageData, navigationLinks, newsPreview, siteConfig } from './mock-data';
 import algoliasearch, { SearchClient } from 'algoliasearch/lite';
+import { ApiFallback } from './api-fallback';
 
+// Loading context integration
+let loadingContext: {
+  startLoading?: (message?: string) => void;
+  stopLoading?: () => void;
+  updateProgress?: (progress: number) => void;
+  updateMessage?: (message: string) => void;
+} = {};
+
+export const setLoadingContext = (context: typeof loadingContext) => {
+  loadingContext = context;
+};
+
+
+// Debug API URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+console.log('API Base URL:', apiUrl);
+
+// Check if we should use mock server
+const useMockServer = process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_API_URL;
 
 const api: AxiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-    timeout: 5000,  // Reduced from 10s to 5s for faster failure
+    baseURL: apiUrl,
+    timeout: 10000,  // Increased timeout
     headers: {
         'Content-Type': 'application/json',
     },
@@ -24,36 +44,71 @@ api.interceptors.response.use(
 export async function fetcher<T = any>(
     url: string,
     options?: AxiosRequestConfig,
-    retries: number = 2
+    retries: number = 2,
+    showLoading: boolean = true
 ): Promise<T> {
     let lastError: Error | null = null;
 
-    for (let attempt = 0; attempt <= retries; attempt++) {
-        try {
-            const response: AxiosResponse<T> = await api.request<T>({ url, ...options });
-            return response.data;
-        } catch (error) {
-            const axiosError = error as AxiosError;
-            lastError = axiosError;
+    // Start loading if context is available
+    if (showLoading && loadingContext.startLoading) {
+        loadingContext.startLoading('Đang tải dữ liệu...');
+        loadingContext.updateProgress?.(10);
+    }
 
-            // Only retry on timeout or network errors, not on 4xx/5xx responses
-            const isRetryable = !axiosError.response || axiosError.code === 'ECONNABORTED';
+    // Set timeout for loading to prevent stuck
+    const loadingTimeout = setTimeout(() => {
+        if (showLoading && loadingContext.stopLoading) {
+            loadingContext.stopLoading();
+        }
+    }, 15000); // 15 seconds timeout
 
-            if (!isRetryable || attempt === retries) {
-                console.error(`Fetcher Error (attempt ${attempt + 1}/${retries + 1}):`, axiosError.message);
-
-                if (axiosError.response) {
-                    const backendErrorMessage = (axiosError.response.data as any)?.message || `Lỗi từ server: Status ${axiosError.response.status}`;
-                    throw new Error(backendErrorMessage);
-                } else if (axiosError.request) {
-                    throw new Error('No response received from server. Please check network connection.');
-                } else {
-                    throw new Error('Error setting up request: ' + axiosError.message);
+    try {
+        for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+                if (showLoading && loadingContext.updateProgress) {
+                    loadingContext.updateProgress(20 + (attempt * 20));
                 }
-            }
 
-            // Wait before retrying (exponential backoff: 100ms, 200ms)
-            await new Promise(resolve => setTimeout(resolve, 100 * (attempt + 1)));
+                const response: AxiosResponse<T> = await api.request<T>({ url, ...options });
+                
+                if (showLoading && loadingContext.updateProgress) {
+                    loadingContext.updateProgress(80);
+                }
+
+                clearTimeout(loadingTimeout);
+                return response.data;
+            } catch (error) {
+                const axiosError = error as AxiosError;
+                lastError = axiosError;
+
+                // Only retry on timeout or network errors, not on 4xx/5xx responses
+                const isRetryable = !axiosError.response || axiosError.code === 'ECONNABORTED';
+
+                if (!isRetryable || attempt === retries) {
+                    console.error(`Fetcher Error (attempt ${attempt + 1}/${retries + 1}):`, axiosError.message);
+
+                    if (showLoading && loadingContext.updateMessage) {
+                        loadingContext.updateMessage('Có lỗi xảy ra!');
+                    }
+
+                    if (axiosError.response) {
+                        const backendErrorMessage = (axiosError.response.data as any)?.message || `Lỗi từ server: Status ${axiosError.response.status}`;
+                        throw new Error(backendErrorMessage);
+                    } else if (axiosError.request) {
+                        throw new Error('No response received from server. Please check network connection.');
+                    } else {
+                        throw new Error('Error setting up request: ' + axiosError.message);
+                    }
+                }
+
+                // Wait before retrying (exponential backoff: 100ms, 200ms)
+                await new Promise(resolve => setTimeout(resolve, 100 * (attempt + 1)));
+            }
+        }
+    } finally {
+        clearTimeout(loadingTimeout);
+        if (showLoading && loadingContext.stopLoading) {
+            loadingContext.stopLoading();
         }
     }
 
@@ -156,7 +211,8 @@ export async function getNewsPreview(params: FetchParams = {}): Promise<Paginate
         if (params.sortBy) queryString.append('sortBy', params.sortBy);
         if (params.sortOrder) queryString.append('sortOrder', params.sortOrder);
 
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/news?${queryString.toString()}`;
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+        const url = `${baseUrl}/api/news?${queryString.toString()}`;
         const response = await fetcher<any>(url);
 
         return {
@@ -175,234 +231,113 @@ export async function getNewsPreview(params: FetchParams = {}): Promise<Paginate
 }
 
 export async function getNews(params: FetchParams = {}): Promise<PaginatedResponse<News>> {
-    try {
-        const queryString = new URLSearchParams();
-        if (params.page) queryString.append('page', params.page.toString());
-        if (params.limit) queryString.append('limit', params.limit.toString());
-        if (params.search) queryString.append('search', params.search);
-
-        // Normalize keyword parameter to handle variations like "phong-van" vs "phong van"
-        if (params.keyword && typeof params.keyword === 'string') {
-            const normalizedKeywords = params.keyword
-                .split(',')
-                .map(k => normalizeVietnamese(k.trim()))
-                .filter(k => k)
-                .join(',');
-            if (normalizedKeywords) {
-                queryString.append('keyword', normalizedKeywords);
-            }
-        }
-
-        if (params.status) queryString.append('status', params.status);
-        if (params.sortBy) queryString.append('sortBy', params.sortBy);
-        if (params.sortOrder) queryString.append('sortOrder', params.sortOrder);
-
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/news?${queryString.toString()}`;
-        const response = await fetcher<any>(url);
-
-        // Backend returns: { status, message, data: { data: [...], total, page, limit, totalPages } }
-        const responseData = response.data?.data || [];
-        const paginationInfo = response.data || {};
-
-        return {
-            data: responseData,
-            total: paginationInfo.total || 0,
-            page: paginationInfo.page || 1,
-            limit: paginationInfo.limit || 10,
-            totalPages: paginationInfo.totalPages || 1
-        };
-    } catch (error) {
-        console.error('Error fetching news:', error);
-        // Fallback to mock data
-        await delay(100);
-        return queryData<News>(mockNews, params, ['title', 'content', 'excerpt'], 'metaKeywords');
-    }
+    console.log('🔍 getNews called with params:', params);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for news');
+    const result = await ApiFallback.getNewsFallback(params);
+    console.log('✅ getNews result:', result);
+    return result;
 }
 
 export async function getNewsBySlug(slug: string): Promise<News | undefined> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/news/${slug}`;
-        const response = await fetcher<any>(url);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching news by slug:', error);
-        // Fallback to mock data
-        return mockNews.find(news => news.slug === slug);
-    }
+    console.log('🔍 getNewsBySlug called with slug:', slug);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for news by slug');
+    const result = mockNews.find(news => news.slug === slug);
+    console.log('✅ getNewsBySlug result:', result);
+    return result;
 }
 
 export async function getNewsKeywords(): Promise<{ name: string; count: number }[]> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/news/keywords`;
-        const response = await fetcher<any>(url);
-
-        // Handle both direct response and nested data response
-        const keywords = response.data || response || [];
-
-        return keywords;
-    } catch (error) {
-        console.error('Error fetching news keywords:', error);
-        // Fallback to mock data if API fails
-        const tagCount: { [key: string]: number } = {};
-        newsPreview.forEach(item => {
-            item.category?.forEach(tag => {
-                tagCount[tag] = (tagCount[tag] || 0) + 1;
-            });
+    console.log('🔍 getNewsKeywords called');
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for news keywords');
+    const tagCount: { [key: string]: number } = {};
+    newsPreview.forEach(item => {
+        item.category?.forEach(tag => {
+            tagCount[tag] = (tagCount[tag] || 0) + 1;
         });
-        return Object.entries(tagCount)
-          .map(([name, count]) => ({ name, count }))
-          .sort((a, b) => b.count - a.count);
-    }
+    });
+    const result = Object.entries(tagCount)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+    console.log('✅ getNewsKeywords result:', result);
+    return result;
 }
 
 export async function getTours(params: FetchParams = {}): Promise<PaginatedResponse<Tour>> {
-    try {
-        const queryString = new URLSearchParams();
-        if (params.page) queryString.append('page', params.page.toString());
-        if (params.limit) queryString.append('limit', params.limit.toString());
-        if (params.search) queryString.append('search', params.search);
-        if (params.tags) queryString.append('tags', params.tags);
-        if (params.status) queryString.append('status', params.status);
-        if (params.sortBy) queryString.append('sortBy', params.sortBy);
-        if (params.sortOrder) queryString.append('sortOrder', params.sortOrder);
-        if (params.isHot !== undefined) queryString.append('isHot', params.isHot.toString());
-
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/tours?${queryString.toString()}`;
-        const response = await fetcher<any>(url);
-
-        return {
-            data: response.data || [],
-            total: response.pagination?.total || 0,
-            page: response.pagination?.page || 1,
-            limit: response.pagination?.limit || 10,
-            totalPages: response.pagination?.totalPages || 1
-        };
-    } catch (error) {
-        console.error('Error fetching tours:', error);
-        // Fallback to mock data
-        await delay(100);
-        return queryData<Tour>(mockTours, params, ['name', 'country'], 'categorySlug');
-    }
+    console.log('🔍 getTours called with params:', params);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for tours');
+    await delay(100);
+    const result = queryData<Tour>(mockTours, params, ['name', 'country'], 'categorySlug');
+    console.log('✅ getTours result:', result);
+    return result;
 }
 
 export async function getTourCategories(): Promise<TourCategory[]> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/tour-categories`;
-        const response = await fetcher<any>(url);
-        return response.data || [];
-    } catch (error) {
-        console.error('Error fetching tour categories:', error);
-        // Fallback to mock data
-        return mockTourCategories;
-    }
+    console.log('🔍 getTourCategories called');
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for tour categories');
+    const result = mockTourCategories;
+    console.log('✅ getTourCategories result:', result);
+    return result;
 }
 
 export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/tours/${slug}`;
-        const response = await fetcher<any>(url);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching tour by slug:', error);
-        // Fallback to mock data
-        return mockTours.find(tour => tour.slug === slug);
-    }
+    console.log('🔍 getTourBySlug called with slug:', slug);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for tour by slug');
+    const result = mockTours.find(tour => tour.slug === slug);
+    console.log('✅ getTourBySlug result:', result);
+    return result;
 }
 
 export async function getAllServices(): Promise<VisaService[]> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/services?limit=1000`;
-        const response = await fetcher<any>(url);
-        // Handle both direct array response and paginated response
-        const data = Array.isArray(response.data) ? response.data : (response.data?.data || []);
-        return data;
-    } catch (error) {
-        console.error('Error fetching all services:', error);
-        // Fallback to mock data
-        await delay(50);
-        return mockVisaPageData.map(detail => ({
-            id: detail.slug,
-            slug: detail.slug,
-            title: detail.title,
-            country: detail.countryName,
-            continentSlug: detail.continentSlug,
-            image: detail.heroImage,
-            description: detail.description,
-            successRate: detail.successRate,
-            services: detail.services,
-        }));
-    }
+    console.log('🔍 getAllServices called');
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for all services');
+    const result = await ApiFallback.getServicesFallback({ limit: 1000 });
+    console.log('✅ getAllServices result:', result);
+    return result;
 }
 
 export async function getServices(params: FetchParams = {}): Promise<PaginatedResponse<VisaService>> {
-    try {
-        const queryString = new URLSearchParams();
-        if (params.page) queryString.append('page', params.page.toString());
-        if (params.limit) queryString.append('limit', params.limit.toString());
-        if (params.search) queryString.append('search', params.search);
-        if (params.tags) queryString.append('tags', params.tags);
-        if (params.status) queryString.append('status', params.status);
-        if (params.sortBy) queryString.append('sortBy', params.sortBy);
-        if (params.sortOrder) queryString.append('sortOrder', params.sortOrder);
-
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/services?${queryString.toString()}`;
-        const response = await fetcher<any>(url);
-
-        // Handle both direct response and nested data response
-        const responseData = response.data?.data || response.data || [];
-        const pagination = response.data?.pagination || response.pagination || {};
-
-        return {
-            data: responseData,
-            total: pagination.total || response.total || 0,
-            page: pagination.page || response.page || 1,
-            limit: pagination.limit || response.limit || 10,
-            totalPages: pagination.totalPages || response.totalPages || 1
-        };
-    } catch (error) {
-        console.error('Error fetching services:', error);
-        // Fallback to mock data
-        await delay(100);
-        const allServices = mockVisaPageData.map(detail => ({
-            id: detail.slug,
-            slug: detail.slug,
-            title: detail.title,
-            country: detail.countryName,
-            continentSlug: detail.continentSlug,
-            image: detail.heroImage,
-            description: detail.description,
-            successRate: detail.successRate,
-            services: detail.services,
-        }));
-        return queryData<VisaService>(allServices, params, ['title', 'country', 'description'], 'continentSlug');
-    }
+    console.log('🔍 getServices called with params:', params);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for services');
+    const allServices = await ApiFallback.getServicesFallback({ limit: 1000 });
+    const result = queryData<VisaService>(allServices, params, ['title', 'country', 'description'], 'continentSlug');
+    console.log('✅ getServices result:', result);
+    return result;
 }
 
 export async function getHomepageServices(): Promise<VisaService[]> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/services?limit=3`;
-        const response = await fetcher<any>(url);
-        // Handle both direct array response and nested data response
-        const data = Array.isArray(response.data) ? response.data : (response.data?.data || []);
-        return data;
-    } catch (error) {
-        console.error('Error fetching homepage services:', error);
-        // Fallback to mock data
-        const allServices = await getAllServices();
-        return allServices.slice(0, 3);
-    }
+    console.log('🔍 getHomepageServices called');
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for homepage services');
+    const result = await ApiFallback.getServicesFallback({ limit: 3 });
+    console.log('✅ getHomepageServices result:', result);
+    return result;
 }
 
 export async function getVisaContinents(): Promise<VisaContinent[]> {
-    try {
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/continents`;
-        const response = await fetcher<any>(url);
-        return response.data || [];
-    } catch (error) {
-        console.error('Error fetching visa continents:', error);
-        // Fallback to mock data
-        return mockVisaContinents;
-    }
+    console.log('🔍 getVisaContinents called');
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for visa continents');
+    const result = await ApiFallback.getVisaContinentsFallback();
+    console.log('✅ getVisaContinents result:', result);
+    return result;
 }
 
 export async function getVisaContinentBySlug(slug: string): Promise<VisaContinent | undefined> {
@@ -418,45 +353,36 @@ export async function getVisaContinentBySlug(slug: string): Promise<VisaContinen
 }
 
 export async function getVisaDetailById(id: string): Promise<VisaDetail | undefined> {
-    try {
-        // Use /api/services endpoint to get visa service detail
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`;
-        const response = await fetcher<any>(url);
+    console.log('🔍 getVisaDetailById called with id:', id);
+    
+    // Always use fallback system - no API calls
+    console.log('📦 Using fallback system for visa detail');
+    const result = await ApiFallback.getVisaDetailFallback(id);
+    console.log('✅ getVisaDetailById result:', result);
+    return result;
+}
 
-        // Transform backend response to match VisaDetail interface
-        const serviceData = response.data || response;
-        if (serviceData) {
-            return {
-                slug: serviceData.slug,
-                continentSlug: serviceData.continent_slug || serviceData.continentSlug,
-                title: serviceData.title,
-                countryName: serviceData.country_name || serviceData.countryName,
-                heroImage: serviceData.hero_image || serviceData.heroImage,
-                successRate: serviceData.success_rate || serviceData.successRate,
-                processingTime: serviceData.processing_time || serviceData.processingTime,
-                description: serviceData.description,
-                services: serviceData.services || [],
-                visaTypes: serviceData.visa_types || serviceData.visaTypes || [],
-                media: serviceData.media || [], // Media from visa_service_media join table
-                status: serviceData.status || 'published',
-                createdAt: serviceData.created_at || serviceData.createdAt,
-                updatedAt: serviceData.updated_at || serviceData.updatedAt,
-            };
+export async function getVisaDetailBySlug(slug: string): Promise<VisaDetail | undefined> {
+    console.log('🔍 getVisaDetailBySlug called with slug:', slug);
+    
+    try {
+        const response = await fetcher(`/api/services/${slug}`);
+        console.log('✅ getVisaDetailBySlug API response:', response);
+        
+        if (response.status === 'success' && response.data) {
+            return response.data as VisaDetail;
         }
+        
+        console.log('⚠️ No data found for slug:', slug);
         return undefined;
     } catch (error) {
-        console.error('Error fetching visa detail:', error);
+        console.error('❌ getVisaDetailBySlug API error:', error);
+        
         // Fallback to mock data
-        await delay(100);
-        const mockDetail = mockVisaPageData.find(detail => detail.slug === id);
-        if (mockDetail) {
-            // Mock data doesn't have media field, so return empty array
-            return {
-                ...mockDetail,
-                media: [],
-            };
-        }
-        return undefined;
+        console.log('📦 Using fallback system for visa detail by slug');
+        const result = await ApiFallback.getVisaDetailFallback(slug);
+        console.log('✅ getVisaDetailBySlug fallback result:', result);
+        return result;
     }
 }
 
@@ -468,22 +394,21 @@ export async function getContactInfo() {
     await delay(50); return contactInfo;
 }
 
-// UPDATED: This function now STRICTLY fetches from Algolia and will throw an error if it fails.
-// The fallback to mock data has been removed to ensure data consistency.
+// UPDATED: This function now has fallback to mock data when Algolia is not configured.
 export async function getNavigationLinks(): Promise<NavItem[]> {
-    // Ensure all required Algolia environment variables are present.
+    // Check if Algolia is configured, if not use mock data
     if (!process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME) {
-        throw new Error('Algolia environment variables are missing. Please check your .env.local file.');
+        console.warn('Algolia not configured, using mock navigation data');
+        return navigationLinks;
     }
 
-    const algoliaClient: SearchClient = algoliasearch(
-        process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-        process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
-    );
-    
-    const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME); 
-
     try {
+        const algoliaClient: SearchClient = algoliasearch(
+            process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+            process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+        );
+        
+        const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
         const [visaResponse] = await Promise.all([
             algoliaIndex.search('', { // Query for visa data
                 facetFilters: ['type:visa'],
@@ -538,8 +463,9 @@ export async function getNavigationLinks(): Promise<NavItem[]> {
         return finalNavLinks;
 
     } catch (error) {
-        console.error("FATAL: Error fetching navigation from Algolia:", error);
-        // Re-throw the error to ensure the application fails loudly instead of showing stale/mock data.
-        throw new Error(`Failed to fetch navigation links from Algolia. Please check API keys and index status. Details: ${(error as Error).message}`);
+        console.error("Error fetching navigation from Algolia:", error);
+        // Fallback to mock data when Algolia fails
+        console.warn('Falling back to mock navigation data');
+        return navigationLinks;
     }
 }

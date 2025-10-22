@@ -36,7 +36,13 @@ export function SearchProvider({ children, algoliaConfig }: { children: React.Re
 
   return (
     <SearchContext.Provider value={contextValue}>
-      <InstantSearch searchClient={searchClient} indexName={algoliaConfig.indexName}>
+      <InstantSearch 
+        searchClient={searchClient} 
+        indexName={algoliaConfig.indexName}
+        future={{
+          preserveSharedStateOnUnmount: true
+        }}
+      >
         {children}
       </InstantSearch>
     </SearchContext.Provider>
