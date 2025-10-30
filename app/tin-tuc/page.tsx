@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Calendar, User, ArrowRight, TrendingUp, FilterX } from 'lucide-react';
 import BlogSearch from '@/components/blog/BlogSearch'; // IMPORT the new client component
 import DynamicSidebarLoader from '@/components/blog/DynamicSidebarLoader';
+import TagsFilter from '@/components/blog/TagsFilter';
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
@@ -34,7 +35,7 @@ export async function generateMetadata({ searchParams }: { searchParams?: { [key
     title,
     description,
     alternates: { canonical: canonicalUrl },
-    openGraph: { title, description, url: canonicalUrl, siteName: 'VISA5S', images: [{ url: ogImage, width: 1200, height: 630, alt: title }], type: 'website' },
+    openGraph: { title, description, url: canonicalUrl, siteName: 'Kim Quy Travel', images: [{ url: ogImage, width: 1200, height: 630, alt: title }], type: 'website' },
     twitter: { card: 'summary_large_image', title, description, images: [ogImage] },
   };
 }

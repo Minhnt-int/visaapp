@@ -5,7 +5,7 @@ const envContent = `# Algolia Search Configuration (Optional)
 # Uncomment and fill in your Algolia credentials to enable search functionality
 # NEXT_PUBLIC_ALGOLIA_APP_ID=your_algolia_app_id
 # NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY=your_algolia_search_key
-# NEXT_PUBLIC_ALGOLIA_INDEX_NAME=visa5s
+# NEXT_PUBLIC_ALGOLIA_INDEX_NAME=Kim Quy Travel
 
 # Analytics (Optional)
 # NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
@@ -13,11 +13,11 @@ const envContent = `# Algolia Search Configuration (Optional)
 
 # API Configuration
 NEXT_PUBLIC_API_URL=http://localhost:3000/api
-NEXT_PUBLIC_CDN_URL=https://cdn.visa5s.com
+NEXT_PUBLIC_CDN_URL=https://cdn.Kim Quy Travel.com
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
 # App Configuration
-NEXT_PUBLIC_APP_NAME=VISA5S
+NEXT_PUBLIC_APP_NAME=Kim Quy Travel
 NEXT_PUBLIC_APP_DESCRIPTION=Dịch vụ Visa và Tour Du Lịch
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 

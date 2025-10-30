@@ -12,10 +12,10 @@ interface PaginationProps {
 
 export function Pagination({ totalPages, basePath }: PaginationProps) {
   const searchParams = useSearchParams()
-  const currentPage = Number(searchParams?.get('page')) || 1;
+  const currentPage = Number(searchParams?.get('page') ?? '1') || 1;
 
   const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams ?? undefined);
+    const params = new URLSearchParams(searchParams?.toString() ?? '');
     params.set('page', pageNumber.toString());
     return `${basePath}?${params.toString()}`;
   };

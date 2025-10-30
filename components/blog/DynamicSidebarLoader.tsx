@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { News } from '@/types';
+import BlogSidebar from '@/components/blog/BlogSidebar';
 
 // --- PERFORMANCE OPTIMIZATION: Sidebar Loading Skeleton ---
 const SidebarSkeleton = () => (
@@ -36,16 +37,25 @@ interface BlogSidebarProps {
   latestPosts: News[];
 }
 
-// Dynamically import BlogSidebar with Suspense
-const DynamicBlogSidebar = dynamic(() => import('@/components/blog/BlogSidebar'), {
-  loading: () => <SidebarSkeleton />,
-  ssr: false,
-});
+// Dynamically import BlogSidebar with Suspense (commented out for testing)
+// const DynamicBlogSidebar = dynamic(() => import('@/components/blog/BlogSidebar'), {
+//   loading: () => {
+//     console.log('⏳ DynamicBlogSidebar: Loading...');
+//     return <SidebarSkeleton />;
+//   },
+//   ssr: false,
+// });
 
 export default function DynamicSidebarLoader({ latestPosts }: BlogSidebarProps) {
+  // Temporarily render directly to test
   return (
-    <Suspense fallback={<SidebarSkeleton />}>
-      <DynamicBlogSidebar latestPosts={latestPosts} />
-    </Suspense>
+    <BlogSidebar latestPosts={latestPosts} />
   );
+  
+  // Original dynamic import code (commented out for testing)
+  // return (
+  //   <Suspense fallback={<SidebarSkeleton />}>
+  //     <DynamicBlogSidebar latestPosts={latestPosts} />
+  //   </Suspense>
+  // );
 }

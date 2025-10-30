@@ -28,7 +28,7 @@ export default function ProcessSteps() {
     {
       step: 1,
       title: "Tư vấn và Đánh giá hồ sơ",
-      description: "Chuyên viên của VISA5S sẽ tư vấn, phân tích điểm mạnh, yếu trong hồ sơ của bạn.",
+      description: "Chuyên viên của Kim Quy Travel sẽ tư vấn, phân tích điểm mạnh, yếu trong hồ sơ của bạn.",
       icon: FileText,
       iconColor: "text-blue-600",
     },

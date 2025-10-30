@@ -7,7 +7,7 @@ import { MetadataRoute } from 'next';
  * @returns MetadataRoute.Robots configuration
  */
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://visa5s.com.vn';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kimquytravel.vn.vn';
   
   return {
     rules: [

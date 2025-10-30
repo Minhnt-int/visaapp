@@ -55,7 +55,7 @@ export default function Header({navigationLinks} : {navigationLinks : NavItem[]}
           <Link href="/" className="flex-shrink-0 flex items-center gap-3">
             <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">V5S</div>
             <div className="hidden md:block">
-              <div className="font-bold text-xl text-gray-900">VISA5S</div>
+              <div className="font-bold text-xl text-gray-900">Kim Quy Travel</div>
               <div className="text-xs text-gray-600">Dịch vụ Visa & Tour uy tín</div>
             </div>
           </Link>

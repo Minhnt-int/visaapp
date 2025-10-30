@@ -27,7 +27,7 @@ export default function Footer() {
   // CORRECT: Fetch all necessary data asynchronously
 const { visaCategories, tourCategories, contactInfo } = useVisaData();
   const footerInfo = {
-      companyName: "Visa5s",
+      companyName: "Kim Quy Travel",
       description: "Chuyên cung cấp dịch vụ visa và tour du lịch trọn gói uy tín hàng đầu. Đồng hành cùng bạn trên mọi hành trình.",
       socials: [
           { label: "Facebook", href: contactInfo.facebook, icon: "Facebook" },

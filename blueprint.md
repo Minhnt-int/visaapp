@@ -1,8 +1,8 @@
-# Blueprint: Tối Ưu Hóa SEO và API cho Website VISA5S
+# Blueprint: Tối Ưu Hóa SEO và API cho Website Kim Quy Travel
 
 ## I. Tổng Quan
 
-Dự án này nhằm mục đích nâng cấp website VISA5S được xây dựng trên nền tảng Next.js. Các mục tiêu chính bao gồm:
+Dự án này nhằm mục đích nâng cấp website Kim Quy Travel được xây dựng trên nền tảng Next.js. Các mục tiêu chính bao gồm:
 
 1.  **Tối ưu hóa SEO (On-page SEO)** cho các trang tin tức (`/tin-tuc` và `/tin-tuc/[slug]`) để đạt thứ hạng cao trên Google và tăng tương tác trên mạng xã hội (Facebook, Twitter).
 2.  **Xây dựng API cho Danh mục**: Chuyển đổi việc hiển thị dữ liệu danh mục từ dạng tĩnh (hardcoded) sang động thông qua API, giúp dễ quản lý và tối ưu cho SEO (Server-Side Rendering).

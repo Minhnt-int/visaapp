@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
 import TourCard from "@/components/TourCard";
+import type { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo';
 
 export default async function TourDuLichPage() {
   const toursResponse = await getTours({ limit: 100 });
@@ -79,5 +81,9 @@ export default async function TourDuLichPage() {
       </section>
     </main>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await generatePageMetadata({ pageKey: 'tour', pageUrl: '/tour-du-lich', fallbackUrl: '/tour-du-lich' });
 }
 

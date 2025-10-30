@@ -14,6 +14,8 @@ import {
   Plane,
   Shield
 } from 'lucide-react';
+import type { Metadata } from 'next';
+import { getPageMetaFromBackend } from '@/lib/seo';
 
 type TourDetailPageProps = {
   params: {
@@ -411,4 +413,48 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
         </div>
       </main>
   );
+}
+
+export async function generateMetadata({ params }: TourDetailPageProps): Promise<Metadata> {
+  const url = `/tour-du-lich/${params.categorySlug}/${params.tourSlug}`;
+  const key = `tour-${params.tourSlug}`;
+  const backendMeta = await getPageMetaFromBackend({ pageKey: key, pageUrl: url });
+  if (backendMeta) {
+    return {
+      title: backendMeta.title,
+      description: backendMeta.description,
+      keywords: backendMeta.keywords,
+      openGraph: {
+        title: backendMeta.ogTitle || backendMeta.title,
+        description: backendMeta.ogDescription || backendMeta.description,
+        images: backendMeta.ogImage ? [{ url: backendMeta.ogImage }] : undefined,
+        url: backendMeta.pageUrl,
+        type: 'website',
+      },
+      alternates: { canonical: backendMeta.pageUrl },
+    } as Metadata;
+  }
+
+  // Fallback: build metadata from tour detail, ưu tiên các trường metaTitle/metaDescription/metaKeywords nếu có
+  const tour = await getTourBySlug(params.tourSlug);
+  if (!tour) return {};
+  const title = tour.metaTitle || tour.name || `${params.tourSlug} | Tour Du Lịch - Kim Quy Travel`;
+  const description = tour.metaDescription || (tour.highlights && tour.highlights.length > 0
+    ? tour.highlights.map(h => h.title).join('. ')
+    : 'Tour du lịch hấp dẫn tại Kim Quy Travel');
+  const keywords = tour.metaKeywords || '';
+  const ogImage = tour.image;
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      images: ogImage ? [{ url: ogImage }] : undefined,
+      url,
+      type: 'article',
+    },
+    alternates: { canonical: url },
+  } as Metadata;
 }

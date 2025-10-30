@@ -9,6 +9,8 @@ import { getVisaContinentBySlug } from "@/lib/api"; // CORRECTED: Import modern 
 import { getServices } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
 import { ServiceCard } from "@/components/ServiceCard";
 import { VisaService } from "@/types";
+import type { Metadata } from 'next';
+import { getPageMetaFromBackend } from '@/lib/seo';
 
 // CORRECTED: benefits is now a local constant, not an export.
 const benefits = [
@@ -140,7 +142,7 @@ export default async function VisaContinentPage({ params }: PageProps) {
                   <div className="lg:pr-4">
                       <div className="lg:max-w-lg">
                           <h2 className="text-base font-semibold leading-7 text-gray-600">Đối Tác Tin Cậy</h2>
-                          <p className="mt-2 text-3xl font-display font-bold tracking-tight text-gray-600 sm:text-4xl">Tại Sao Nên Chọn Visa5s?</p>
+                          <p className="mt-2 text-3xl font-display font-bold tracking-tight text-gray-600 sm:text-4xl">Tại Sao Nên Chọn Kim Quy Travel?</p>
                           <p className="mt-6 text-lg leading-8 text-base-content">
                               Với nhiều năm kinh nghiệm, chúng tôi hiểu rõ các yêu cầu phức tạp và luôn cập nhật những thay đổi mới nhất từ các đại sứ quán. Chất lượng dịch vụ là ưu tiên hàng đầu, đảm bảo mỗi khách hàng đều hài lòng với kết quả nhận được.
                           </p>
@@ -161,7 +163,7 @@ export default async function VisaContinentPage({ params }: PageProps) {
                   <div className="sm:order-first lg:order-last">
                      <Image
                         src="/images/why-choose-us.jpg"
-                        alt="Đội ngũ chuyên viên Visa5s"
+                        alt="Đội ngũ chuyên viên Kim Quy Travel"
                         className="w-full max-w-none rounded-2xl shadow-2xl ring-1 ring-gray-400/10"
                         width={600}
                         height={800}
@@ -209,7 +211,7 @@ export default async function VisaContinentPage({ params }: PageProps) {
               Sẵn Sàng Chinh Phục Giấc Mơ Của Bạn?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-blue-100">
-              Đừng để thủ tục visa phức tạp cản bước bạn. Hãy để đội ngũ chuyên gia của Visa5s đồng hành và biến ước mơ của bạn thành hiện thực.
+              Đừng để thủ tục visa phức tạp cản bước bạn. Hãy để đội ngũ chuyên gia của Kim Quy Travel đồng hành và biến ước mơ của bạn thành hiện thực.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
@@ -227,4 +229,42 @@ export default async function VisaContinentPage({ params }: PageProps) {
       </div>
     </main>
   );
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const url = `/dich-vu/${params.continentSlug}`;
+  const key = `dich-vu-${params.continentSlug}`;
+  const backendMeta = await getPageMetaFromBackend({ pageKey: key, pageUrl: url });
+  if (backendMeta) {
+    return {
+      title: backendMeta.title,
+      description: backendMeta.description,
+      keywords: backendMeta.keywords,
+      openGraph: {
+        title: backendMeta.ogTitle || backendMeta.title,
+        description: backendMeta.ogDescription || backendMeta.description,
+        images: backendMeta.ogImage ? [{ url: backendMeta.ogImage }] : undefined,
+        url: backendMeta.pageUrl,
+        type: 'website',
+      },
+      alternates: { canonical: backendMeta.pageUrl },
+    } as Metadata;
+  }
+
+  // Fallback: build metadata from continent content
+  const continent = await getVisaContinentBySlug(params.continentSlug);
+  if (!continent) return {};
+  const title = `Dịch vụ Visa khu vực ${continent.name} | Kim Quy Travel`;
+  const description = continent.description || `Dịch vụ visa cho các quốc gia thuộc ${continent.name}.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+    },
+    alternates: { canonical: url },
+  } as Metadata;
 }

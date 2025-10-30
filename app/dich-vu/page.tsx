@@ -2,6 +2,8 @@ import { getServices } from '@/lib/api';
 import Link from 'next/link';
 import { Globe } from 'lucide-react';
 import ServiceSection from '@/components/ServiceSection';
+import type { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo';
 
 export default async function DichVuPage() {
   const response = await getServices();
@@ -66,4 +68,8 @@ export default async function DichVuPage() {
       </main>
     </>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await generatePageMetadata({ pageKey: 'dich-vu', pageUrl: '/dich-vu', fallbackUrl: '/dich-vu' });
 }

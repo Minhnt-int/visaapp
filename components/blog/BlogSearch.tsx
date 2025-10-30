@@ -7,7 +7,7 @@ import { Search } from 'lucide-react';
 export default function BlogSearch() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [searchTerm, setSearchTerm] = useState<string>(searchParams?.get('search') ?? '');
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

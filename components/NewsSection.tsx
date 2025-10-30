@@ -1,15 +1,29 @@
-'use client';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { NewsCard } from './NewsCard';
-import { useVisaData } from '@/contexts/VisaDataContext';
-export default function NewsSection() { // Changed to export default
-const { newsPreview} = useVisaData();
+import { NewsPreview } from '@/types';
 
-// Ensure newsPreview is an array
-if(!newsPreview || !Array.isArray(newsPreview)) {
-  return <p className="text-center">Không có tin tức nào.</p>;
+interface NewsSectionProps {
+  news?: NewsPreview[];
 }
+
+export default function NewsSection({ news = [] }: NewsSectionProps) {
+  // Ensure news is an array
+  if (!news || !Array.isArray(news) || news.length === 0) {
+    return (
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Tin tức & Cẩm nang</h2>
+            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+              Cập nhật những thông tin mới nhất về chính sách visa, kinh nghiệm du lịch và các mẹo hữu ích cho chuyến đi của bạn.
+            </p>
+          </div>
+          <p className="text-center text-gray-500">Không có tin tức nào.</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -20,8 +34,8 @@ if(!newsPreview || !Array.isArray(newsPreview)) {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsPreview.map((post : any) => (
-            <NewsCard key={post.id} post={post} />
+          {news.slice(0, 6).map((post) => (
+            <NewsCard key={post.id || post.slug} post={post} />
           ))}
         </div>
         <div className="mt-12 text-center">

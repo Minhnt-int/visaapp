@@ -3,11 +3,11 @@ import { getContactInfo } from "@/lib/data";
 import { Building, Phone, Mail } from 'lucide-react';
 import ContactForm from "@/components/ContactForm"; // CORRECT: Import the new client component
 import { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Liên Hệ',
-    description: 'Liên hệ với VISA5S để được tư vấn và hỗ trợ các dịch vụ làm visa, tour du lịch chuyên nghiệp và nhanh chóng.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return await generatePageMetadata({ pageKey: 'lien-he', pageUrl: '/lien-he', fallbackUrl: '/lien-he' });
+}
 
 // CORRECT: Converted to an async Server Component
 export default async function ContactPage() {
@@ -21,7 +21,7 @@ export default async function ContactPage() {
           <div className="container mx-auto px-4 py-24 sm:py-32 text-center">
             <h1 className="text-4xl font-display font-bold tracking-tight text-white sm:text-6xl">Liên Hệ Với Chúng Tôi</h1>
             <p className="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
-              Có câu hỏi hoặc cần tư vấn? Đừng ngần ngại liên hệ. Đội ngũ VISA5S luôn sẵn sàng hỗ trợ bạn.
+              Có câu hỏi hoặc cần tư vấn? Đừng ngần ngại liên hệ. Đội ngũ Kim Quy Travel luôn sẵn sàng hỗ trợ bạn.
             </p>
           </div>
         </div>

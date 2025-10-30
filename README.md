@@ -1,4 +1,4 @@
-# Visa5s - Website Dịch Vụ Visa và Tour Du Lịch
+# Kim Quy Travel - Website Dịch Vụ Visa và Tour Du Lịch
 
 Website chuyên cung cấp dịch vụ xin visa và tour du lịch nước ngoài được xây dựng bằng Next.js 14, Tailwind CSS và TypeScript.
 
@@ -107,9 +107,9 @@ Website được thiết kế dựa trên [Visana.vn](https://visana.vn/) với:
 
 ## 📞 Liên Hệ
 
-**Visa5s - Dịch Vụ Visa & Tour Du Lịch**
+**Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch**
 - **Hotline**: 0911.909.686 / 0967.686.101
-- **Email**: info@visa5s.com.vn
+- **Email**: info@Kim Quy Travel.com.vn
 
 **Địa chỉ văn phòng**:
 - **TP.HCM**: 370 Đường 3/2, P.12, Q.10, TP.HCM
@@ -118,4 +118,4 @@ Website được thiết kế dựa trên [Visana.vn](https://visana.vn/) với:
 
 ---
 
-*Phát triển bởi Visa5s Team* 🇻🇳
+*Phát triển bởi Kim Quy Travel Team* 🇻🇳

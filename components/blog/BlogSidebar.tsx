@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import TagsFilter from './TagsFilter';
+import TagsFilterWrapper from './TagsFilterWrapper';
 import type { News } from '@/types';
 
 interface BlogSidebarProps {
@@ -13,7 +13,7 @@ interface BlogSidebarProps {
 export default function BlogSidebar({ latestPosts }: BlogSidebarProps) {
   return (
     <aside className="space-y-8">
-      <TagsFilter />
+      <TagsFilterWrapper />
 
       {latestPosts.length > 0 && (
         <div className="bg-white rounded-xl shadow-lg p-6">

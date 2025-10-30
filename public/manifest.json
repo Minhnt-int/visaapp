@@ -1,6 +1,6 @@
 {
-  "name": "VISA5S - Dịch vụ Visa và Tour Du Lịch",
-  "short_name": "VISA5S",
+  "name": "Kim Quy Travel - Dịch vụ Visa và Tour Du Lịch",
+  "short_name": "Kim Quy Travel",
   "description": "Website chuyên cung cấp dịch vụ xin visa và tour du lịch nước ngoài",
   "start_url": "/",
   "display": "standalone",
@@ -117,20 +117,20 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Trang chủ VISA5S trên desktop"
+      "label": "Trang chủ Kim Quy Travel trên desktop"
     },
     {
       "src": "/screenshots/mobile-home.png",
       "sizes": "375x667",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Trang chủ VISA5S trên mobile"
+      "label": "Trang chủ Kim Quy Travel trên mobile"
     }
   ],
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://visa5s.com/manifest.json"
+      "url": "https://kimquytravel.vn/manifest.json"
     }
   ],
   "prefer_related_applications": false,

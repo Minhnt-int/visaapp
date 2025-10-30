@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { getNewsKeywords, normalizeVietnamese } from '@/lib/api';
+import { getNewsKeywords } from '@/lib/api';
 import { Tag as TagIcon, Loader2, ChevronDown, ChevronUp, FilterX } from 'lucide-react';
-
-// Note: normalizeVietnamese is imported but used in the fetch effect to normalize server tags
 
 type Keyword = {
   name: string;
@@ -27,65 +25,85 @@ export default function TagsFilter() {
 
   // Effect to fetch all available tags on component mount
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchTags = async () => {
       try {
         setIsLoading(true);
         const tagsFromServer = await getNewsKeywords();
-        // Normalize tag names to ensure consistency with URL parameters
-        const normalizedTags = tagsFromServer.map(tag => ({
-          ...tag,
-          name: normalizeVietnamese(tag.name)
-        }));
-        setAllTags(normalizedTags);
+        
+        // Only update state if component is still mounted
+        if (isMounted) {
+          setAllTags(tagsFromServer);
+        }
       } catch (error) {
         console.error("Failed to fetch tags:", error);
+        if (isMounted) {
+          setAllTags([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
+    
     fetchTags();
+    
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Effect to sync selectedTags state with URL search params on mount and on param change
   useEffect(() => {
-    const keywordFromUrl = searchParams.get('keyword');
+    const keywordFromUrl = searchParams?.get('keyword') ?? null;
     const newSelectedTags = new Set(keywordFromUrl ? keywordFromUrl.split(',') : []);
     setSelectedTags(newSelectedTags);
-  }, [searchParams]);
+  }, [searchParams?.toString()]);
 
-  const handleTagClick = (tagSlug: string) => {
+  // Memoize displayed tags to avoid unnecessary re-renders
+  // Must be called before any early returns (React hooks rules)
+  const displayedTags = useMemo(() => {
+    return allTags.slice(0, displayCount);
+  }, [allTags, displayCount]);
+
+  const handleTagClick = useCallback((tagSlug: string) => {
     // Prevent multiple rapid clicks
     if (isUpdating) return;
 
     setIsUpdating(true);
 
-    const newSelectedTags = new Set(selectedTags);
-    if (newSelectedTags.has(tagSlug)) {
-      newSelectedTags.delete(tagSlug);
-    } else {
-      newSelectedTags.add(tagSlug);
-    }
+    setSelectedTags(prev => {
+      const newSelectedTags = new Set(prev);
+      if (newSelectedTags.has(tagSlug)) {
+        newSelectedTags.delete(tagSlug);
+      } else {
+        newSelectedTags.add(tagSlug);
+      }
 
-    // Update local state immediately for UI feedback
-    setSelectedTags(newSelectedTags);
+      // Update URL in next tick
+      setTimeout(() => {
+        const newParams = new URLSearchParams(searchParams?.toString() ?? '');
+        if (newSelectedTags.size > 0) {
+          newParams.set('keyword', Array.from(newSelectedTags).join(','));
+        } else {
+          newParams.delete('keyword');
+        }
 
-    // Create a new URLSearchParams object to manage the query string
-    const newParams = new URLSearchParams(searchParams.toString());
-    if (newSelectedTags.size > 0) {
-      newParams.set('keyword', Array.from(newSelectedTags).join(','));
-    } else {
-      newParams.delete('keyword');
-    }
+        newParams.set('_t', Date.now().toString());
+        router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
+        setTimeout(() => setIsUpdating(false), 500);
+      }, 0);
 
-    // Add timestamp to force cache refresh
-    newParams.set('_t', Date.now().toString());
+      return newSelectedTags;
+    });
+  }, [isUpdating, searchParams, pathname, router]);
 
-    // Use router.push to navigate to the new URL, triggering a re-render of the page component
-    router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
-
-    // Reset updating flag after a short delay
-    setTimeout(() => setIsUpdating(false), 500);
-  };
+  const handleClearFilter = useCallback(() => {
+    setSelectedTags(new Set());
+    router.push(`${pathname}?_t=${Date.now()}`, { scroll: false });
+  }, [pathname, router]);
 
   if (isLoading) {
     return (
@@ -95,11 +113,10 @@ export default function TagsFilter() {
     );
   }
 
-  const handleClearFilter = () => {
-    setSelectedTags(new Set());
-    // Add timestamp to force cache refresh
-    router.push(`${pathname}?_t=${Date.now()}`, { scroll: false });
-  };
+  // Hide component if no tags available (only after loading is complete)
+  if (!allTags || allTags.length === 0) {
+    return null;
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-lg p-6">
@@ -115,8 +132,8 @@ export default function TagsFilter() {
         )}
       </div>
       <div className="flex flex-wrap gap-2">
-        {allTags.slice(0, displayCount).map((tag) => {
-          // tag.name is already normalized from the fetch
+        {displayedTags.map((tag) => {
+          // Use tag.name as-is from server
           const tagSlug = tag.name;
           const isSelected = selectedTags.has(tagSlug);
           return (

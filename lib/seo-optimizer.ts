@@ -6,7 +6,7 @@ export interface SEOConfig {
   keywords?: string[]
   image?: string
   url?: string
-  type?: 'website' | 'article' | 'product'
+  type?: 'website' | 'article'
   publishedTime?: string
   modifiedTime?: string
   author?: string
@@ -31,7 +31,7 @@ export class SEOOptimizer {
       tags = []
     } = config
 
-    const fullTitle = `${title} | VISA5S - Dịch vụ Visa và Tour Du Lịch`
+    const fullTitle = `${title} | Kim Quy Travel - Dịch vụ Visa và Tour Du Lịch`
     const fullDescription = description.length > 160 
       ? description.substring(0, 157) + '...' 
       : description
@@ -41,8 +41,8 @@ export class SEOOptimizer {
       description: fullDescription,
       keywords: keywords.join(', '),
       authors: author ? [{ name: author }] : undefined,
-      creator: 'VISA5S',
-      publisher: 'VISA5S',
+      creator: 'Kim Quy Travel',
+      publisher: 'Kim Quy Travel',
       robots: {
         index: true,
         follow: true,
@@ -55,11 +55,11 @@ export class SEOOptimizer {
         },
       },
       openGraph: {
-        type,
+        type: type === 'article' ? 'article' : 'website',
         title: fullTitle,
         description: fullDescription,
         url,
-        siteName: 'VISA5S',
+        siteName: 'Kim Quy Travel',
         images: image ? [
           {
             url: image,
@@ -79,19 +79,21 @@ export class SEOOptimizer {
         title: fullTitle,
         description: fullDescription,
         images: image ? [image] : undefined,
-        creator: '@visa5s',
-        site: '@visa5s',
+        creator: '@Kim Quy Travel',
+        site: '@Kim Quy Travel',
       },
       alternates: {
         canonical: url,
       },
-      other: {
-        'article:author': author,
-        'article:section': section,
-        'article:tag': tags.join(','),
-        'article:published_time': publishedTime,
-        'article:modified_time': modifiedTime,
-      }
+      other: (() => {
+        const meta: Record<string, string | number | (string | number)[]> = {}
+        if (author) meta['article:author'] = author
+        if (section) meta['article:section'] = section
+        if (tags && tags.length > 0) meta['article:tag'] = tags.join(',')
+        if (publishedTime) meta['article:published_time'] = publishedTime
+        if (modifiedTime) meta['article:modified_time'] = modifiedTime
+        return meta
+      })()
     }
   }
 
@@ -135,11 +137,11 @@ export class SEOOptimizer {
       } : undefined,
       publisher: {
         '@type': 'Organization',
-        name: 'VISA5S',
-        url: 'https://visa5s.com',
+        name: 'Kim Quy Travel',
+        url: 'https://kimquytravel.vn',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://visa5s.com/logo.png'
+          url: 'https://kimquytravel.vn/logo.png'
         }
       }
     }
@@ -259,7 +261,7 @@ Allow: /lien-he/`
       'og:description': description,
       'og:image': image,
       'og:url': url,
-      'og:site_name': 'VISA5S',
+      'og:site_name': 'Kim Quy Travel',
       'og:locale': 'vi_VN',
 
       // Twitter Card
@@ -268,15 +270,15 @@ Allow: /lien-he/`
       'twitter:description': description,
       'twitter:image': image,
       'twitter:url': url,
-      'twitter:site': '@visa5s',
-      'twitter:creator': '@visa5s',
+      'twitter:site': '@Kim Quy Travel',
+      'twitter:creator': '@Kim Quy Travel',
 
       // Additional meta tags
       'theme-color': '#2563eb',
       'msapplication-TileColor': '#2563eb',
       'apple-mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
-      'apple-mobile-web-app-title': 'VISA5S'
+      'apple-mobile-web-app-title': 'Kim Quy Travel'
     }
   }
 

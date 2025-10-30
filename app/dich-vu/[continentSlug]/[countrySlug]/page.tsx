@@ -16,6 +16,8 @@ import { VisaDetail, VisaContinent } from "@/types";
 import RelatedArticlesSection from "@/components/sections/RelatedArticlesSection";
 import { mockRelatedArticles, mockTestimonials } from "@/lib/mock-data";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import type { Metadata } from 'next';
+import { getPageMetaFromBackend } from '@/lib/seo';
 
 interface PageProps {
   params: {
@@ -26,6 +28,7 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const services = await getAllServices();
+  if (!services) return [];
   return services.map(service => ({
     continentSlug: service.continentSlug,
     countrySlug: service.slug,
@@ -34,7 +37,7 @@ export async function generateStaticParams() {
 
 export default async function VisaCountryDetailPage({ params }: PageProps) {
   const visaDetail: VisaDetail | undefined = await getVisaDetailBySlug(params.countrySlug);
-
+  console.log(visaDetail);
   const continents: VisaContinent[] = await getVisaContinents();
   const category = continents.find(c => c.slug === params.continentSlug);
 
@@ -109,7 +112,7 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
-            Dịch vụ làm visa {countryName} tại VISA5S
+            Dịch vụ làm visa {countryName} tại Kim Quy Travel
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {visaDetail.services?.map((service: string, index: number) => (
@@ -129,7 +132,7 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
             {/* Process Steps */}
             <div className="mb-16">
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-                Quy trình dịch vụ làm visa {countryName} tại VISA5S
+                Quy trình dịch vụ làm visa {countryName} tại Kim Quy Travel
               </h2>
               <ProcessSteps />
             </div>
@@ -159,4 +162,46 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
       </section>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const url = `/dich-vu/${params.continentSlug}/${params.countrySlug}`;
+  const key = `dich-vu-${params.continentSlug}-${params.countrySlug}`;
+  const backendMeta = await getPageMetaFromBackend({ pageKey: key, pageUrl: url });
+  if (backendMeta) {
+    return {
+      title: backendMeta.title,
+      description: backendMeta.description,
+      keywords: backendMeta.keywords,
+      openGraph: {
+        title: backendMeta.ogTitle || backendMeta.title,
+        description: backendMeta.ogDescription || backendMeta.description,
+        images: backendMeta.ogImage ? [{ url: backendMeta.ogImage }] : undefined,
+        url: backendMeta.pageUrl,
+        type: 'website',
+      },
+      alternates: { canonical: backendMeta.pageUrl },
+    } as Metadata;
+  }
+
+  // Fallback: build metadata from visa detail content, ưu tiên các trường metaTitle/metaDescription/metaKeywords nếu có
+  const visaDetail = await getVisaDetailBySlug(params.countrySlug);
+  if (!visaDetail) return {};
+  const title = visaDetail.metaTitle || visaDetail.title || `Dịch vụ visa ${visaDetail.countryName} | Kim Quy Travel`;
+  const description = visaDetail.metaDescription || visaDetail.description || `Dịch vụ làm visa ${visaDetail.countryName} nhanh chóng, uy tín tại Kim Quy Travel.`;
+  const keywords = visaDetail.metaKeywords || '';
+  const ogImage = visaDetail.heroImage;
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      images: ogImage ? [{ url: ogImage }] : undefined,
+      url,
+      type: 'website',
+    },
+    alternates: { canonical: url },
+  } as Metadata;
 }

@@ -1,7 +1,7 @@
-// Service Worker for VISA5S PWA
-const CACHE_NAME = 'visa5s-v1.0.0'
-const STATIC_CACHE = 'visa5s-static-v1.0.0'
-const DYNAMIC_CACHE = 'visa5s-dynamic-v1.0.0'
+// Service Worker for Kim Quy Travel PWA
+const CACHE_NAME = 'Kim Quy Travel-v1.0.0'
+const STATIC_CACHE = 'Kim Quy Travel-static-v1.0.0'
+const DYNAMIC_CACHE = 'Kim Quy Travel-dynamic-v1.0.0'
 
 // Assets to cache
 const STATIC_ASSETS = [

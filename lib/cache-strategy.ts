@@ -147,13 +147,13 @@ export class FrontendCacheStrategy {
       // Clear all
       this.memoryCache.clear()
       try {
-        const localStorageKeys = Object.keys(localStorage)
-        const sessionStorageKeys = Object.keys(sessionStorage)
-        
-        [...localStorageKeys, ...sessionStorageKeys].forEach(key => {
+        const lsKeysAll = Object.keys(localStorage)
+        const ssKeysAll = Object.keys(sessionStorage)
+        const combinedKeys = ([] as string[]).concat(lsKeysAll, ssKeysAll)
+        combinedKeys.forEach((key) => {
           if (key.includes('_v')) {
-            localStorage.removeItem(key)
-            sessionStorage.removeItem(key)
+            try { localStorage.removeItem(key) } catch {}
+            try { sessionStorage.removeItem(key) } catch {}
           }
         })
       } catch (error) {
@@ -190,16 +190,16 @@ export class FrontendCacheStrategy {
     const now = Date.now()
 
     // Clean memory cache
-    for (const [key, value] of this.memoryCache.entries()) {
+    this.memoryCache.forEach((value, key) => {
       if (value.expiry && now > value.expiry) {
         this.memoryCache.delete(key)
       }
-    }
+    })
 
     // Clean localStorage
     try {
-      const keys = Object.keys(localStorage)
-      keys.forEach(key => {
+      const keysLS = Object.keys(localStorage)
+      keysLS.forEach((key) => {
         if (key.includes('_v')) {
           const stored = localStorage.getItem(key)
           if (stored) {
@@ -216,8 +216,8 @@ export class FrontendCacheStrategy {
 
     // Clean sessionStorage
     try {
-      const keys = Object.keys(sessionStorage)
-      keys.forEach(key => {
+      const keysSS = Object.keys(sessionStorage)
+      keysSS.forEach((key) => {
         if (key.includes('_v')) {
           const stored = sessionStorage.getItem(key)
           if (stored) {

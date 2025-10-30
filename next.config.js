@@ -51,7 +51,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cdn.visa5s.com',
+        hostname: 'cdn.Kim Quy Travel.com',
         port: '',
         pathname: '/**',
       },
@@ -217,10 +217,10 @@ const nextConfig = {
   crossOrigin: 'anonymous',
 
   // Asset prefix for CDN
-  // assetPrefix: process.env.NODE_ENV === 'production' ? 'https://cdn.visa5s.com' : '',
+  // assetPrefix: process.env.NODE_ENV === 'production' ? 'https://cdn.Kim Quy Travel.com' : '',
 
   // Base path
-  // basePath: '/visa5s',
+  // basePath: '/Kim Quy Travel',
 
   // Internationalization
   i18n: {

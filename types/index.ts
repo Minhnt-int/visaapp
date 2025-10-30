@@ -92,6 +92,10 @@ export interface VisaDetail {
   status: 'published' | 'draft' | 'deleted';
   createdAt: string;
   updatedAt: string;
+  // Add meta fields
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
 }
 
 
@@ -128,6 +132,10 @@ export interface Tour {
     cancellation: string[];
   };
   whyChooseUs: { id: string; title: string; description: string; icon: "shield" | "star" | "check" | "globe" | "sun" | "map" | "tag" | "anchor" | "ship" | "leaf" | "clock" | "pagoda" | "money" | "link" | "book"; }[];
+  // Add meta fields
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
   tags?: string[];
 }
 

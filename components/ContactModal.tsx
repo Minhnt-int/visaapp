@@ -174,7 +174,7 @@ export default function ContactModal({ isOpen, onClose, countryName, visaTypes, 
 
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <p className="text-xs text-gray-600 leading-relaxed">
-                <strong>Cam kết bảo mật:</strong> Thông tin của bạn được mã hóa và bảo vệ. VISA5S cam kết không chia sẻ thông tin cá nhân và chỉ sử dụng để tư vấn dịch vụ tốt nhất.
+                <strong>Cam kết bảo mật:</strong> Thông tin của bạn được mã hóa và bảo vệ. Kim Quy Travel cam kết không chia sẻ thông tin cá nhân và chỉ sử dụng để tư vấn dịch vụ tốt nhất.
               </p>
             </div>
           </form>

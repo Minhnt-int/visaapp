@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export class AccessibilityOptimizer {
   // Focus management
@@ -176,12 +176,8 @@ export class AccessibilityOptimizer {
   }
 
   // Screen reader only text
-  static srOnly(text: string) {
-    return (
-      <span className="sr-only">
-        {text}
-      </span>
-    )
+  static srOnly(text: string): React.ReactElement {
+    return React.createElement('span', { className: 'sr-only' }, text)
   }
 }
 

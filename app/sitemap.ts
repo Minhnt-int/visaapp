@@ -8,7 +8,7 @@ import { getNavigationLinks } from '@/lib/api';
  * @returns MetadataRoute.Sitemap array
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://visa5s.com.vn';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kimquytravel.vn.vn';
   
   try {
     console.log('🗺️ Generating sitemap...');

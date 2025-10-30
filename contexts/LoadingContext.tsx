@@ -96,30 +96,32 @@ export const useLoading = () => {
 export const useApiLoading = () => {
   const { startLoading, stopLoading, updateProgress, updateMessage } = useLoading()
 
-  const withLoading = useCallback(async <T>(
+  const withLoading = useCallback(<T,>(
     apiCall: () => Promise<T>,
     loadingMessage: string = 'Đang tải dữ liệu...'
   ): Promise<T> => {
-    try {
-      startLoading(loadingMessage)
-      updateProgress(20)
-      
-      const result = await apiCall()
-      
-      updateProgress(80)
-      updateMessage('Hoàn thành!')
-      
-      // Small delay to show completion
-      await new Promise(resolve => setTimeout(resolve, 200))
-      
-      return result
-    } catch (error) {
-      updateMessage('Có lỗi xảy ra!')
-      throw error
-    } finally {
-      updateProgress(100)
-      setTimeout(() => stopLoading(), 300)
-    }
+    return (async () => {
+      try {
+        startLoading(loadingMessage)
+        updateProgress(20)
+
+        const result = await apiCall()
+
+        updateProgress(80)
+        updateMessage('Hoàn thành!')
+
+        // Small delay to show completion
+        await new Promise(resolve => setTimeout(resolve, 200))
+
+        return result
+      } catch (error) {
+        updateMessage('Có lỗi xảy ra!')
+        throw error as Error
+      } finally {
+        updateProgress(100)
+        setTimeout(() => stopLoading(), 300)
+      }
+    })()
   }, [startLoading, stopLoading, updateProgress, updateMessage])
 
   return { withLoading }

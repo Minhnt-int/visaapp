@@ -188,7 +188,7 @@ function generateTerms() {
       "Đặt cọc 50% giá trị tour ngay khi đăng ký.",
       "Thanh toán toàn bộ số tiền còn lại trước ngày khởi hành 15 ngày.",
       "Nộp đầy đủ hồ sơ xin visa (nếu cần) theo yêu cầu của đại sứ quán.",
-      "Visa5s không chịu trách nhiệm nếu quý khách bị từ chối cấp visa."
+      "Kim Quy Travel không chịu trách nhiệm nếu quý khách bị từ chối cấp visa."
     ],
     cancellation: [
       "Hủy sau khi đăng ký: mất 50% tiền cọc.",

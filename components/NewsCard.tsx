@@ -1,21 +1,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { NewsPreview } from '@/types';
 
-// Định nghĩa kiểu cho đối tượng 'post'
-interface Post {
-  id: number;
-  slug: string;
-  imageUrl: string;
-  title: string;
-  category: string;
-  excerpt: string;
-  author: string;
-  date: string;
-  readTime: string;
-}
+// Helper function to get category display
+const getCategoryDisplay = (category: string | string[]): string => {
+  if (Array.isArray(category)) {
+    return category[0] || 'Tin tức';
+  }
+  return category || 'Tin tức';
+};
 
-export function NewsCard({ post }: { post: Post }) {
+export function NewsCard({ post }: { post: NewsPreview }) {
   return (
     <article 
       className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 group overflow-hidden"
@@ -30,7 +26,7 @@ export function NewsCard({ post }: { post: Post }) {
           />
           <div className="absolute top-3 left-3">
             <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium">
-              {post.category}
+              {getCategoryDisplay(post.category)}
             </span>
           </div>
         </div>

@@ -56,3 +56,8 @@ export const useSearch = () => {
   }
   return context;
 };
+
+export const useSearchSafe = () => {
+  const context = useContext(SearchContext);
+  return context;
+};

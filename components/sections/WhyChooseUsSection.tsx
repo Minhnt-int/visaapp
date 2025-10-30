@@ -16,7 +16,7 @@ export default function WhyChooseUsSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="order-2 lg:order-1">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
-            Tại sao nên chọn <span className="text-blue-600">VISA5S</span> cho hành trình của bạn?
+            Tại sao nên chọn <span className="text-blue-600">Kim Quy Travel</span> cho hành trình của bạn?
           </h2>
           <p className="text-lg text-gray-700 mb-8 leading-relaxed">
             Với kinh nghiệm lâu năm và đội ngũ chuyên gia tận tâm, chúng tôi cam kết mang đến dịch vụ visa và du lịch chất lượng hàng đầu, giúp bạn biến mọi giấc mơ du lịch thành hiện thực.
@@ -33,7 +33,7 @@ export default function WhyChooseUsSection() {
         <div className="order-1 lg:order-2 relative w-full h-80 md:h-96 lg:h-full rounded-2xl overflow-hidden shadow-xl">
           <Image
             src="/images/why-choose-us.jpg" // Placeholder image
-            alt="Why choose Visa5s"
+            alt="Why choose Kim Quy Travel"
             fill
             className="object-cover"
           />

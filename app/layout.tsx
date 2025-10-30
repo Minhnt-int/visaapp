@@ -79,15 +79,11 @@ export default async function RootLayout({
   const algoliaConfig = {
     appId: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
     apiKey: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || '',
-    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || 'visa5s',
+    indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || 'Kim Quy Travel',
   };
 
   // Check if Algolia is properly configured, but don't crash the app
   const isAlgoliaConfigured = algoliaConfig.appId && algoliaConfig.apiKey && algoliaConfig.indexName;
-  
-  if (!isAlgoliaConfigured) {
-    console.warn('Algolia configuration is missing. Search functionality will be disabled.');
-  }
 
   const navigationLinks = await getNavigationLinks();
   

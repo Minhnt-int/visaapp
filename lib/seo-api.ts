@@ -43,36 +43,36 @@ export interface PageSEOParams {
  */
 const mockSEOData: Record<string, SEOData> = {
   'home': {
-    title: 'VISA5S - Dịch Vụ Visa & Tour Du Lịch Uy Tín | Tỷ Lệ Đậu 99%',
+    title: 'Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch Uy Tín | Tỷ Lệ Đậu 99%',
     description: 'Dịch vụ làm visa và tour du lịch chuyên nghiệp. 15+ năm kinh nghiệm, tỷ lệ đậu visa 99%, hỗ trợ 24/7. Visa Mỹ, Hàn Quốc, Nhật Bản, Châu Âu. Liên hệ 0911.909.686',
     keywords: [
       'làm visa', 'dịch vụ visa', 'tour du lịch', 'visa Mỹ', 'visa Hàn Quốc', 
-      'visa Nhật Bản', 'visa châu Âu', 'VISA5S', 'làm visa uy tín', 
+      'visa Nhật Bản', 'visa châu Âu', 'Kim Quy Travel', 'làm visa uy tín', 
       'tỷ lệ đậu visa cao', 'tour nước ngoài', 'du lịch quốc tế'
     ],
     openGraph: {
-      title: 'VISA5S - Dịch Vụ Visa & Tour Du Lịch Uy Tín #1 Việt Nam',
+      title: 'Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch Uy Tín #1 Việt Nam',
       description: 'Chuyên dịch vụ làm visa và tour du lịch quốc tế. Tỷ lệ đậu visa 99%, 15+ năm kinh nghiệm, 25,000+ khách hàng tin tưởng.',
-      image: '/images/seo/visa5s-og-home.jpg',
-      url: 'https://visa5s.com.vn',
+      image: '/images/seo/Kim Quy Travel-og-home.jpg',
+      url: 'https://kimquytravel.vn.vn',
       type: 'website',
-      siteName: 'VISA5S'
+      siteName: 'Kim Quy Travel'
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@visa5s_vn',
-      title: 'VISA5S - Dịch Vụ Visa & Tour Du Lịch Uy Tín',
+      site: '@Kim Quy Travel_vn',
+      title: 'Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch Uy Tín',
       description: 'Làm visa nhanh chóng, tỷ lệ đậu 99%. Tour du lịch chất lượng cao.',
-      image: '/images/seo/visa5s-twitter-home.jpg'
+      image: '/images/seo/Kim Quy Travel-twitter-home.jpg'
     },
-    canonical: 'https://visa5s.com.vn',
+    canonical: 'https://kimquytravel.vn.vn',
     robots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
     schema: {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "VISA5S - Asia Blue Sky",
-      "url": "https://visa5s.com.vn",
-      "logo": "https://visa5s.com.vn/images/logo.png",
+      "name": "Kim Quy Travel - Asia Blue Sky",
+      "url": "https://kimquytravel.vn.vn",
+      "logo": "https://kimquytravel.vn.vn/images/logo.png",
       "description": "Công ty chuyên cung cấp dịch vụ làm visa và tour du lịch quốc tế",
       "telephone": "+84911909686",
       "address": {
@@ -82,7 +82,7 @@ const mockSEOData: Record<string, SEOData> = {
         "addressCountry": "VN"
       },
       "sameAs": [
-        "https://www.facebook.com/visa5s",
+        "https://www.facebook.com/Kim Quy Travel",
         "https://zalo.me/0911909686"
       ]
     }
@@ -90,7 +90,7 @@ const mockSEOData: Record<string, SEOData> = {
 
   // Visa Hàn Quốc Detail Page
   'visa-han-quoc': {
-    title: 'Làm Visa Hàn Quốc 2024 | Tỷ Lệ Đậu 98% | Phí Dịch Vụ 1.2 Triệu | VISA5S',
+    title: 'Làm Visa Hàn Quốc 2024 | Tỷ Lệ Đậu 98% | Phí Dịch Vụ 1.2 Triệu | Kim Quy Travel',
     description: 'Dịch vụ làm visa Hàn Quốc chuyên nghiệp, tỷ lệ đậu 98%, thời gian 5-7 ngày làm việc. Hỗ trợ visa du lịch, công tác, thăm thân. Phí dịch vụ chỉ 1.2 triệu. Hotline 0911.909.686',
     keywords: [
       'làm visa Hàn Quốc', 'visa du lịch Hàn Quốc', 'visa công tác Hàn Quốc',
@@ -98,21 +98,21 @@ const mockSEOData: Record<string, SEOData> = {
       'visa Hàn Quốc 2024', 'làm visa Hàn nhanh', 'visa Hàn giá rẻ'
     ],
     openGraph: {
-      title: 'Làm Visa Hàn Quốc Nhanh Chóng | Tỷ Lệ Đậu 98% | VISA5S',
+      title: 'Làm Visa Hàn Quốc Nhanh Chóng | Tỷ Lệ Đậu 98% | Kim Quy Travel',
       description: 'Chuyên làm visa Hàn Quốc với tỷ lệ thành công 98%. Hỗ trợ toàn bộ thủ tục, thời gian xử lý 5-7 ngày. Phí dịch vụ cạnh tranh.',
       image: '/images/seo/visa-han-quoc-og.jpg',
-      url: 'https://visa5s.com.vn/dich-vu/visa-chau-a/han-quoc',
+      url: 'https://kimquytravel.vn.vn/dich-vu/visa-chau-a/han-quoc',
       type: 'article',
-      siteName: 'VISA5S'
+      siteName: 'Kim Quy Travel'
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@visa5s_vn',
+      site: '@Kim Quy Travel_vn',
       title: 'Làm Visa Hàn Quốc - Tỷ Lệ Đậu 98%',
       description: 'Dịch vụ visa Hàn Quốc chuyên nghiệp, nhanh chóng, uy tín',
       image: '/images/seo/visa-han-quoc-twitter.jpg'
     },
-    canonical: 'https://visa5s.com.vn/dich-vu/visa-chau-a/han-quoc',
+    canonical: 'https://kimquytravel.vn.vn/dich-vu/visa-chau-a/han-quoc',
     robots: 'index, follow',
     schema: {
       "@context": "https://schema.org",
@@ -121,7 +121,7 @@ const mockSEOData: Record<string, SEOData> = {
       "description": "Làm visa Hàn Quốc với tỷ lệ đậu 98%, thời gian xử lý 5-7 ngày",
       "provider": {
         "@type": "Organization",
-        "name": "VISA5S"
+        "name": "Kim Quy Travel"
       },
       "offers": {
         "@type": "Offer",
@@ -145,18 +145,18 @@ const mockSEOData: Record<string, SEOData> = {
       title: 'Tour Nhật Bản Tokyo - Osaka 6N5Đ | Phú Sĩ - Kyoto - Nara',
       description: 'Khám phá xứ sở hoa anh đào với tour Nhật Bản 6N5Đ. Tham quan Tokyo hiện đại, Osaka sầm uất, núi Phú Sĩ hùng vĩ. Khởi hành hàng tuần.',
       image: '/images/seo/tour-nhat-ban-og.jpg',
-      url: 'https://visa5s.com.vn/tour-du-lich/chau-a/nhat-ban-tokyo',
+      url: 'https://kimquytravel.vn.vn/tour-du-lich/chau-a/nhat-ban-tokyo',
       type: 'website',
-      siteName: 'VISA5S'
+      siteName: 'Kim Quy Travel'
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@visa5s_vn',
+      site: '@Kim Quy Travel_vn',
       title: 'Tour Nhật Bản Tokyo - Osaka 6N5Đ',
       description: 'Khám phá xứ sở hoa anh đào với giá ưu đãi',
       image: '/images/seo/tour-nhat-ban-twitter.jpg'
     },
-    canonical: 'https://visa5s.com.vn/tour-du-lich/chau-a/nhat-ban-tokyo',
+    canonical: 'https://kimquytravel.vn.vn/tour-du-lich/chau-a/nhat-ban-tokyo',
     robots: 'index, follow',
     schema: {
       "@context": "https://schema.org",
@@ -221,25 +221,25 @@ export async function getSEOData(params: PageSEOParams): Promise<SEOData> {
     
     // Fallback SEO data
     return {
-      title: 'VISA5S - Dịch Vụ Visa & Tour Du Lịch',
-      description: 'Dịch vụ làm visa và tour du lịch chuyên nghiệp tại VISA5S',
-      keywords: ['visa', 'tour du lịch', 'VISA5S'],
+      title: 'Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch',
+      description: 'Dịch vụ làm visa và tour du lịch chuyên nghiệp tại Kim Quy Travel',
+      keywords: ['visa', 'tour du lịch', 'Kim Quy Travel'],
       openGraph: {
-        title: 'VISA5S - Dịch Vụ Visa & Tour Du Lịch',
+        title: 'Kim Quy Travel - Dịch Vụ Visa & Tour Du Lịch',
         description: 'Dịch vụ làm visa và tour du lịch chuyên nghiệp',
         image: '/images/seo/default-og.jpg',
-        url: 'https://visa5s.com.vn',
+        url: 'https://kimquytravel.vn.vn',
         type: 'website',
-        siteName: 'VISA5S'
+        siteName: 'Kim Quy Travel'
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@visa5s_vn',
-        title: 'VISA5S',
+        site: '@Kim Quy Travel_vn',
+        title: 'Kim Quy Travel',
         description: 'Dịch vụ visa và tour du lịch',
         image: '/images/seo/default-twitter.jpg'
       },
-      canonical: 'https://visa5s.com.vn',
+      canonical: 'https://kimquytravel.vn.vn',
       robots: 'index, follow'
     };
   }
@@ -249,26 +249,26 @@ export async function getSEOData(params: PageSEOParams): Promise<SEOData> {
  * Generate dynamic SEO data cho các trang không có trong mock data
  */
 async function generateDynamicSEO(params: PageSEOParams): Promise<SEOData> {
-  const baseUrl = 'https://visa5s.com.vn';
+  const baseUrl = 'https://kimquytravel.vn.vn';
   
   switch (params.type) {
     case 'visa-detail':
       return {
-        title: `Làm Visa ${params.country} | Tỷ Lệ Đậu Cao | VISA5S`,
+        title: `Làm Visa ${params.country} | Tỷ Lệ Đậu Cao | Kim Quy Travel`,
         description: `Dịch vụ làm visa ${params.country} chuyên nghiệp, tỷ lệ đậu cao, thời gian nhanh chóng. Hỗ trợ 24/7.`,
         keywords: [`làm visa ${params.country}`, `visa ${params.country}`, 'dịch vụ visa'],
         openGraph: {
-          title: `Làm Visa ${params.country} Chuyên Nghiệp | VISA5S`,
+          title: `Làm Visa ${params.country} Chuyên Nghiệp | Kim Quy Travel`,
           description: `Dịch vụ visa ${params.country} uy tín, tỷ lệ thành công cao`,
           image: `/images/seo/visa-${params.country?.toLowerCase()}-og.jpg`,
           url: `${baseUrl}/dich-vu/${params.category}/${params.country}`,
           type: 'article',
-          siteName: 'VISA5S'
+          siteName: 'Kim Quy Travel'
         },
         twitter: {
           card: 'summary_large_image',
-          site: '@visa5s_vn',
-          title: `Visa ${params.country} | VISA5S`,
+          site: '@Kim Quy Travel_vn',
+          title: `Visa ${params.country} | Kim Quy Travel`,
           description: `Làm visa ${params.country} nhanh chóng`,
           image: `/images/seo/visa-${params.country?.toLowerCase()}-twitter.jpg`
         },
@@ -278,7 +278,7 @@ async function generateDynamicSEO(params: PageSEOParams): Promise<SEOData> {
       
     case 'tour-detail':
       return {
-        title: `Tour ${params.slug} | Du Lịch Chất Lượng | VISA5S`,
+        title: `Tour ${params.slug} | Du Lịch Chất Lượng | Kim Quy Travel`,
         description: `Tour ${params.slug} với chất lượng cao, giá cả hợp lý. Khởi hành hàng tuần từ TP.HCM và Hà Nội.`,
         keywords: [`tour ${params.slug}`, `du lịch ${params.slug}`, 'tour chất lượng'],
         openGraph: {
@@ -287,11 +287,11 @@ async function generateDynamicSEO(params: PageSEOParams): Promise<SEOData> {
           image: `/images/seo/tour-${params.slug}-og.jpg`,
           url: `${baseUrl}/tour-du-lich/${params.category}/${params.slug}`,
           type: 'website',
-          siteName: 'VISA5S'
+          siteName: 'Kim Quy Travel'
         },
         twitter: {
           card: 'summary_large_image',
-          site: '@visa5s_vn',
+          site: '@Kim Quy Travel_vn',
           title: `Tour ${params.slug}`,
           description: `Du lịch ${params.slug} chất lượng cao`,
           image: `/images/seo/tour-${params.slug}-twitter.jpg`
@@ -309,7 +309,7 @@ async function generateDynamicSEO(params: PageSEOParams): Promise<SEOData> {
  * Get breadcrumb data for SEO
  */
 export async function getBreadcrumbData(params: PageSEOParams): Promise<any> {
-  const baseUrl = 'https://visa5s.com.vn';
+  const baseUrl = 'https://kimquytravel.vn.vn';
   
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -350,7 +350,7 @@ export async function getBreadcrumbData(params: PageSEOParams): Promise<any> {
 export async function getSitemapData(): Promise<any[]> {
   // This would fetch all pages for sitemap generation
   return [
-    { url: 'https://visa5s.com.vn', lastModified: new Date() },
+    { url: 'https://kimquytravel.vn.vn', lastModified: new Date() },
     // ... more URLs
   ];
 }

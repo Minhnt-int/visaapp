@@ -25,7 +25,7 @@ export default async function TourSection() {
             <h2 className="text-base font-semibold leading-7 text-blue-600">Tour Du Lịch</h2>
           </div>
           <p className="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
-            Khám Phá <span className="text-blue-600">Thế Giới</span> Cùng Visa5s
+            Khám Phá <span className="text-blue-600">Thế Giới</span> Cùng Kim Quy Travel
           </p>
           <p className="text-lg leading-8 text-gray-600 max-w-3xl mx-auto">
             Combo Visa + Tour du lịch trọn gói với giá ưu đãi. Từ châu Á đến châu Âu, 
