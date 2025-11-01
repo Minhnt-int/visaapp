@@ -1,5 +1,5 @@
 
-import { getAllTours, getTourBySlug, getTourCategories } from '@/lib/data';
+import { getAllTours, getTourBySlug } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -62,9 +62,6 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
     notFound();
   }
 
-  const tourCategories = await getTourCategories();
-  const category = tourCategories.find(c => c.slug === params.categorySlug);
-
   const formatPrice = (price: number | undefined) => {
     if (price === undefined) return 'Đang cập nhật';
     return price.toLocaleString('vi-VN');
@@ -73,8 +70,6 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
   const discountPercent = tourDetails.originalPrice && tourDetails.price
     ? Math.round((1 - tourDetails.price / tourDetails.originalPrice) * 100)
     : 0;
-
-  const categoryName = category?.name || "";
 
   return (
     <main>
@@ -87,10 +82,10 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                 <div>
                   <div className="mb-4">
                     <Link
-                      href={`/tour-du-lich/${params.categorySlug}`}
+                      href="/tour-du-lich"
                       className="text-blue-200 hover:text-white text-sm"
                     >
-                      ← Quay lại {categoryName}
+                      ← Quay lại Danh sách Tour
                     </Link>
                   </div>
 

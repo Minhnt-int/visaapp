@@ -1,11 +1,10 @@
 
-import { VisaService, VisaDetail, Tour, News, VisaContinent, TourCategory, NavItem } from '@/types';
+import { VisaService, VisaDetail, Tour, News, VisaContinent, NavItem } from '@/types';
 import { 
     mockVisaPageData, 
     mockTours, 
     mockNews, 
     mockVisaContinents, 
-    mockTourCategories,
     siteConfig, // Import siteConfig
     contactInfo, // Import contactInfo
     navigationLinks // Import navigationLinks
@@ -91,10 +90,6 @@ export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
   return tours.find(tour => tour.slug === slug);
 }
 
-export async function getTourCategories(): Promise<TourCategory[]> {
-    await delay(100);
-    return mockTourCategories;
-}
 
 
 // --- News Data Functions ---

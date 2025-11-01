@@ -1,12 +1,11 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getTourCategories, getVisaContinents, getNewsPreview, getNavigationLinks, getContactInfo, getServices } from '@/lib/api';
-import { ContactInfo, NewsPreview, TourCategory, VisaContinent, NavItem } from '@/types';
+import { getVisaContinents, getNewsPreview, getNavigationLinks, getContactInfo, getServices } from '@/lib/api';
+import { ContactInfo, NewsPreview, VisaContinent, NavItem } from '@/types';
 
 interface VisaDataContextType {
   visaCategories: VisaContinent[];
-  tourCategories: TourCategory[];
   newsPreview: NewsPreview[];
   navItem: NavItem[];
   contactInfo: ContactInfo;
@@ -19,7 +18,6 @@ const VisaDataContext = createContext<VisaDataContextType | null>(null);
 
 export function VisaDataProvider({ children }: { children: React.ReactNode }) {
   const [visaCategories, setVisaCategories] = useState<VisaContinent[]>([]);
-  const [tourCategories, setTourCategories] = useState<TourCategory[]>([]);
   const [newsPreview, setNewsPreview] = useState<NewsPreview[]>([]);
   const [navItem, setNavItem] = useState<NavItem[]>([]);
   // CORRECTED: Initial state now matches the ContactInfo type definition.
@@ -39,10 +37,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       setError(null);
       
-      const [visaCatsRes, countriesRes, tourCatsRes, newsPreviewData, contactInfoData, navItemData] = await Promise.all([
+      const [visaCatsRes, countriesRes, newsPreviewData, contactInfoData, navItemData] = await Promise.all([
         getVisaContinents(),
         getServices({ limit: 1000 }), // Use new API function
-        getTourCategories(),
         getNewsPreview(),
         getContactInfo(),
         getNavigationLinks()
@@ -79,7 +76,6 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
         setVisaCategories(visaCatsRes);
       }
 
-      setTourCategories(tourCatsRes);
       setNewsPreview(Array.isArray(newsPreviewData.data) ? newsPreviewData.data : []);
       setContactInfo(contactInfoData);
       setNavItem(navItemData); // Set the navigation data for the header
@@ -102,7 +98,6 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
 
   const value: VisaDataContextType = {
     visaCategories,
-    tourCategories ,
     newsPreview,
     contactInfo,
     navItem,

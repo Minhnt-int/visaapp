@@ -1,4 +1,4 @@
-import { Tour, News, VisaContinent, TourCategory, VisaDetail, NewsPreview, formContact, ApiResponse, VisaService, NavItem } from '@/types';
+import { Tour, News, VisaContinent, VisaDetail, NewsPreview, formContact, ApiResponse, VisaService, NavItem } from '@/types';
 export type { News } from '@/types'; // Re-export the News type
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { contactInfo, navigationLinks, siteConfig } from './mock-data';
@@ -17,9 +17,7 @@ export const setLoadingContext = (context: typeof loadingContext) => {
 };
 
 
-// Debug API URL
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
-console.log('API Base URL:', apiUrl);
 
 // Check if we should use mock server
 const useMockServer = process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_API_URL;
@@ -322,13 +320,42 @@ export async function getNewsKeywords(forceRefresh: boolean = false): Promise<{ 
 }
 
 // Helper: unwrap list and pagination from various backend shapes
+// fetcher already returns response.data from axios, so response here is already unwrapped
 function unwrapList<T = any>(response: any): T[] {
     if (!response) return [];
+    
+    // Response from fetcher is already axios response.data, so:
+    // Backend returns: { status, message, data: { data: [...], total, page, ... } }
+    // fetcher returns: { status, message, data: { data: [...], total, page, ... } }
+    // So response.data = { data: [...], total, page, ... }
+    
     const d = response.data;
-    if (Array.isArray(d)) return d as T[];
-    if (Array.isArray(d?.data)) return d.data as T[];
-    if (Array.isArray(response?.data?.items)) return response.data.items as T[];
-    if (Array.isArray(response?.items)) return response.items as T[];
+    
+    // Case 1: response.data is already an array
+    if (Array.isArray(d)) {
+        return d as T[];
+    }
+    
+    // Case 2: response.data is object with nested data array (our backend format)
+    if (d && typeof d === 'object' && Array.isArray(d.data)) {
+        return d.data as T[];
+    }
+    
+    // Case 3: response.data.items (alternative format)
+    if (Array.isArray(d?.items)) {
+        return d.items as T[];
+    }
+    
+    // Case 4: response.data.items (alternative format - check at response level)
+    if (Array.isArray(response?.data?.items)) {
+        return response.data.items as T[];
+    }
+    
+    // Case 5: response.items (direct array)
+    if (Array.isArray(response?.items)) {
+        return response.items as T[];
+    }
+    
     return [] as T[];
 }
 
@@ -340,6 +367,17 @@ function unwrapObject<T = any>(response: any): T | undefined {
 }
 
 function unwrapPagination(response: any): { total?: number; page?: number; limit?: number; totalPages?: number } {
+    // Backend returns pagination directly in response.data (not response.data.pagination)
+    // Format: { status: 'success', data: { data: [...], total, page, limit, totalPages } }
+    if (response?.data && typeof response.data === 'object' && 'total' in response.data) {
+        return {
+            total: response.data.total,
+            page: response.data.page,
+            limit: response.data.limit,
+            totalPages: response.data.totalPages
+        };
+    }
+    // Fallback to old format
     return response?.data?.pagination || response?.pagination || {};
 }
 
@@ -451,17 +489,6 @@ export async function getTours(params: FetchParams = {}): Promise<PaginatedRespo
     }
 }
 
-export async function getTourCategories(): Promise<TourCategory[]> {
-    try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
-        const url = `${baseUrl}/api/tour-categories`;
-        const response = await fetcher<any>(url, {}, 2, false);
-        return unwrapList<TourCategory>(response);
-    } catch (error) {
-        console.error('Error fetching tour categories:', error);
-        return [];
-    }
-}
 
 export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
     try {

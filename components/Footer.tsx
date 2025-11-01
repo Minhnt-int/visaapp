@@ -25,7 +25,7 @@ const socialIcons = {
 
 export default function Footer() {
   // CORRECT: Fetch all necessary data asynchronously
-const { visaCategories, tourCategories, contactInfo } = useVisaData();
+const { visaCategories, contactInfo } = useVisaData();
   const footerInfo = {
       companyName: "Kim Quy Travel",
       description: "Chuyên cung cấp dịch vụ visa và tour du lịch trọn gói uy tín hàng đầu. Đồng hành cùng bạn trên mọi hành trình.",
@@ -136,23 +136,6 @@ const { visaCategories, tourCategories, contactInfo } = useVisaData();
             </ul>
           </div>
 
-          {/* Tour Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Tour Du Lịch</h3>
-             <ul className="space-y-2">
-              {tourCategories.slice(0, 4).map((category) => (
-                <li key={category.slug}>
-                  <Link 
-                    href={`/tour-du-lich/${category.slug}`}
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 text-sm"
-                  >
-                    <ArrowRight size={12} className="text-orange-400" />
-                    {category.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Contact Info */}
           <div>
