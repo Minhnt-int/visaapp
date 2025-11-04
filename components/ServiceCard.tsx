@@ -45,7 +45,7 @@ export function ServiceCard({ service }: { service: VisaService }) {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {service.services.slice(0, 3).map((item, index) => ( // Show up to 3 services for brevity
-                  <span key={index} className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                  <span key={index} className="bg-primary-lightest text-primary text-xs font-medium px-2.5 py-1 rounded-full">
                     {item}
                   </span>
                 ))}
@@ -53,7 +53,7 @@ export function ServiceCard({ service }: { service: VisaService }) {
             </div>
           )}
 
-          <div className="mt-auto flex items-center text-sm font-semibold text-blue-600">
+          <div className="mt-auto flex items-center text-sm font-semibold text-primary">
             Xem chi tiết
             <ArrowRight className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" />
           </div>

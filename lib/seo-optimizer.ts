@@ -274,8 +274,8 @@ Allow: /lien-he/`
       'twitter:creator': '@Kim Quy Travel',
 
       // Additional meta tags
-      'theme-color': '#2563eb',
-      'msapplication-TileColor': '#2563eb',
+      'theme-color': '#FF9D00',
+      'msapplication-TileColor': '#FF9D00',
       'apple-mobile-web-app-capable': 'yes',
       'apple-mobile-web-app-status-bar-style': 'default',
       'apple-mobile-web-app-title': 'Kim Quy Travel'

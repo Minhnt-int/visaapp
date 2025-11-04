@@ -39,22 +39,83 @@
   }
   
   .scrollbar-thin::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: hsl(var(--color-neutral-100));
     border-radius: 3px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: hsl(var(--color-neutral-300));
     border-radius: 3px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: hsl(var(--color-neutral-400));
   }
 }
 
 @layer base {
   :root {
+    /* AUTO-GENERATED - Do not edit manually! Thay đổi PRIMARY_COLOR_HEX trong lib/theme.config.ts */
+    /* Màu chủ đạo: #FF9D00 */
+    --color-primary: 37 100% 50%;
+    --color-primary-light: 37 100% 60%;
+    --color-primary-lighter: 37 100% 70%;
+    --color-primary-lightest: 37 100% 80%;
+    --color-primary-dark: 37 100% 40%;
+    --color-primary-darker: 37 100% 30%;
+    --color-primary-darkest: 37 100% 15%;
+    
+    --color-accent-orange: 25 95% 53%;
+    --color-accent-orange-light: 25 95% 63%;
+    --color-accent-orange-lighter: 25 95% 75%;
+    --color-accent-orange-dark: 25 95% 43%;
+    --color-accent-orange-bg: 25 95% 95%;
+    --color-accent-orange-border: 25 95% 85%;
+    
+    --color-accent-green: 142 76% 36%;
+    --color-accent-green-light: 142 76% 46%;
+    --color-accent-green-lighter: 142 76% 66%;
+    --color-accent-green-bg: 142 76% 95%;
+    --color-accent-green-border: 142 76% 85%;
+    
+    --color-accent-yellow: 45 93% 47%;
+    --color-accent-yellow-light: 45 93% 57%;
+    --color-accent-yellow-bg: 45 93% 95%;
+    --color-accent-yellow-border: 45 93% 85%;
+    
+    --color-accent-purple: 262 83% 58%;
+    
+    --color-neutral-50: 210 40% 98%;
+    --color-neutral-100: 210 40% 96%;
+    --color-neutral-200: 214 32% 91%;
+    --color-neutral-300: 214 32% 85%;
+    --color-neutral-400: 215 20% 65%;
+    --color-neutral-500: 215 16% 47%;
+    --color-neutral-600: 215 19% 35%;
+    --color-neutral-700: 215 25% 27%;
+    --color-neutral-800: 217 33% 17%;
+    --color-neutral-900: 222 47% 11%;
+    
+    --color-success: 142 76% 36%;
+    --color-success-light: 142 76% 46%;
+    --color-success-bg: 142 76% 95%;
+    --color-success-border: 142 76% 85%;
+    --color-success-text: 142 76% 25%;
+    --color-success-text-light: 142 76% 40%;
+    
+    --color-error: 0 84% 60%;
+    --color-error-light: 0 84% 70%;
+    --color-error-bg: 0 84% 95%;
+    --color-error-border: 0 84% 85%;
+    --color-error-text: 0 84% 35%;
+    --color-error-text-light: 0 84% 45%;
+    
+    --color-warning: 45 93% 47%;
+    --color-warning-bg: 45 93% 95%;
+    --color-warning-border: 45 93% 85%;
+    --color-warning-text: 45 93% 25%;
+
+    /* Legacy shadcn/ui variables - keep for compatibility */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -64,8 +125,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 210 40% 9.8%;
+    --primary: var(--color-primary);
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 210 40% 9.8%;
@@ -76,17 +137,18 @@
     --accent: 210 40% 96.1%;
     --accent-foreground: 210 40% 9.8%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: var(--color-error);
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: var(--color-neutral-200);
+    --input: var(--color-neutral-200);
+    --ring: var(--color-primary);
 
     --radius: 0.5rem;
   }
 
   .dark {
+    /* Dark mode theme colors */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -119,7 +181,7 @@
 
 @layer base {
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-background text-foreground;
     /* Add a subtle noise texture for a premium feel */
     background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23n)" opacity="0.05"/></svg>');
   }

@@ -2,11 +2,7 @@ import { Tour } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Clock, MapPin, ArrowRight } from "lucide-react";
-
-// Helper to format currency
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
-};
+import { formatVND } from "@/lib/utils";
 
 export default function TourCard({ tour }: { tour: Tour }) {
   // CORRECTED: Create a summary from highlights as a description substitute.
@@ -14,7 +10,7 @@ export default function TourCard({ tour }: { tour: Tour }) {
 
   return (
     <article className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group overflow-hidden h-full flex flex-col">
-      <Link href={`/tour-du-lich/tour/${tour.slug}`} className="block h-full flex flex-col">
+      <Link href={`/tour-du-lich/${tour.slug}`} className="block h-full flex flex-col">
         <div className="relative h-56 overflow-hidden">
           <Image
             src={tour.image || '/placeholder.jpg'}
@@ -53,11 +49,11 @@ export default function TourCard({ tour }: { tour: Tour }) {
           <div className="mt-auto flex justify-between items-end">
             <div>
                 {tour.originalPrice && (
-                    <p className="text-sm text-gray-400 line-through">{formatPrice(tour.originalPrice)}</p>
+                    <p className="text-sm text-gray-400 line-through">{formatVND(tour.originalPrice, false)}</p>
                 )}
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{formatPrice(tour.price)}</p>
+                <p className="text-2xl font-bold text-primary dark:text-primary-400">{formatVND(tour.price, false)}</p>
             </div>
-            <div className="flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400">
+            <div className="flex items-center text-sm font-semibold text-primary dark:text-primary-400">
                 Chi tiết
                 <ArrowRight className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" />
             </div>

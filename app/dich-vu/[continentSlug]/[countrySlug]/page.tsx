@@ -50,22 +50,24 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-blue-800">
-        <div className="lg:grid lg:grid-cols-2 lg:max-w-7xl lg:mx-auto">
-          {/* Image Column */}
-          <div className="relative h-80 lg:h-full lg:col-start-2">
-            <Image
-              src={visaDetail.heroImage}
-              alt={`Visa ${countryName}`}
-              layout="fill"
-              className="object-cover"
-              priority
-            />
-          </div>
+      <section className="relative w-full h-[600px] lg:h-[700px] overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={visaDetail.heroImage}
+            alt={`Visa ${countryName}`}
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Dark Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
+        </div>
 
-          {/* Content Column */}
-          <div className="px-4 py-16 sm:px-6 lg:px-8 lg:py-24 lg:col-start-1 lg:row-start-1">
-            <div className="max-w-lg mx-auto lg:max-w-none lg:mx-0">
+        {/* Content Overlay */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
               <nav className="mb-6">
                 <div className="flex items-center gap-2 text-sm text-white opacity-90">
                   <Link href="/" className="hover:underline">Trang chủ</Link>
@@ -78,19 +80,19 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
                 </div>
               </nav>
 
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-white mb-6">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white mb-6">
                 {visaDetail.title}
               </h1>
-              <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+              <p className="text-xl lg:text-2xl text-gray-100 mb-8 leading-relaxed max-w-3xl">
                 {visaDetail.description}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 border border-white/20">
                   <div className="text-orange-300 font-semibold">Tỷ lệ thành công</div>
                   <div className="text-2xl font-bold text-white">{visaDetail.successRate}</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-4 border border-white/20">
                   <div className="text-orange-300 font-semibold">Thời gian xử lý</div>
                   <div className="text-2xl font-bold text-white">{visaDetail.processingTime}</div>
                 </div>
@@ -116,8 +118,8 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {visaDetail.services?.map((service: string, index: number) => (
-              <div key={index} className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
-                <CheckCircle className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+              <div key={index} className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:border-primary-light transition-colors">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <span className="text-gray-700">{service}</span>
               </div>
             ))}
@@ -151,7 +153,7 @@ export default async function VisaCountryDetailPage({ params }: PageProps) {
             />
 
             {/* Why Choose Us */}
-            <WhyChooseUsSection />
+            <WhyChooseUsSection pageKey={`dich-vu-${params.continentSlug}-${params.countrySlug}`} />
             {/* Testimonials */}
             <TestimonialsSection testimonials={mockTestimonials} />
 

@@ -1,12 +1,10 @@
 
-import { getAllNews, getNewsBySlug } from '@/lib/data';
+import { getNews, getNewsBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarDays, User } from 'lucide-react';
 import { Metadata } from 'next';
-import { mockNews } from '@/lib/mock-data'; // Import mockNews để lấy dữ liệu
-    // ... các imports khác
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -14,12 +12,11 @@ interface BlogPostPageProps {
   params: { newsSlug: string };
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const slug = params.slug;
+export async function generateMetadata({ params }: { params: { newsSlug: string } }): Promise<Metadata> {
+  const slug = params.newsSlug;
 
-  // Tìm bài viết tương ứng trong mockNews
-  // Trong thực tế, bạn sẽ gọi API để lấy dữ liệu bài viết dựa trên slug
-  const post = mockNews.find((item) => item.slug === slug);
+  // Fetch bài viết từ API thật
+  const post = await getNewsBySlug(slug);
 
   // Nếu không tìm thấy bài viết, trả về metadata cho trang 404 hoặc redirect
   if (!post) {
@@ -29,31 +26,30 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
   // Tạo metadata động từ dữ liệu bài viết
   const metadata: Metadata = {
-    title: post.metaTitle, // Sử dụng tiêu đề bài viết
-    description: post.metaDescription, // Sử dụng mô tả ngắn của bài viết
-    // Nếu bạn có trường keywords trong dữ liệu bài viết, có thể thêm vào đây:
-    // keywords: post.keywords.join(', '),
+    title: post.metaTitle || post.title,
+    description: post.metaDescription || post.excerpt || 'Bài viết từ Kim Quy Travel',
+    keywords: post.metaKeywords || '',
     openGraph: {
-      title: post.metaTitle,
-      description: post.metaDescription,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/tin-tuc/${post.slug}`,
-      // Thêm hình ảnh nếu có trường image trong dữ liệu bài viết
-      images: post.avatarUrl ? [post.avatarUrl] : [],
-      type: 'article', // Chỉ định loại nội dung là bài viết
-      publishedTime: post.date, // Nếu có trường ngày xuất bản
-      // authors: post.author ? [post.author] : [], // Nếu có trường tác giả
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt || 'Bài viết từ Kim Quy Travel',
+      url: `${baseUrl}/tin-tuc/${post.slug}`,
+      images: post.avatarUrl ? [{ url: post.avatarUrl }] : [],
+      type: 'article',
+      publishedTime: post.date || post.publishedAt,
+      authors: post.author ? [post.author] : [],
     },
     twitter: {
-      card: post.avatarUrl ? 'summary_large_image' : 'summary', // Sử dụng large image nếu có ảnh
-      title: post.metaTitle,
-      description: post.metaDescription,
+      card: post.avatarUrl ? 'summary_large_image' : 'summary',
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt || 'Bài viết từ Kim Quy Travel',
       images: post.avatarUrl ? [post.avatarUrl] : [],
     },
-    // Thêm canonical URL
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/tin-tuc/${post.slug}`,
+      canonical: `${baseUrl}/tin-tuc/${post.slug}`,
     },
   };
 
@@ -62,10 +58,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 
 export async function generateStaticParams() {
-  const news = await getAllNews();
-  return news.map((post) => ({
-    newsSlug: post.slug,
-  }));
+  try {
+    // Fetch all news from API for static generation
+    const newsResponse = await getNews({ limit: 1000, status: 'active' });
+    const allNews = newsResponse.data;
+    return allNews.map((post) => ({
+      newsSlug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params for news:', error);
+    return [];
+  }
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -75,9 +78,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
   
-  // To get related posts, we still need all news, but this is acceptable as it's a secondary query.
-  const allNews = await getAllNews();
-  const relatedPosts = allNews.filter(p => p.slug !== post.slug).slice(0, 3);
+  // Fetch related posts from API
+  const allNewsResponse = await getNews({ limit: 100, status: 'active' });
+  const relatedPosts = allNewsResponse.data.filter(p => p.slug !== post.slug).slice(0, 3);
 
   return (
     <>

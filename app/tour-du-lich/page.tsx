@@ -10,8 +10,40 @@ export default async function TourDuLichPage() {
   const toursResponse = await getTours({ limit: 100 });
   const tours = toursResponse.data;
 
+  // Structured data for SEO (JSON-LD)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Tour Du Lịch - Kim Quy Travel",
+    "description": "Khám phá những hành trình tuyệt vời với tour du lịch chất lượng cao từ Kim Quy Travel",
+    "url": "https://kimquytravel.vn/tour-du-lich",
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": tours.length,
+      "itemListElement": tours.map((tour, index) => ({
+        "@type": "TouristTrip",
+        "position": index + 1,
+        "name": tour.name,
+        "description": tour.metaDescription || tour.highlights?.map((h: any) => h.title || (typeof h === 'string' ? h : '')).filter(Boolean).join('. ') || 'Tour du lịch hấp dẫn',
+        "url": `https://kimquytravel.vn/tour-du-lich/${tour.slug}`,
+        "image": tour.image,
+        "offers": {
+          "@type": "Offer",
+          "price": tour.price,
+          "priceCurrency": "VND",
+          "availability": "https://schema.org/InStock"
+        }
+      }))
+    }
+  };
+
   return (
     <main className="bg-gray-50 dark:bg-gray-900">
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Hero Section */}
       <section className="relative bg-cover bg-center py-32 text-white" style={{ backgroundImage: "url('/images/tours/hero-bg.jpg')" }}>
           <div className="absolute inset-0 bg-black/50"></div>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Manrope, Poppins } from "next/font/google";
 import { getNavigationLinks, getSiteConfig } from "@/lib/api";
+import { PRIMARY_COLOR_HEX_VALUE } from "@/lib/theme.config";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,6 +13,7 @@ import { LoadingProvider } from "@/contexts/LoadingContext";
 import GlobalLoading from "@/components/GlobalLoading";
 import LoadingInitializer from "@/components/LoadingInitializer";
 import EmergencyReset from "@/components/EmergencyReset";
+import ThemeColorRuntime from "@/components/ThemeColorRuntime";
 
 // Font configuration
 const manrope = Manrope({
@@ -29,33 +31,40 @@ const poppins = Poppins({
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteConfig = await getSiteConfig();
+  
+  // Fallback values if siteConfig is not available
+  const siteName = siteConfig?.name || 'Kim Quy Travel';
+  const siteDescription = siteConfig?.description || 'Dịch vụ visa và tour du lịch chuyên nghiệp';
+  const siteUrl = siteConfig?.url || 'https://kimquytravel.vn';
+  const ogImage = siteConfig?.ogImage || '/images/og-default.jpg';
+  
   const metadata: Metadata = {
     title: {
-      default: siteConfig.name,
-      template: `%s | ${siteConfig.name}`,
+      default: siteName,
+      template: `%s | ${siteName}`,
     },
-    description: siteConfig.description,
+    description: siteDescription,
     openGraph: {
         type: 'website',
         locale: 'vi_VN',
-        url: siteConfig.url,
-        title: siteConfig.name,
-        description: siteConfig.description,
-        siteName: siteConfig.name,
+        url: siteUrl,
+        title: siteName,
+        description: siteDescription,
+        siteName: siteName,
         images: [
           {
-            url: siteConfig.ogImage,
+            url: ogImage,
             width: 1200,
             height: 630,
-            alt: siteConfig.name,
+            alt: siteName,
           },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: siteConfig.name,
-        description: siteConfig.description,
-        images: [siteConfig.ogImage],
+        title: siteName,
+        description: siteDescription,
+        images: [ogImage],
     },
     robots: {
         index: true,
@@ -86,16 +95,65 @@ export default async function RootLayout({
   const isAlgoliaConfigured = algoliaConfig.appId && algoliaConfig.apiKey && algoliaConfig.indexName;
 
   const navigationLinks = await getNavigationLinks();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3002';
   
   return (
     <html lang="vi" className={`${poppins.variable} ${manrope.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#2563eb" />
+        <meta name="theme-color" content={process.env.NEXT_PUBLIC_THEME_COLOR || PRIMARY_COLOR_HEX_VALUE} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Inline script để apply theme ngay từ đầu, tránh flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var savedColor = localStorage.getItem('theme_color');
+                  if (savedColor) applyTheme(savedColor);
+                  
+                  fetch('${backendUrl}/api/theme')
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) {
+                      if (data.success && data.color) applyTheme(data.color);
+                    })
+                    .catch(function() {});
+                  
+                  function applyTheme(hex) {
+                    if (!hex || !hex.startsWith('#')) return;
+                    var r = parseInt(hex.substr(1, 2), 16) / 255;
+                    var g = parseInt(hex.substr(3, 2), 16) / 255;
+                    var b = parseInt(hex.substr(5, 2), 16) / 255;
+                    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+                    var h = 0, s = 0, l = (max + min) / 2;
+                    if (max !== min) {
+                      var d = max - min;
+                      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                      if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+                      else if (max === g) h = ((b - r) / d + 2) / 6;
+                      else h = ((r - g) / d + 4) / 6;
+                    }
+                    h = Math.round(h * 360); s = Math.round(s * 100); l = Math.round(l * 100);
+                    var root = document.documentElement;
+                    root.style.setProperty('--color-primary', h + ' ' + s + '% ' + l + '%');
+                    root.style.setProperty('--color-primary-light', h + ' ' + s + '% ' + Math.min(100, l + 10) + '%');
+                    root.style.setProperty('--color-primary-lighter', h + ' ' + s + '% ' + Math.min(100, l + 20) + '%');
+                    root.style.setProperty('--color-primary-lightest', h + ' ' + s + '% ' + Math.min(100, l + 30) + '%');
+                    root.style.setProperty('--color-primary-dark', h + ' ' + s + '% ' + Math.max(0, l - 10) + '%');
+                    root.style.setProperty('--color-primary-darker', h + ' ' + s + '% ' + Math.max(0, l - 20) + '%');
+                    root.style.setProperty('--color-primary-darkest', h + ' ' + s + '% ' + Math.max(0, l - 35) + '%');
+                    var meta = document.querySelector('meta[name="theme-color"]');
+                    if (meta) meta.setAttribute('content', hex);
+                    localStorage.setItem('theme_color', hex);
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body className={`font-sans bg-white text-gray-900 antialiased`}>
+      <body className={`font-sans bg-background text-foreground antialiased`}>
         <LoadingProvider>
           <VisaDataProvider>
               {isAlgoliaConfigured ? (
@@ -111,6 +169,7 @@ export default async function RootLayout({
                       <Footer />
                   </>
               )}
+              <ThemeColorRuntime />
               <GlobalLoading />
               <LoadingInitializer />
               <EmergencyReset />

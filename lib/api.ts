@@ -1,7 +1,7 @@
 import { Tour, News, VisaContinent, VisaDetail, NewsPreview, formContact, ApiResponse, VisaService, NavItem } from '@/types';
 export type { News } from '@/types'; // Re-export the News type
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
-import { contactInfo, navigationLinks, siteConfig } from './mock-data';
+// Removed mock-data imports - all data should come from backend
 import algoliasearch, { SearchClient } from 'algoliasearch/lite';
 
 // Loading context integration
@@ -33,7 +33,17 @@ const api: AxiosInstance = axios.create({
 api.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
-        console.error('Response Interceptor Error:', error.message);
+        // Only log errors for non-404/500 responses or if it's not a meta-json endpoint
+        // This reduces noise during build time when meta-json data may not exist
+        const url = error.config?.url || '';
+        const isMetaJsonEndpoint = url.includes('/api/meta-json');
+        const status = error.response?.status;
+        
+        // Don't log 404/500 errors for meta-json endpoints (expected during build)
+        if (!isMetaJsonEndpoint || (status !== 404 && status !== 500)) {
+            console.error('Response Interceptor Error:', error.message);
+        }
+        
         return Promise.reject(error);
     }
 );
@@ -42,7 +52,8 @@ export async function fetcher<T = any>(
     url: string,
     options?: AxiosRequestConfig,
     retries: number = 2,
-    showLoading: boolean = true
+    showLoading: boolean = true,
+    suppressErrorLogs: boolean = false
 ): Promise<T> {
     let lastError: Error | null = null;
 
@@ -84,7 +95,10 @@ export async function fetcher<T = any>(
                 const isRetryable = !axiosError.response || axiosError.code === 'ECONNABORTED';
 
                 if (!isRetryable || attempt === retries) {
-                    console.error(`Fetcher Error (attempt ${attempt + 1}/${retries + 1}):`, axiosError.message);
+                    // Only log errors if not suppressed (for meta-json calls in build time)
+                    if (!suppressErrorLogs) {
+                        console.error(`Fetcher Error (attempt ${attempt + 1}/${retries + 1}):`, axiosError.message);
+                    }
 
                     if (showLoading && loadingContext.updateMessage) {
                         loadingContext.updateMessage('Có lỗi xảy ra!');
@@ -431,7 +445,6 @@ function mapTourFromApi(raw: any): Tour | undefined {
         id: String(raw.id ?? raw.slug),
         slug: raw.slug,
         name: raw.name,
-        categorySlug: raw.category?.slug || raw.categorySlug,
         country: raw.country,
         duration: raw.duration,
         price: raw.price,
@@ -462,7 +475,6 @@ export async function getTours(params: FetchParams = {}): Promise<PaginatedRespo
         if (params.limit) queryString.append('limit', params.limit.toString());
         if (params.search) queryString.append('search', params.search);
         if (params.tags) queryString.append('tags', params.tags);
-        if ((params as any).category) queryString.append('categorySlug', (params as any).category);
         if ((params as any).country) queryString.append('country', (params as any).country);
         if (typeof params.isHot !== 'undefined') queryString.append('isHot', String(params.isHot));
         if (params.sortBy) queryString.append('sortBy', params.sortBy);
@@ -613,85 +625,142 @@ export async function getVisaDetailBySlug(slug: string): Promise<VisaDetail | un
 }
 
 export async function getSiteConfig() {
-    await delay(50); return siteConfig;
-}
-
-export async function getContactInfo() {
-    await delay(50); return contactInfo;
-}
-
-// UPDATED: This function now has fallback to mock data when Algolia is not configured.
-export async function getNavigationLinks(): Promise<NavItem[]> {
-    // Check if Algolia is configured, if not use mock data
-    if (!process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME) {
-        return navigationLinks;
-    }
-
     try {
-        const algoliaClient: SearchClient = algoliasearch(
-            process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-            process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
-        );
+        const siteConfigMeta = await getMetaJson<{ metaData?: any }>('siteConfig');
         
-        const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
-        const [visaResponse] = await Promise.all([
-            algoliaIndex.search('', { // Query for visa data
-                facetFilters: ['type:visa'],
-                attributesToRetrieve: ['path', 'country', 'continent', 'image'],
-                hitsPerPage: 100 // Adjust as needed
-            }),
-        ]);
+        if (!siteConfigMeta?.metaData) {
+            console.warn('Site config not found in metaJson, returning undefined');
+            return undefined;
+        }
         
-        const visaHits = visaResponse.hits;
-
-        // Process visa data into a nested structure (Continent -> Country)
-        const visaContinents: { [key: string]: NavItem } = {};
-        visaHits.forEach((hit: any) => {
-            const continentName = hit.continent;
-            const continentSlug = hit.path.split('/')[2];
-
-            if (!continentName) return; // Skip if continent is not defined
-
-            // Create continent item if it doesn't exist
-            if (!visaContinents[continentName]) {
-                visaContinents[continentName] = {
-                    label: continentName,
-                    href: `/dich-vu/${continentSlug}`,
-                    children: []
-                };
-            }
-            
-            // Add country to the continent's children array
-            visaContinents[continentName].children?.push({
-                label: hit.country,
-                href: hit.path,
-                image: hit.image
-            });
-        });
-
-        // Assemble the final navigation structure
-        const finalNavLinks: NavItem[] = [
-            { label: 'Trang chủ', href: '/' },
-            {
-                label: 'Dịch Vụ Visa',
-                href: '/dich-vu',
-                children: Object.values(visaContinents)
-            },
-            {
-                label: 'Tour Du Lịch',
-                href: '/tour-du-lich'
-            },
-            { label: 'Tin Tức', href: '/tin-tuc' },
-            { label: 'Liên hệ', href: '/lien-he' },
-        ];
-
-        return finalNavLinks;
-
+        return siteConfigMeta.metaData;
     } catch (error) {
-        console.error("Error fetching navigation from Algolia:", error);
-        // Fallback to mock data when Algolia fails
-        return navigationLinks;
+        console.error('Error getting site config:', error);
+        return undefined;
     }
+}
+
+export interface ContactInfo {
+    address: string;
+    phone: string;
+    email: string;
+    website?: string;
+    facebook?: string;
+    zalo?: string;
+}
+
+interface ContactInfoMetaData {
+    _type: "info";
+    phone: string;
+    email: string;
+    address: string;
+    mapIframeSrc?: string;
+    openTime?: {
+        weekdays?: {
+            days?: string;
+            hours?: string;
+        };
+        weekend?: {
+            days?: string;
+            hours?: string;
+        };
+    };
+    socialMedia?: {
+        facebook?: string;
+        instagram?: string;
+        youtube?: string;
+        zalo?: string;
+    };
+}
+
+export async function getContactInfo(): Promise<ContactInfo | undefined> {
+    try {
+        const contactMeta = await getMetaJson<{ metaData?: ContactInfoMetaData }>('contactInfo');
+        const metaData = contactMeta?.metaData;
+        
+        if (!metaData || metaData._type !== "info") {
+            console.warn('Contact info not found in metaJson, returning undefined');
+            return undefined;
+        }
+        
+        // Convert from metaJson format to ContactInfo format
+        return {
+            address: metaData.address || '',
+            phone: metaData.phone || '',
+            email: metaData.email || '',
+            website: undefined, // Not in metaData structure
+            facebook: metaData.socialMedia?.facebook,
+            zalo: metaData.socialMedia?.zalo
+        };
+    } catch (error) {
+        console.error('Error getting contact info:', error);
+        return undefined;
+    }
+}
+
+export async function getNavigationLinks(): Promise<NavItem[]> {
+    if (!process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || !process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || !process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME) {
+        throw new Error('Algolia is not configured');
+    }
+
+    const algoliaClient: SearchClient = algoliasearch(
+        process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+        process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+    );
+    
+    const algoliaIndex = algoliaClient.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
+    const [visaResponse] = await Promise.all([
+        algoliaIndex.search('', { // Query for visa data
+            facetFilters: ['type:visa'],
+            attributesToRetrieve: ['path', 'country', 'continent', 'image'],
+            hitsPerPage: 100 // Adjust as needed
+        }),
+    ]);
+    
+    const visaHits = visaResponse.hits;
+
+    // Process visa data into a nested structure (Continent -> Country)
+    const visaContinents: { [key: string]: NavItem } = {};
+    visaHits.forEach((hit: any) => {
+        const continentName = hit.continent;
+        const continentSlug = hit.path.split('/')[2];
+
+        if (!continentName) return; // Skip if continent is not defined
+
+        // Create continent item if it doesn't exist
+        if (!visaContinents[continentName]) {
+            visaContinents[continentName] = {
+                label: continentName,
+                href: `/dich-vu/${continentSlug}`,
+                children: []
+            };
+        }
+        
+        // Add country to the continent's children array
+        visaContinents[continentName].children?.push({
+            label: hit.country,
+            href: hit.path,
+            image: hit.image
+        });
+    });
+
+    // Assemble the final navigation structure
+    const finalNavLinks: NavItem[] = [
+        { label: 'Trang chủ', href: '/' },
+        {
+            label: 'Dịch Vụ Visa',
+            href: '/dich-vu',
+            children: Object.values(visaContinents)
+        },
+        {
+            label: 'Tour Du Lịch',
+            href: '/tour-du-lich'
+        },
+        { label: 'Tin Tức', href: '/tin-tuc' },
+        { label: 'Liên hệ', href: '/lien-he' },
+    ];
+
+    return finalNavLinks;
 }
 
 export interface HeroBannerData {
@@ -709,46 +778,20 @@ export interface HeroBannerData {
     }>;
 }
 
-// Mock data for hero banner (temporary until backend has data)
-const mockHeroBannerData: HeroBannerData = {
-    backgroundImage: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1920',
-    title: {
-        primary: 'Dịch vụ',
-        secondary: 'Visa & Tour',
-        subtitle: 'Uy tín - Nhanh chóng - Hiệu quả'
-    },
-    description: '15+ năm kinh nghiệm, tỷ lệ đậu visa 99%',
-    ctaButtons: [
-        {
-            text: 'Dịch Vụ Visa',
-            href: '/dich-vu',
-            variant: 'secondary'
-        },
-        {
-            text: 'Tour Du Lịch',
-            href: '/tour-du-lich',
-            variant: 'primary'
-        }
-    ]
-};
-
-export async function getHeroBannerData(): Promise<HeroBannerData> {
+export async function getHeroBannerData(): Promise<HeroBannerData | undefined> {
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
-        const url = `${baseUrl}/api/meta?key=heroBanner`;
+        // Use getMetaJson to fetch from meta-json API
+        const bannerMeta = await getMetaJson<{ metaData?: HeroBannerData }>('heroBanner');
         
-        const response = await fetcher<any>(url, {}, 2, false);
-        
-        if (response && response.status === 'success' && response.data) {
-            return response.data as HeroBannerData;
+        if (!bannerMeta?.metaData) {
+            console.warn('Hero banner data not found in metaJson, returning undefined');
+            return undefined;
         }
         
-        // Fallback to mock data
-        return mockHeroBannerData;
+        return bannerMeta.metaData;
     } catch (error) {
-        console.error('Error fetching hero banner data:', error);
-        // Fallback to mock data
-        return mockHeroBannerData;
+        console.error('Error getting hero banner data:', error);
+        return undefined;
     }
 }
 
@@ -757,13 +800,69 @@ export async function getMetaJson<T = any>(key: string): Promise<T | undefined> 
     try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
         const url = `${baseUrl}/api/meta-json?pageKey=${encodeURIComponent(key)}`;
-        const response = await fetcher<any>(url, {}, 1, false);
-        if (response && (response.status === 'success' || response.ok) && response.data) {
-            return response.data as T;
+        
+        // Suppress error logs for meta-json calls to reduce noise in build time
+        // These are expected to fail if data doesn't exist
+        const response = await fetcher<any>(url, {}, 1, false, true);
+        
+        // Backend returns: { success: true, data: { id, pageKey, metaData } }
+        // or: { status: 'success', data: { id, pageKey, metaData } }
+        // or: { success: false, message: '...' } for 404
+        if (response) {
+            // Check for success flag
+            const isSuccess = response.success === true || response.status === 'success';
+            
+            // If success is false, it means not found (404), return undefined
+            if (response.success === false) {
+                return undefined;
+            }
+            
+            if (isSuccess && response.data) {
+                // Return the full data object which contains metaData
+                return response.data as T;
+            }
         }
         return undefined;
-    } catch (error) {
-        console.error('Error fetching meta:', key, error);
+    } catch (error: any) {
+        // Handle 404 and 500 errors gracefully - silently return undefined
+        // These errors are expected when data doesn't exist in database
+        const errorMessage = error?.message || String(error);
+        
+        // Silently return undefined for any error (404, 500, network, etc.)
+        // This prevents build failures and excessive error logs
         return undefined;
     }
+}
+
+// Interface for WhyChooseUs data
+export interface WhyChooseUsData {
+    _type: "whyChooseUs";
+    section: {
+        title: string;
+        description: string;
+        reasons: string[];
+        image: string;
+    };
+    process: {
+        title: string;
+        description: string;
+        steps: Array<{
+            title: string;
+            description: string;
+        }>;
+    };
+}
+
+export async function getWhyChooseUsData(): Promise<WhyChooseUsData | undefined> {
+    const whyChooseUsMeta = await getMetaJson<{ metaData?: WhyChooseUsData }>('whyChooseUs');
+    return whyChooseUsMeta?.metaData;
+}
+
+export async function getWhyChooseUsDataByPageKey(pageKey: string): Promise<WhyChooseUsData | undefined> {
+    // Thử fetch data cho pageKey cụ thể
+    const pageMeta = await getMetaJson<{ metaData?: WhyChooseUsData }>(pageKey);
+    if (pageMeta?.metaData && pageMeta.metaData._type === 'whyChooseUs') {
+        return pageMeta.metaData;
+    }
+    return undefined;
 }

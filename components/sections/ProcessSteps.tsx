@@ -14,12 +14,12 @@ interface ProcessStepProps {
 const StepItem: React.FC<ProcessStepProps> = ({
   step, title, description, icon: Icon, iconColor
 }) => (
-  <div className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+  <div className="flex flex-col items-center text-center p-6 bg-background rounded-lg shadow-sm border border-neutral-200">
     <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${iconColor} bg-opacity-20`}>
       <Icon className={`w-8 h-8 ${iconColor}`} />
     </div>
-    <h3 className="text-xl font-semibold text-gray-900 mb-2">Bước {step}: {title}</h3>
-    <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+    <h3 className="text-xl font-semibold text-foreground mb-2">Bước {step}: {title}</h3>
+    <p className="text-neutral-600 text-sm leading-relaxed">{description}</p>
   </div>
 );
 
@@ -30,28 +30,28 @@ export default function ProcessSteps() {
       title: "Tư vấn và Đánh giá hồ sơ",
       description: "Chuyên viên của Kim Quy Travel sẽ tư vấn, phân tích điểm mạnh, yếu trong hồ sơ của bạn.",
       icon: FileText,
-      iconColor: "text-blue-600",
+      iconColor: "text-primary",
     },
     {
       step: 2,
       title: "Hoàn thiện giấy tờ",
       description: "Hướng dẫn chi tiết, điền đơn, sắp xếp và dịch thuật công chứng các giấy tờ cần thiết.",
       icon: Users,
-      iconColor: "text-green-600",
+      iconColor: "text-accent-green",
     },
     {
       step: 3,
       title: "Luyện phỏng vấn",
       description: "Hướng dẫn chi tiết cách trả lời phỏng vấn, tạo sự tự tin trước Lãnh sự quán (nếu có yêu cầu).",
       icon: TrendingUp,
-      iconColor: "text-orange-600",
+      iconColor: "text-accent-orange",
     },
     {
       step: 4,
       title: "Nhận kết quả Visa",
       description: "Theo dõi tình trạng hồ sơ và hỗ trợ nhận lại hộ chiếu cùng visa sau khi có kết quả.",
       icon: CheckCircle,
-      iconColor: "text-purple-600",
+      iconColor: "text-accent-purple",
     },
   ];
 

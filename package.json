@@ -9,6 +9,8 @@
     "lint": "next lint",
     "setup": "node scripts/setup-env.js",
     "algolia-sync": "ts-node scripts/algolia-sync.ts",
+    "sync-theme": "ts-node scripts/sync-theme-colors.ts",
+    "reset-theme-cache": "node scripts/reset-theme-cache.js",
     "analyze": "ANALYZE=true npm run build",
     "lighthouse": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html",
     "perf": "npm run build && npm run lighthouse"

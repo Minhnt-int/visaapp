@@ -12,12 +12,12 @@ export default async function DichVuPage() {
   return (
     <>
       <main>
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600">
+        <div className="bg-gradient-to-r from-primary to-primary-dark">
           <div className="relative isolate overflow-hidden pt-24 sm:pt-32 pb-24 sm:pb-32">
             <div className="container mx-auto px-4 text-center">
               <div className="max-w-4xl mx-auto">
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                  <div className="relative rounded-full px-4 py-2 text-sm leading-6 text-blue-200 ring-1 ring-white/20 hover:ring-white/30">
+                  <div className="relative rounded-full px-4 py-2 text-sm leading-6 text-primary-lightest ring-1 ring-white/20 hover:ring-white/30">
                     <Globe className="inline w-4 h-4 mr-2" />
                     Dịch vụ xin visa uy tín - Tỷ lệ đậu 99%
                   </div>
@@ -44,19 +44,19 @@ export default async function DichVuPage() {
                 <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">99%</div>
-                    <div className="text-sm text-blue-200">Tỷ lệ đậu visa</div>
+                    <div className="text-sm text-primary-lightest">Tỷ lệ đậu visa</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">23,868</div>
-                    <div className="text-sm text-blue-200">Hồ sơ thành công</div>
+                    <div className="text-sm text-primary-lightest">Hồ sơ thành công</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">150+</div>
-                    <div className="text-sm text-blue-200">Quốc gia</div>
+                    <div className="text-sm text-primary-lightest">Quốc gia</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-white">24/7</div>
-                    <div className="text-sm text-blue-200">Hỗ trợ</div>
+                    <div className="text-sm text-primary-lightest">Hỗ trợ</div>
                   </div>
                 </div>
               </div>

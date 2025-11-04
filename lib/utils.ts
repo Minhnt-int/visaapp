@@ -46,3 +46,41 @@ export const truncateText = (text: string, maxLength: number = 50): string => {
    // 5. Trả về chuỗi đã cắt kèm dấu ba chấm
    return truncated.trim() + '...';
 };
+
+/**
+ * Format số tiền VNĐ theo chuẩn Việt Nam
+ * Format: 4.200.000,00 VNĐ
+ * - Dấu chấm (.) phân cách hàng nghìn
+ * - Dấu phẩy (,) phân cách phần thập phân
+ * - 2 chữ số thập phân
+ * 
+ * @param price - Số tiền cần format (number hoặc undefined)
+ * @param showDecimals - Có hiển thị phần thập phân không (mặc định: true)
+ * @returns Chuỗi đã được format hoặc 'Đang cập nhật' nếu price là undefined
+ */
+export const formatVND = (price: number | undefined, showDecimals: boolean = true): string => {
+  if (price === undefined || price === null) {
+    return 'Đang cập nhật';
+  }
+
+  // Convert to number nếu là string
+  const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+  
+  if (isNaN(numPrice)) {
+    return 'Đang cập nhật';
+  }
+
+  if (showDecimals) {
+    // Format với 2 chữ số thập phân: 4.200.000,00 VNĐ
+    return new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(numPrice) + ' VNĐ';
+  } else {
+    // Format không có thập phân: 4.200.000 VNĐ
+    return new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(numPrice) + ' VNĐ';
+  }
+};

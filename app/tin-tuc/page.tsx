@@ -57,11 +57,11 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
 
   return (
     <main>
-      <section className="bg-gradient-to-r from-blue-600 to-blue-700 py-20 text-white">
+      <section className="bg-gradient-to-r from-primary to-primary-dark py-20 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Tin Tức & Cẩm Nang Visa</h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">Cập nhật những thông tin mới nhất và hướng dẫn chi tiết về visa</p>
+            <p className="text-xl text-primary-lightest max-w-2xl mx-auto">Cập nhật những thông tin mới nhất và hướng dẫn chi tiết về visa</p>
           </div>
           <div className="max-w-lg mx-auto">
             <BlogSearch />
@@ -71,12 +71,12 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
 
       <div className="container mx-auto px-4 py-20">
         {currentFilters.length > 0 && (
-          <div className="mb-12 bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg flex items-center justify-between">
+          <div className="mb-12 bg-primary-lightest border-l-4 border-primary text-primary-darker p-4 rounded-r-lg flex items-center justify-between">
             <div>
               <span className="font-semibold">Kết quả tìm kiếm:</span>
               <span className="italic ml-2">{`"${currentFilters.join(', ')}"`}</span>
             </div>
-            <Link href="/tin-tuc" className="flex items-center gap-2 px-4 py-2 bg-white border border-blue-300 rounded-full text-sm font-semibold hover:bg-blue-100 transition-colors">
+            <Link href="/tin-tuc" className="flex items-center gap-2 px-4 py-2 bg-white border border-primary-light rounded-full text-sm font-semibold hover:bg-primary-lightest transition-colors">
               <FilterX size={14} />
               Xóa tìm kiếm
             </Link>
@@ -89,7 +89,7 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
               <div className="text-center py-16">
                 <h2 className="text-2xl font-bold mb-4">Không tìm thấy bài viết nào</h2>
                 <p className="text-gray-600">Rất tiếc, không có bài viết nào phù hợp với các tag bạn đã chọn.</p>
-                 <Link href="/tin-tuc" className="mt-6 inline-block text-blue-600 font-semibold hover:underline">
+                 <Link href="/tin-tuc" className="mt-6 inline-block text-primary font-semibold hover:underline">
                     Bỏ lọc và xem tất cả bài viết
                 </Link>
               </div>
@@ -111,9 +111,9 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
                           <div className="flex items-center gap-2"><Calendar size={16} />{featuredPost.date}</div>
                           <div className="flex items-center gap-2"><User size={16} />{featuredPost.author}</div>
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-blue-600 transition-colors"><Link href={`/tin-tuc/${featuredPost.slug}`}>{featuredPost.title}</Link></h2>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4 hover:text-primary transition-colors"><Link href={`/tin-tuc/${featuredPost.slug}`}>{featuredPost.title}</Link></h2>
                         <p className="text-gray-600 text-lg mb-6 leading-relaxed">{featuredPost.excerpt}</p>
-                        <div className="flex items-center justify-end"><Link href={`/tin-tuc/${featuredPost.slug}`} className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors font-semibold">Đọc tiếp<ArrowRight size={16} /></Link></div>
+                        <div className="flex items-center justify-end"><Link href={`/tin-tuc/${featuredPost.slug}`} className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full hover:bg-primary-dark transition-colors font-semibold">Đọc tiếp<ArrowRight size={16} /></Link></div>
                       </div>
                     </article>
                   </div>
@@ -132,9 +132,9 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
                             )}
                           </div>
                           <div className="p-6">
-                            <h4 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors"><Link href={`/tin-tuc/${post.slug}`}>{post.title}</Link></h4>
+                            <h4 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 hover:text-primary transition-colors"><Link href={`/tin-tuc/${post.slug}`}>{post.title}</Link></h4>
                             <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-                            <Link href={`/tin-tuc/${post.slug}`} className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors">Xem chi tiết<ArrowRight size={14} /></Link>
+                            <Link href={`/tin-tuc/${post.slug}`} className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-dark transition-colors">Xem chi tiết<ArrowRight size={14} /></Link>
                           </div>
                         </article>
                       ))}

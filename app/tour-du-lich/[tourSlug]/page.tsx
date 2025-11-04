@@ -1,8 +1,10 @@
 
-import { getAllTours, getTourBySlug } from '@/lib/data';
+import { getTourBySlug } from '@/lib/api';
+import { getTours } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatVND } from '@/lib/utils';
 import {
   Calendar,
   MapPin,
@@ -19,7 +21,6 @@ import { getPageMetaFromBackend } from '@/lib/seo';
 
 type TourDetailPageProps = {
   params: {
-    categorySlug: string;
     tourSlug: string;
   };
 };
@@ -48,11 +49,18 @@ const ItineraryDay = ({ day, title, description, activities }: ItineraryDayProps
 };
 
 export async function generateStaticParams() {
-  const allTours = await getAllTours();
-  return allTours.map((tour) => ({
-    categorySlug: tour.categorySlug,
-    tourSlug: tour.slug,
-  }));
+  try {
+    // Fetch all tours from API for static generation
+    const toursResponse = await getTours({ limit: 1000 });
+    const allTours = toursResponse.data;
+    
+    return allTours.map((tour) => ({
+      tourSlug: tour.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params for tours:', error);
+    return []; // Return empty array nếu có lỗi
+  }
 }
 
 export default async function TourDetailPage({ params }: TourDetailPageProps) {
@@ -62,17 +70,46 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
     notFound();
   }
 
-  const formatPrice = (price: number | undefined) => {
-    if (price === undefined) return 'Đang cập nhật';
-    return price.toLocaleString('vi-VN');
-  };
-
   const discountPercent = tourDetails.originalPrice && tourDetails.price
     ? Math.round((1 - tourDetails.price / tourDetails.originalPrice) * 100)
     : 0;
 
+  // Structured data for SEO (JSON-LD)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": tourDetails.name,
+    "description": tourDetails.metaDescription || tourDetails.highlights?.map((h: any) => h.title || (typeof h === 'string' ? h : '')).filter(Boolean).join('. ') || 'Tour du lịch hấp dẫn',
+    "image": tourDetails.image,
+    "url": `https://kimquytravel.vn/tour-du-lich/${params.tourSlug}`,
+    "duration": tourDetails.duration,
+    "tourBookingPage": "https://kimquytravel.vn/lien-he",
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "Kim Quy Travel",
+      "url": "https://kimquytravel.vn"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": tourDetails.price,
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "validFrom": new Date().toISOString()
+    },
+    "itinerary": tourDetails.itinerary?.map((day: any) => ({
+      "@type": "TouristTrip",
+      "name": day.title,
+      "description": day.description
+    })) || []
+  };
+
   return (
     <main>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
         {/* Hero Section */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="relative isolate overflow-hidden pt-24 sm:pt-32 pb-16">
@@ -129,11 +166,11 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                       <div>
                         {tourDetails.originalPrice && (
                           <div className="text-blue-200 line-through text-lg">
-                            {formatPrice(tourDetails.originalPrice)} VNĐ
+                            {formatVND(tourDetails.originalPrice)}
                           </div>
                         )}
                         <div className="text-3xl font-bold text-yellow-400">
-                          {formatPrice(tourDetails.price)} VNĐ
+                          {formatVND(tourDetails.price)}
                         </div>
                         <div className="text-blue-200">/ khách</div>
                       </div>
@@ -329,12 +366,12 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
               <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24 mb-8">
                 <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-red-600 mb-2">
-                    {formatPrice(tourDetails.price)} VNĐ
+                    {formatVND(tourDetails.price)}
                   </div>
                   <div className="text-gray-600">/ khách</div>
                   {tourDetails.originalPrice && (
                     <div className="text-gray-500 line-through text-lg">
-                      {formatPrice(tourDetails.originalPrice)} VNĐ
+                      {formatVND(tourDetails.originalPrice)}
                     </div>
                   )}
                 </div>
@@ -411,7 +448,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
 }
 
 export async function generateMetadata({ params }: TourDetailPageProps): Promise<Metadata> {
-  const url = `/tour-du-lich/${params.categorySlug}/${params.tourSlug}`;
+  const url = `/tour-du-lich/${params.tourSlug}`;
   const key = `tour-${params.tourSlug}`;
   const backendMeta = await getPageMetaFromBackend({ pageKey: key, pageUrl: url });
   if (backendMeta) {
@@ -430,15 +467,24 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
     } as Metadata;
   }
 
-  // Fallback: build metadata from tour detail, ưu tiên các trường metaTitle/metaDescription/metaKeywords nếu có
+  // Fallback: build metadata from tour detail
   const tour = await getTourBySlug(params.tourSlug);
-  if (!tour) return {};
+  
+  if (!tour) {
+    return {
+      title: `${params.tourSlug} | Tour Du Lịch - Kim Quy Travel`,
+      description: 'Tour du lịch hấp dẫn tại Kim Quy Travel',
+      alternates: { canonical: url },
+    } as Metadata;
+  }
+  
   const title = tour.metaTitle || tour.name || `${params.tourSlug} | Tour Du Lịch - Kim Quy Travel`;
   const description = tour.metaDescription || (tour.highlights && tour.highlights.length > 0
-    ? tour.highlights.map(h => h.title).join('. ')
+    ? tour.highlights.map((h: any) => h.title || (typeof h === 'string' ? h : '')).filter(Boolean).join('. ')
     : 'Tour du lịch hấp dẫn tại Kim Quy Travel');
   const keywords = tour.metaKeywords || '';
   const ogImage = tour.image;
+  
   return {
     title,
     description,
@@ -453,3 +499,4 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
     alternates: { canonical: url },
   } as Metadata;
 }
+

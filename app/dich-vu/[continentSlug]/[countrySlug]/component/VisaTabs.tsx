@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CheckCircle, FileText, Users, TrendingUp, MapPin } from "lucide-react";
 import { VisaDetail, VisaType, Pricing } from '@/types';
+import { formatVND } from '@/lib/utils';
 
 interface VisaTabsProps {
   visaDetail: VisaDetail;
@@ -200,11 +201,13 @@ function PricingTab({
 
   const formatPrice = (price: string) => {
     if (!price) return '-';
-    const numPrice = parseInt(price.replace(/\D/g, ''));
+    // Extract number from string (có thể chứa VNĐ hoặc các ký tự khác)
+    const numPrice = parseFloat(price.replace(/[^\d.,]/g, '').replace(',', '.'));
     if (isNaN(numPrice)) {
       return price;
     }
-    return numPrice.toLocaleString('vi-VN');
+    // Sử dụng formatVND với showDecimals = false để không hiển thị phần thập phân (vì visa price thường là số nguyên)
+    return formatVND(numPrice, false).replace(' VNĐ', ''); // Remove " VNĐ" vì component này tự thêm
   };
 
   if (!currentPricing) {

@@ -19,16 +19,83 @@ const config = {
     },
     extend: {
       colors: {
-        // Keep standard Tailwind colors
+        // Theme colors - có thể thay đổi trong lib/theme-colors.ts và globals.css
+        primary: {
+          DEFAULT: "hsl(var(--color-primary))",
+          light: "hsl(var(--color-primary-light))",
+          lighter: "hsl(var(--color-primary-lighter))",
+          lightest: "hsl(var(--color-primary-lightest))",
+          dark: "hsl(var(--color-primary-dark))",
+          darker: "hsl(var(--color-primary-darker))",
+          darkest: "hsl(var(--color-primary-darkest))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        accent: {
+          orange: {
+            DEFAULT: "hsl(var(--color-accent-orange))",
+            light: "hsl(var(--color-accent-orange-light))",
+            lighter: "hsl(var(--color-accent-orange-lighter))",
+            dark: "hsl(var(--color-accent-orange-dark))",
+            bg: "hsl(var(--color-accent-orange-bg))",
+            border: "hsl(var(--color-accent-orange-border))",
+          },
+          green: {
+            DEFAULT: "hsl(var(--color-accent-green))",
+            light: "hsl(var(--color-accent-green-light))",
+            lighter: "hsl(var(--color-accent-green-lighter))",
+            bg: "hsl(var(--color-accent-green-bg))",
+            border: "hsl(var(--color-accent-green-border))",
+          },
+          yellow: {
+            DEFAULT: "hsl(var(--color-accent-yellow))",
+            light: "hsl(var(--color-accent-yellow-light))",
+            bg: "hsl(var(--color-accent-yellow-bg))",
+            border: "hsl(var(--color-accent-yellow-border))",
+          },
+          purple: {
+            DEFAULT: "hsl(var(--color-accent-purple))",
+          },
+        },
+        neutral: {
+          50: "hsl(var(--color-neutral-50))",
+          100: "hsl(var(--color-neutral-100))",
+          200: "hsl(var(--color-neutral-200))",
+          300: "hsl(var(--color-neutral-300))",
+          400: "hsl(var(--color-neutral-400))",
+          500: "hsl(var(--color-neutral-500))",
+          600: "hsl(var(--color-neutral-600))",
+          700: "hsl(var(--color-neutral-700))",
+          800: "hsl(var(--color-neutral-800))",
+          900: "hsl(var(--color-neutral-900))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--color-success))",
+          light: "hsl(var(--color-success-light))",
+          bg: "hsl(var(--color-success-bg))",
+          border: "hsl(var(--color-success-border))",
+          text: "hsl(var(--color-success-text))",
+          "text-light": "hsl(var(--color-success-text-light))",
+        },
+        error: {
+          DEFAULT: "hsl(var(--color-error))",
+          light: "hsl(var(--color-error-light))",
+          bg: "hsl(var(--color-error-bg))",
+          border: "hsl(var(--color-error-border))",
+          text: "hsl(var(--color-error-text))",
+          "text-light": "hsl(var(--color-error-text-light))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--color-warning))",
+          bg: "hsl(var(--color-warning-bg))",
+          border: "hsl(var(--color-warning-border))",
+          text: "hsl(var(--color-warning-text))",
+        },
+        // Legacy shadcn/ui colors - keep for compatibility
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -40,10 +107,6 @@ const config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -108,6 +171,9 @@ const config = {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 30px -5px rgba(0, 0, 0, 0.04)',
         'large': '0 10px 50px -12px rgba(0, 0, 0, 0.25)',
+        'primary': '0 4px 14px 0 rgba(37, 99, 235, 0.39)', // Use primary color
+        'accent-orange': '0 4px 14px 0 rgba(251, 146, 60, 0.39)', // Use accent orange
+        // Legacy names for backwards compatibility
         'blue': '0 4px 14px 0 rgba(37, 99, 235, 0.39)',
         'orange': '0 4px 14px 0 rgba(251, 146, 60, 0.39)',
       },

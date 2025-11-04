@@ -25,9 +25,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
     address: '',
     phone: '',
     email: '',
-    website: '',
-    facebook: '',
-    zalo: '',
+    website: undefined,
+    facebook: undefined,
+    zalo: undefined,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +77,9 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       }
 
       setNewsPreview(Array.isArray(newsPreviewData.data) ? newsPreviewData.data : []);
-      setContactInfo(contactInfoData);
+      if (contactInfoData) {
+        setContactInfo(contactInfoData);
+      }
       setNavItem(navItemData); // Set the navigation data for the header
 
     } catch (err) {

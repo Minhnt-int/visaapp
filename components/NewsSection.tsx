@@ -41,7 +41,7 @@ export default function NewsSection({ news = [] }: NewsSectionProps) {
         <div className="mt-12 text-center">
           <Link 
             href="/tin-tuc"
-            className="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             Xem tất cả bài viết
             <ArrowRight className="w-5 h-5 ml-2" />

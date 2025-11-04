@@ -104,7 +104,6 @@ export interface Tour {
   id: string;
   slug: string;
   name: string;
-  categorySlug: string;
   country: string;
   duration: string;
   price: number;
@@ -232,9 +231,9 @@ export type ApiResponse<T = any> =
     address: string;
     phone: string;
     email: string;
-    website: string;
-    facebook: string;
-    zalo: string;
+    website?: string;
+    facebook?: string;
+    zalo?: string;
   };
 
   export interface FilterParams {

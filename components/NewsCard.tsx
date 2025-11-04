@@ -25,7 +25,7 @@ export function NewsCard({ post }: { post: NewsPreview }) {
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute top-3 left-3">
-            <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+            <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-medium">
               {getCategoryDisplay(post.category)}
             </span>
           </div>

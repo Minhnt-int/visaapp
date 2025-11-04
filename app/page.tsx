@@ -4,9 +4,10 @@ import { generatePageMetadata } from '@/lib/seo';
 // import ServiceSection from '@/components/ServiceSection';
 import ServiceSection from '@/components/sections/ServiceSection';
 import TourSection from '@/components/TourSection';
-import WhyChooseUs from '@/components/WhyChooseUs';
+import WhyChooseUsSection from '@/components/sections/WhyChooseUsSection';
 import NewsSection from '@/components/NewsSection';
 import { getNewsPreview } from '@/lib/api';
+import WhyChooseUs from '@/components/WhyChooseUs';
 
 export default async function Home() {
   // Fetch data on server for SEO
@@ -17,8 +18,11 @@ export default async function Home() {
       <Hero />
       <ServiceSection />
       <TourSection />
-      <WhyChooseUs />
+      {/* <div className="container mx-auto px-4 py-16">
+        <WhyChooseUsSection />
+      </div> */}
       <NewsSection news={newsData.data} />
+      <WhyChooseUs />
     </main>
   );
 }
