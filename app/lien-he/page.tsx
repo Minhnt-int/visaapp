@@ -36,8 +36,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // CORRECT: Converted to an async Server Component
 export default async function ContactPage() {
-    // CORRECT: Fetch data on the server from metaJson
-    // getMetaJson returns: { id, pageKey, metaData } where metaData is ContactInfoData
     const contactMeta = await getMetaJson<{ id?: number; pageKey?: string; metaData?: ContactInfoData }>('contactInfo');
     
     if (!contactMeta?.metaData) {
@@ -45,12 +43,7 @@ export default async function ContactPage() {
         return null;
     }
     
-    const contactInfo: ContactInfoData = contactMeta.metaData;
-
-    // Debug log (remove in production)
-    if (process.env.NODE_ENV === 'development') {
-        console.log('Contact Info Data:', JSON.stringify(contactInfo, null, 2));
-    }
+    const contactInfo: ContactInfoData = contactMeta.metaData;  
 
     return (
         <main>

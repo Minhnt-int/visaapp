@@ -3,32 +3,41 @@ import Link from "next/link";
 import {
   ChevronRight
 } from "lucide-react";
-import { getVisaContinentBySlug } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
-import { getServices } from "@/lib/api"; // CORRECTED: Import modern data fetching functions
+import { getVisaContinentBySlug } from "@/lib/api";
+import { getServices } from "@/lib/api";
 import { ServiceCard } from "@/components/ServiceCard";
+import { Pagination } from "@/components/Pagination";
 import { VisaService } from "@/types";
 import type { Metadata } from 'next';
 import { getPageMetaFromBackend } from '@/lib/seo';
 import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 
-
-
 interface PageProps {
   params: { continentSlug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 // CORRECTED: Converted to async component to fetch its own data.
-export default async function VisaContinentPage({ params }: PageProps) {
+export default async function VisaContinentPage({ params, searchParams }: PageProps) {
   const continentPreview = await getVisaContinentBySlug(params.continentSlug);
 
   if (!continentPreview) {
     notFound();
   }
 
-  // CORRECTED: Fetch all services and filter by the current continenty slug.
-  const categoryServices = await getServices({tags: params.continentSlug});
+  const currentPage = typeof searchParams?.page === 'string' ? parseInt(searchParams.page) : 1;
+  const limit = 12; // 12 services per page
+
+  // Fetch services with pagination
+  const categoryServices = await getServices({
+    tags: params.continentSlug,
+    limit,
+    page: currentPage
+  });
+  
   const categoryServicesData = categoryServices.data;
+  const totalPages = categoryServices.totalPages || 1;
   
   return (
     <main>
@@ -70,19 +79,43 @@ export default async function VisaContinentPage({ params }: PageProps) {
       </div>
 
       {/* List of Visas for this category */}
-      {categoryServicesData.length > 0 && (
+      {categoryServicesData.length > 0 ? (
         <section className="py-16 md:py-24 bg-base-100">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Các quốc gia thuộc {continentPreview.name}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                {currentPage === 1 
+                  ? `Các quốc gia thuộc ${continentPreview.name}`
+                  : `${continentPreview.name} - Trang ${currentPage}`
+                }
+              </h2>
               <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                Chúng tôi cung cấp dịch vụ visa cho các quốc gia hàng đầu trong khu vực {continentPreview.name}.
+                {currentPage === 1
+                  ? `Chúng tôi cung cấp dịch vụ visa cho các quốc gia hàng đầu trong khu vực ${continentPreview.name}.`
+                  : `Trang ${currentPage} trong tổng số ${totalPages} trang`
+                }
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {categoryServicesData.map((visaService: VisaService) => (
                 <ServiceCard key={visaService.id} service={visaService} />
               ))}
+            </div>
+            
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <Pagination 
+                totalPages={totalPages} 
+                basePath={`/dich-vu/${params.continentSlug}`} 
+              />
+            )}
+          </div>
+        </section>
+      ) : (
+        <section className="py-16 md:py-24 bg-base-100">
+          <div className="container mx-auto px-4">
+            <div className="text-center py-16">
+              <p className="text-gray-600 text-lg">Không tìm thấy dịch vụ visa nào.</p>
             </div>
           </div>
         </section>

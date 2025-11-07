@@ -53,7 +53,7 @@ export default function Header({navigationLinks} : {navigationLinks : NavItem[]}
         <div className="container mx-auto px-4 h-20 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">V5S</div>
+            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">KQ</div>
             <div className="hidden md:block">
               <div className="font-bold text-xl text-foreground">Kim Quy Travel</div>
               <div className="text-xs text-neutral-600">Dịch vụ Visa & Tour uy tín</div>

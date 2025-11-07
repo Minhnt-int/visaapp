@@ -46,11 +46,6 @@ function sendToAnalytics(metric: Metric) {
     
     navigator.sendBeacon('/api/analytics/web-vitals', data);
   }
-
-  // Console log for development
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`${name}: ${value} (${rating}) [ID: ${id}]`);
-  }
 }
 
 /**

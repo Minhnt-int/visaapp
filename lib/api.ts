@@ -33,15 +33,19 @@ const api: AxiosInstance = axios.create({
 api.interceptors.response.use(
     (response) => response,
     async (error: AxiosError) => {
-        // Only log errors for non-404/500 responses or if it's not a meta-json endpoint
-        // This reduces noise during build time when meta-json data may not exist
+        // Suppress logging for meta/meta-json endpoints during build time
+        // These are expected to fail when data doesn't exist
         const url = error.config?.url || '';
-        const isMetaJsonEndpoint = url.includes('/api/meta-json');
+        const isMetaEndpoint = url.includes('/api/meta') || url.includes('/api/meta-json');
         const status = error.response?.status;
         
-        // Don't log 404/500 errors for meta-json endpoints (expected during build)
-        if (!isMetaJsonEndpoint || (status !== 404 && status !== 500)) {
-            console.error('Response Interceptor Error:', error.message);
+        // Don't log 404/500 errors for meta endpoints (expected during build)
+        // Only log if it's not a meta endpoint or if it's a different error
+        if (!isMetaEndpoint || (status !== 404 && status !== 500)) {
+            // Only log in development mode
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Response Interceptor Error:', error.message, "In api: ", url);
+            }
         }
         
         return Promise.reject(error);
@@ -795,8 +799,19 @@ export async function getHeroBannerData(): Promise<HeroBannerData | undefined> {
     }
 }
 
+// In-memory cache for meta-json data during build time
+// This prevents duplicate API calls for the same pageKey
+const metaJsonCache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
+
 // Generic meta reader
 export async function getMetaJson<T = any>(key: string): Promise<T | undefined> {
+    // Check cache first
+    const cached = metaJsonCache.get(key);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+        return cached.data as T;
+    }
+    
     try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
         const url = `${baseUrl}/api/meta-json?pageKey=${encodeURIComponent(key)}`;
@@ -812,24 +827,28 @@ export async function getMetaJson<T = any>(key: string): Promise<T | undefined> 
             // Check for success flag
             const isSuccess = response.success === true || response.status === 'success';
             
-            // If success is false, it means not found (404), return undefined
+            // If success is false, it means not found (404), cache undefined to avoid retries
             if (response.success === false) {
+                metaJsonCache.set(key, { data: undefined, timestamp: Date.now() });
                 return undefined;
             }
             
             if (isSuccess && response.data) {
+                // Cache successful response
+                metaJsonCache.set(key, { data: response.data, timestamp: Date.now() });
                 // Return the full data object which contains metaData
                 return response.data as T;
             }
         }
+        
+        // Cache undefined to avoid retries
+        metaJsonCache.set(key, { data: undefined, timestamp: Date.now() });
         return undefined;
     } catch (error: any) {
         // Handle 404 and 500 errors gracefully - silently return undefined
         // These errors are expected when data doesn't exist in database
-        const errorMessage = error?.message || String(error);
-        
-        // Silently return undefined for any error (404, 500, network, etc.)
-        // This prevents build failures and excessive error logs
+        // Cache undefined to avoid retries
+        metaJsonCache.set(key, { data: undefined, timestamp: Date.now() });
         return undefined;
     }
 }
@@ -860,6 +879,7 @@ export async function getWhyChooseUsData(): Promise<WhyChooseUsData | undefined>
 
 export async function getWhyChooseUsDataByPageKey(pageKey: string): Promise<WhyChooseUsData | undefined> {
     // Thử fetch data cho pageKey cụ thể
+    // getMetaJson already has caching, so this won't make duplicate calls
     const pageMeta = await getMetaJson<{ metaData?: WhyChooseUsData }>(pageKey);
     if (pageMeta?.metaData && pageMeta.metaData._type === 'whyChooseUs') {
         return pageMeta.metaData;

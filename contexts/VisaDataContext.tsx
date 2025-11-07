@@ -39,7 +39,7 @@ export function VisaDataProvider({ children }: { children: React.ReactNode }) {
       
       const [visaCatsRes, countriesRes, newsPreviewData, contactInfoData, navItemData] = await Promise.all([
         getVisaContinents(),
-        getServices({ limit: 1000 }), // Use new API function
+        getServices({ limit: 10 }), // Use new API function
         getNewsPreview(),
         getContactInfo(),
         getNavigationLinks()

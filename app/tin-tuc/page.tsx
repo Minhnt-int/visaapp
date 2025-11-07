@@ -3,9 +3,10 @@ import { getNews, News } from '@/lib/api'; // Import News type
 import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, ArrowRight, TrendingUp, FilterX } from 'lucide-react';
-import BlogSearch from '@/components/blog/BlogSearch'; // IMPORT the new client component
+import BlogSearch from '@/components/blog/BlogSearch';
 import DynamicSidebarLoader from '@/components/blog/DynamicSidebarLoader';
 import TagsFilter from '@/components/blog/TagsFilter';
+import { Pagination } from '@/components/Pagination';
 
 export const revalidate = 0;
 export const dynamic = 'force-dynamic';
@@ -43,16 +44,25 @@ export async function generateMetadata({ searchParams }: { searchParams?: { [key
 export default async function TinTucPage({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined }}) {
   const search = typeof searchParams?.search === 'string' ? searchParams.search : undefined;
   const keyword = typeof searchParams?.keyword === 'string' ? searchParams.keyword : undefined;
+  const currentPage = typeof searchParams?.page === 'string' ? parseInt(searchParams.page) : 1;
+  const limit = 12; // 12 news per page
 
   const news = await getNews({
     search,
     keyword,
-    limit: 10,
-    page: 1
+    limit,
+    page: currentPage
   });
+  
   const newsData = news.data;
-  const featuredPost = newsData.length > 0 ? newsData[0] : null;
-  const recentPosts = newsData.length > 1 ? newsData.slice(1, 4) : [];
+  const totalPages = news.totalPages || 1;
+  
+  // Trang 1: Featured post (1) + Recent posts (3) = 4 items từ API
+  // Trang > 1: Hiển thị tất cả 12 items từ API
+  const featuredPost = currentPage === 1 && newsData.length > 0 ? newsData[0] : null;
+  const recentPosts = currentPage === 1 && newsData.length > 1 
+    ? newsData.slice(1, 4) // Chỉ lấy 3 posts tiếp theo cho trang 1
+    : newsData; // Trang > 1: hiển thị tất cả
   const currentFilters = [search, keyword].filter(Boolean);
 
   return (
@@ -120,7 +130,9 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
                 )}
                 {recentPosts.length > 0 && (
                   <div className="mb-16">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-8">Các bài viết khác</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-8">
+                      {currentPage === 1 ? 'Các bài viết khác' : `Bài viết - Trang ${currentPage}`}
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {recentPosts.map((post: News) => (
                         <article key={post.slug} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -139,6 +151,14 @@ export default async function TinTucPage({ searchParams }: { searchParams?: { [k
                         </article>
                       ))}
                     </div>
+                    
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <Pagination 
+                        totalPages={totalPages} 
+                        basePath="/tin-tuc" 
+                      />
+                    )}
                   </div>
                 )}
               </>

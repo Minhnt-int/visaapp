@@ -153,7 +153,6 @@ export class FrontendPerformanceOptimizer {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       try {
         const registration = await navigator.serviceWorker.register('/sw.js')
-        console.log('Service Worker registered:', registration)
         return registration
       } catch (error) {
         console.error('Service Worker registration failed:', error)
@@ -263,13 +262,11 @@ export function usePerformanceMonitoring() {
     
     // Collect metrics on page load
     const metrics = FrontendPerformanceOptimizer.collectPerformanceMetrics()
-    console.log('Performance Metrics:', metrics)
 
     // Monitor memory usage
     const memoryInterval = setInterval(() => {
       const memory = FrontendPerformanceOptimizer.getMemoryUsage()
-      if (memory && memory.used > memory.limit * 0.8) {
-        console.warn('High memory usage detected:', memory)
+      if (memory && memory.used > memory.limit * 0.8) { 
       }
     }, 30000) // Check every 30 seconds
 

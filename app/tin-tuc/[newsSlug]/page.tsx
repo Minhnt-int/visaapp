@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: { newsSlug: string 
 export async function generateStaticParams() {
   try {
     // Fetch all news from API for static generation
-    const newsResponse = await getNews({ limit: 1000, status: 'active' });
+    const newsResponse = await getNews({ limit: 10, status: 'active' });
     const allNews = newsResponse.data;
     return allNews.map((post) => ({
       newsSlug: post.slug,
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
   
   // Fetch related posts from API
-  const allNewsResponse = await getNews({ limit: 100, status: 'active' });
+  const allNewsResponse = await getNews({ limit: 10, status: 'active' });
   const relatedPosts = allNewsResponse.data.filter(p => p.slug !== post.slug).slice(0, 3);
 
   return (

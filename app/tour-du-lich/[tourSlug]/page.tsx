@@ -48,10 +48,18 @@ const ItineraryDay = ({ day, title, description, activities }: ItineraryDayProps
   );
 };
 
+// ISR: Revalidate mỗi giờ để các tours mới được render
+export const revalidate = 3600; // 1 hour
+
 export async function generateStaticParams() {
   try {
-    // Fetch all tours from API for static generation
-    const toursResponse = await getTours({ limit: 1000 });
+    // Chỉ pre-render top 50 tours để giảm RAM usage
+    // Các tours khác sẽ được render on-demand với ISR
+    const toursResponse = await getTours({ 
+      limit: 50,        // Giảm từ 1000 xuống 50 để tối ưu RAM
+      isHot: true,      // Ưu tiên pre-render tours hot
+      sortBy: 'popular' // Sort by popularity
+    });
     const allTours = toursResponse.data;
     
     return allTours.map((tour) => ({

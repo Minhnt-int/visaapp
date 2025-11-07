@@ -78,7 +78,7 @@ const { visaCategories, contactInfo } = useVisaData();
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">V5S</span>
+                <span className="text-white font-bold text-xl">KQ</span>
               </div>
               <div>
                 <div className="text-xl font-bold text-white">{footerInfo.companyName}</div>

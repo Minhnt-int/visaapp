@@ -1,13 +1,51 @@
-import { getServices } from '@/lib/api'; 
+import { getServices, getVisaContinents } from '@/lib/api'; 
 import Link from 'next/link';
 import { Globe } from 'lucide-react';
 import ServiceSection from '@/components/ServiceSection';
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo';
 
-export default async function DichVuPage() {
-  const response = await getServices();
-  const allServices = response.data;
+interface PageProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default async function DichVuPage({ searchParams }: PageProps) {
+  // Fetch danh sách continents từ API
+  const continents = await getVisaContinents();
+  
+  // Lấy page từ URL params cho từng continent (format: ?chau-a-page=2&chau-au-page=1)
+  // Mặc định page 1 nếu không có
+  const getPageForContinent = (slug: string): number => {
+    const paramKey = `${slug.replace('visa-', '')}-page`;
+    const pageParam = searchParams?.[paramKey];
+    return typeof pageParam === 'string' ? parseInt(pageParam) || 1 : 1;
+  };
+  
+  // Gọi API riêng cho từng continent với page tương ứng
+  // Mỗi continent lấy 6 items
+  const servicesPromises = continents.map(continent => {
+    const page = getPageForContinent(continent.slug);
+    return getServices({
+      tags: continent.slug,
+      limit: 6, // 6 items per continent
+      page: page
+    }).then(response => ({
+      continent: {
+        slug: continent.slug,
+        name: continent.name
+      },
+      services: response.data,
+      pagination: {
+        total: response.total,
+        page: response.page || 1,
+        limit: response.limit || 6,
+        totalPages: response.totalPages || 1
+      }
+    }));
+  });
+  
+  // Gọi tất cả API calls song song
+  const continentServicesData = await Promise.all(servicesPromises);
   
   return (
     <>
@@ -64,7 +102,7 @@ export default async function DichVuPage() {
           </div>
         </div>
 
-        <ServiceSection services={allServices} />
+        <ServiceSection continentServicesData={continentServicesData} />
       </main>
     </>
   );
